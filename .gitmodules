@@ -1,0 +1,6 @@
+[submodule "libs/XSDK"]
+	path = libs/XSDK
+	url = https://github.com/fpw/XSDK.git
+[submodule "libs/stb"]
+	path = libs/stb
+	url = https://github.com/nothings/stb.git
