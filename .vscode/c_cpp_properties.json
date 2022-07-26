@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "LIN=1",
+                "XPLM200=1",
+                "XPLM210=1",
+                "XPLM300=1",
+                "XPLM301=1",
+                "XPLM302=1",
+                "XPLM303=1"
+            ],
+            "compilerPath": "/usr/bin/gcc",
+            "intelliSenseMode": "linux-gcc-x64"
+        }
+    ],
+    "version": 4
+}
