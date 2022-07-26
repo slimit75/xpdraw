@@ -169,7 +169,7 @@ namespace xpdraw {
         anchor_y = newAnchor_y;
     }
     
-    void drawRect(int left, int bottom, int width, int height, xpdraw::color color = { 1, 1, 1, 1 }) {
+    void drawRect(int left, int bottom, int width, int height, xpdraw::color color) {
         glColor4f(color.red, color.green, color.blue, color.alpha);
 
         int x1 = anchor_x + left;
@@ -188,7 +188,7 @@ namespace xpdraw {
         glEnd();
     }
 
-    void drawQuad(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, xpdraw::color color = { 1, 1, 1, 1 }) {
+    void drawQuad(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, xpdraw::color color) {
         glColor4f(color.red, color.green, color.blue, color.alpha);
 
         x1 += anchor_x;
@@ -211,7 +211,7 @@ namespace xpdraw {
         glEnd();
     }
 
-    void drawRectBorder(int left, int bottom, int width, int height, xpdraw::color color = { 1, 1, 1, 1 }, int borderSize, xpdraw::color borderColor = { 1, 1, 1, 1 }) {
+    void drawRectBorder(int left, int bottom, int width, int height, int borderSize, xpdraw::color color, xpdraw::color borderColor) {
         drawRect(left, bottom, width, height, color);
         drawRect(left, bottom, borderSize, height, borderColor);
         drawRect(left + width - borderSize, bottom, borderSize, height, borderColor);
@@ -219,7 +219,7 @@ namespace xpdraw {
         drawRect(left, bottom, width, borderSize, borderColor);
     }
 
-    void drawLine(int start_x, int start_y, int end_x, int end_y, xpdraw::color color = { 1, 1, 1, 1 }) {
+    void drawLine(int start_x, int start_y, int end_x, int end_y, xpdraw::color color) {
         glColor4f(color.red, color.green, color.blue, color.alpha);
 
         int x1 = start_x + anchor_x;
@@ -232,7 +232,7 @@ namespace xpdraw {
         glEnd();
     }
 
-    void drawLine(int start_x, int start_y, int end_x, int end_y, xpdraw::color color = { 1, 1, 1, 1 }, int thickness) {
+    void drawLine(int start_x, int start_y, int end_x, int end_y, int thickness, xpdraw::color color) {
         glColor4f(color.red, color.green, color.blue, color.alpha);
 
         int x1 = start_x + anchor_x;
@@ -247,7 +247,7 @@ namespace xpdraw {
         glEnd();
     }
 
-    void drawTexture(xpdraw::texture texture, int left, int bottom, xpdraw::color color = { 1, 1, 1, 1 }) {
+    void drawTexture(xpdraw::texture texture, int left, int bottom, xpdraw::color color) {
         glColor4f(color.red, color.green, color.blue, color.alpha);
 
         int x1 = anchor_x + left;
@@ -273,7 +273,7 @@ namespace xpdraw {
         lastRight = x2 - anchor_x;
     }
 
-    void drawTexture(xpdraw::texture texture, int left, int bottom, int width, int height, xpdraw::color color = { 1, 1, 1, 1 }) {
+    void drawTexture(xpdraw::texture texture, int left, int bottom, int width, int height, xpdraw::color color) {
         glColor4f(color.red, color.green, color.blue, color.alpha);
 
         int x1 = anchor_x + left;
@@ -299,7 +299,7 @@ namespace xpdraw {
         lastRight = x2 - anchor_x;
     }
 
-    void drawFlippedTexture(xpdraw::texture texture, int left, int bottom, int width, int height, xpdraw::color color = { 1, 1, 1, 1 }) {
+    void drawFlippedTexture(xpdraw::texture texture, int left, int bottom, int width, int height, xpdraw::color color) {
         glColor4f(color.red, color.green, color.blue, color.alpha);
 
         int x1 = anchor_x + left;
@@ -325,7 +325,7 @@ namespace xpdraw {
         lastRight = x2 - anchor_x;
     }
 
-    void drawRotatedTexture(xpdraw::texture texture, float angle, float left, float bottom, float width, float height, float rx, float ry, xpdraw::color color = { 1, 1, 1, 1 }) {
+    void drawRotatedTexture(xpdraw::texture texture, float angle, float left, float bottom, float width, float height, float rx, float ry, xpdraw::color color) {
         glColor4f(color.red, color.green, color.blue, color.alpha);
 
         rx = left + rx;
