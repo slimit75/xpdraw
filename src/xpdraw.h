@@ -11,6 +11,9 @@
 #include <string>
 #include <vector>
 
+#include <freetype2/ft2build.h>
+#include FT_FREETYPE_H
+
 /*
     Drawing functions to simplify OpenGL
 */
@@ -42,13 +45,11 @@ namespace xpdraw {
         std::string findXPlanePath();
     }
 
-    /*
     namespace fonts {
         void initFonts();
         void loadFont(FT_Face *font, std::string filename);
         void drawText(FT_Face face, std::string textString, float x, float y, int size, int align, xpdraw::color color);
     }
-    */
 
     xpdraw::texture loadBuffer(void* buffer, int width, int height, GLenum format);
     void setAnchor(int newAnchor_x, int newAnchor_y);

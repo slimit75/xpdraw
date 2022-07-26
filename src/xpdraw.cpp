@@ -14,6 +14,9 @@
 #include <XPLMUtilities.h>
 #include <math.h>
 
+#include <freetype2/ft2build.h>
+#include FT_FREETYPE_H
+
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
@@ -31,7 +34,7 @@ int lastRight = 0;
 int lastGlyphWidth = 0;
 xpdraw::texture charBitmapCache[256][256];
 
-//FT_Library ft;
+FT_Library ft;
 
 namespace xpdraw {
     namespace tools {
@@ -57,11 +60,10 @@ namespace xpdraw {
         }
     }
     
-    /*
     namespace fonts {
         void initFT() {
             if (FT_Init_FreeType(&ft)) {
-                logMsg("Error initializing FreeType library!");
+                throw("Error initializing FreeType library!");
             }
         }
 
@@ -77,7 +79,7 @@ namespace xpdraw {
             string filePath = filename;
 
             if(FT_New_Face(ft, filePath.c_str(), 0, font)) {
-                logMsg("Error loading font!");
+                throw("Error loading font!");
             }
         }
 
@@ -137,14 +139,13 @@ namespace xpdraw {
                 }
                 else {
                     xpdraw::texture image = charBitmapCache[size][p[0] - '0'];
-                    simdraw::drawFlippedTexture(image, x, y + y_offset, image.width, image.height, color);
+                    xpdraw::drawFlippedTexture(image, x, y + y_offset, image.width, image.height, color);
                     lastGlyphWidth = image.width;
                     x = lastRight + 1.3;
                 }
             }
         }
     }
-    */
 
     xpdraw::texture loadBuffer(void* buffer, int width, int height, GLenum format) {
         GLuint tex;
