@@ -1,7 +1,9 @@
 name: Build
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+    - unstable
 
 jobs:
   Mac:
@@ -24,10 +26,10 @@ jobs:
     - name: Build
       run: cmake --build .
     
-    - run: git pull origin
-    - uses: stefanzweifel/git-auto-commit-action@v4
+    - uses: actions/upload-artifact@v3
       with:
-        commit_message: Mac Build
+        name: Static library for macOS
+        path: export/lib/mac/libxpdraw.a
 
   Linux:
     runs-on: ubuntu-20.04
@@ -52,10 +54,10 @@ jobs:
     - name: Build
       run: cmake --build .
     
-    - run: git pull origin
-    - uses: stefanzweifel/git-auto-commit-action@v4
+    - uses: actions/upload-artifact@v3
       with:
-        commit_message: Linux Build
+        name: Static library for Linux
+        path: export/lib/lin/libxpdraw.a
         
   Windows:
     runs-on: windows-2019
@@ -88,7 +90,7 @@ jobs:
     - name: Build
       run: cmake --build .
 
-    - run: git pull origin
-    - uses: stefanzweifel/git-auto-commit-action@v4
+    - uses: actions/upload-artifact@v3
       with:
-        commit_message: Windows Build
+        name: Static library for Windows
+        path: export/lib/win/libxpdraw.a
