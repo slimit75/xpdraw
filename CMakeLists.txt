@@ -27,8 +27,9 @@ if (CMAKE_SYSTEM_NAME MATCHES "Windows")
     add_definitions(-DIBM)
     #add_definitions(-DGLEW_STATIC)
     add_definitions(-D_USE_MATH_DEFINES)
-    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY build/libraries/win)
-
+    set_target_properties(xpdraw PROPERTIES
+        ARCHIVE_OUTPUT_DIRECTORY ./export/lib/win
+    )
     target_link_libraries(xpdraw
         "${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Win/XPLM_64.lib"
         "${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Win/XPWidgets_64.lib"
@@ -40,8 +41,9 @@ if (CMAKE_SYSTEM_NAME MATCHES "Windows")
 elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -shared -Wl,-exported_symbol -Wl,_XPluginStart -Wl,-exported_symbol -Wl,_XPluginEnable -Wl,-exported_symbol -Wl,_XPluginReceiveMessage -Wl,-exported_symbol -Wl,_XPluginDisable -Wl,-exported_symbol -Wl,_XPluginStop")
     add_definitions(-DAPL)
-    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY build/libraries/mac)
-
+    set_target_properties(xpdraw PROPERTIES
+        ARCHIVE_OUTPUT_DIRECTORY ./export/lib/mac
+    )
     target_link_libraries(xpdraw
         "${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Mac/XPLM.framework"
         "${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Mac/XPWidgets.framework"
@@ -52,7 +54,9 @@ elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
 elseif (CMAKE_SYSTEM_NAME MATCHES "Linux")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -shared -Wl,--version-script=exports.txt")
     add_definitions(-DLIN)
-    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY build/libraries/lin)
+    set_target_properties(xpdraw PROPERTIES
+        ARCHIVE_OUTPUT_DIRECTORY ./export/lib/lin
+    )
 
     target_link_libraries(xpdraw 
         stdc++

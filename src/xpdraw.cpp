@@ -169,23 +169,32 @@ namespace xpdraw {
         anchor_y = newAnchor_y;
     }
     
-    void drawRect(int left, int bottom, int width, int height, xpdraw::color color) {
-        glColor4f(color.red, color.green, color.blue, color.alpha);
+    void drawRect(int left, int bottom, int width, int height, xpdraw::color color, int borderSize, xpdraw::color borderColor) {
+        if (borderSize == -1) {
+            glColor4f(color.red, color.green, color.blue, color.alpha);
 
-        int x1 = anchor_x + left;
-        int y1 = anchor_y + bottom;
-        int x2 = x1 + width;
-        int y2 = y1 + height;
-        glBegin(GL_QUADS);
-        glTexCoord2f(0, 0);
-        glVertex2f(x1, y1);
-        glTexCoord2f(0, 1);
-        glVertex2f(x1, y2);
-        glTexCoord2f(1, 1);
-        glVertex2f(x2, y2);
-        glTexCoord2f(1, 0);
-        glVertex2f(x2, y1);
-        glEnd();
+            int x1 = anchor_x + left;
+            int y1 = anchor_y + bottom;
+            int x2 = x1 + width;
+            int y2 = y1 + height;
+            glBegin(GL_QUADS);
+            glTexCoord2f(0, 0);
+            glVertex2f(x1, y1);
+            glTexCoord2f(0, 1);
+            glVertex2f(x1, y2);
+            glTexCoord2f(1, 1);
+            glVertex2f(x2, y2);
+            glTexCoord2f(1, 0);
+            glVertex2f(x2, y1);
+            glEnd();
+        }
+        else {
+            drawRect(left, bottom, width, height, color);
+            drawRect(left, bottom, borderSize, height, borderColor);
+            drawRect(left + width - borderSize, bottom, borderSize, height, borderColor);
+            drawRect(left, bottom + height - borderSize, width, borderSize, borderColor);
+            drawRect(left, bottom, width, borderSize, borderColor);
+        }
     }
 
     void drawQuad(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, xpdraw::color color) {
@@ -209,14 +218,6 @@ namespace xpdraw {
         glTexCoord2f(1, 0);
         glVertex2f(x4, y4);
         glEnd();
-    }
-
-    void drawRectBorder(int left, int bottom, int width, int height, int borderSize, xpdraw::color color, xpdraw::color borderColor) {
-        drawRect(left, bottom, width, height, color);
-        drawRect(left, bottom, borderSize, height, borderColor);
-        drawRect(left + width - borderSize, bottom, borderSize, height, borderColor);
-        drawRect(left, bottom + height - borderSize, width, borderSize, borderColor);
-        drawRect(left, bottom, width, borderSize, borderColor);
     }
 
     void drawLine(int start_x, int start_y, int end_x, int end_y, xpdraw::color color) {
@@ -247,35 +248,16 @@ namespace xpdraw {
         glEnd();
     }
 
-    void drawTexture(xpdraw::texture texture, int left, int bottom, xpdraw::color color) {
-        glColor4f(color.red, color.green, color.blue, color.alpha);
-
-        int x1 = anchor_x + left;
-        int y1 = anchor_y + bottom;
-        int x2 = x1 + texture.width;
-        int y2 = y1 + texture.height;
-
-        glBindTexture(GL_TEXTURE_2D, texture.gl_texture);
-        glEnable(GL_TEXTURE_2D);
-        glBegin(GL_QUADS);
-        glTexCoord2f(0, 0);
-        glVertex2f(x1, y1);
-        glTexCoord2f(0, 1);
-        glVertex2f(x1, y2);
-        glTexCoord2f(1, 1);
-        glVertex2f(x2, y2);
-        glTexCoord2f(1, 0);
-        glVertex2f(x2, y1);
-        glEnd();
-        glDisable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, 0);
-
-        lastRight = x2 - anchor_x;
-    }
-
     void drawTexture(xpdraw::texture texture, int left, int bottom, int width, int height, xpdraw::color color) {
         glColor4f(color.red, color.green, color.blue, color.alpha);
 
+        if (width = -1) {
+            width = texture.width;
+        }
+        if (height = -1) {
+            height = texture.height;
+        }
+        
         int x1 = anchor_x + left;
         int y1 = anchor_y + bottom;
         int x2 = x1 + width;
