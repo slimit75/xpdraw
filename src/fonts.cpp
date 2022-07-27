@@ -51,7 +51,6 @@ namespace xpdraw::fonts {
                 cacheChar(face, size, p[0]);
             }
 
-            // Windows is completely stupid and does NOT load the metrics when told to load METRICS ONLY!!!!!!!
             if (isspace(p[0])) {
                 width = width + lastGlyphWidth + 1.3;
             }
