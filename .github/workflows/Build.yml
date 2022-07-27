@@ -24,7 +24,7 @@ jobs:
     - name: Build
       run: cmake --build .
     
-    - run: git pull origin main
+    - run: git pull origin stable
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: Mac Build
@@ -52,7 +52,7 @@ jobs:
     - name: Build
       run: cmake --build .
     
-    - run: git pull origin main
+    - run: git pull origin stable
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: Linux Build
@@ -89,7 +89,7 @@ jobs:
     - name: Build
       run: cmake --build .
 
-    - run: git pull origin main
+    - run: git pull origin stable
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: Windows Build
