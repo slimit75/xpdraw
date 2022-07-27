@@ -61,7 +61,7 @@ namespace xpdraw {
     }
     
     namespace fonts {
-        void initFT() {
+        void initFonts() {
             if (FT_Init_FreeType(&ft)) {
                 throw("Error initializing FreeType library!");
             }
@@ -217,19 +217,6 @@ namespace xpdraw {
         glVertex2f(x3, y3);
         glTexCoord2f(1, 0);
         glVertex2f(x4, y4);
-        glEnd();
-    }
-
-    void drawLine(int start_x, int start_y, int end_x, int end_y, xpdraw::color color) {
-        glColor4f(color.red, color.green, color.blue, color.alpha);
-
-        int x1 = start_x + anchor_x;
-        int y1 = start_y + anchor_y;
-        int x2 = end_x + anchor_x;
-        int y2 = end_y + anchor_y;
-        glBegin(GL_LINES);
-        glVertex2f(x1, y1);
-        glVertex2f(x2, y2);
         glEnd();
     }
 
