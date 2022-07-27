@@ -21,6 +21,7 @@ namespace xpdraw::windows {
 
             void initWindow(int newWidth, int newHeight);
             void setDrawFunc(XPLMDrawWindow_f newDrawFunc);
-            void createWindow(std::string title, int winLeft = 50, int winDown = 150, int minScale = 1, int maxScale = 1);
+            void createWindow(std::string title, int winLeft = 50, int winDown = 150);
+            void setResizeLimits(int minWidth, int minHeight, int maxWidth, int maxHeight);
     };
 }
