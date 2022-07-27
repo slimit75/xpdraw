@@ -83,7 +83,7 @@ namespace xpdraw {
         glEnd();
     }
 
-    void drawLine(int start_x, int start_y, int end_x, int end_y, int thickness, xpdraw::color color) {
+    void drawLine(int start_x, int start_y, int end_x, int end_y, xpdraw::color color, int thickness) {
         glColor4f(color.red, color.green, color.blue, color.alpha);
 
         int x1 = start_x + anchor_x;
