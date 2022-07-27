@@ -8,9 +8,26 @@ using namespace std;
 
 int lastRight = 0;
 int lastGlyphWidth = 0;
-xpdraw::texture charBitmapCache[256][256];
 
 FT_Library ft;
+
+namespace xpdraw {
+    void Font::load(string filename) {
+        if(FT_New_Face(ft, filename.c_str(), 0, &face)) {
+            throw("Error loading font!");
+        }
+    };
+
+    void Font::cacheChar(int size, char letter) {
+        FT_Set_Pixel_Sizes(face, 0, size);
+        FT_GlyphSlot g = face->glyph;
+        FT_Load_Char(face, letter, FT_LOAD_RENDER);
+
+        vector<texture> temp = cache[size];
+        temp.assign(letter - '0', loadBuffer(face->glyph->bitmap.buffer, face->glyph->bitmap.width, face->glyph->bitmap.rows, GL_ALPHA));
+        cache.assign(size, temp);
+    }
+}
 
 namespace xpdraw::fonts {
     void initFonts() {
@@ -19,43 +36,28 @@ namespace xpdraw::fonts {
         }
     }
 
-    void cacheChar(FT_Face face, int size, char character) {
-        FT_Set_Pixel_Sizes(face, 0, size * 1.5);
-        FT_GlyphSlot g = face->glyph;
-        FT_Load_Char(face, character, FT_LOAD_RENDER);
-        charBitmapCache[size][character - '0'] = loadBuffer(g->bitmap.buffer, g->bitmap.width, g->bitmap.rows, GL_ALPHA);
-    }
-
-    void loadFont(FT_Face *font, string filename) {
-        // Get file locations
-        string filePath = filename;
-
-        if(FT_New_Face(ft, filePath.c_str(), 0, font)) {
-            throw("Error loading font!");
-        }
-    }
-
-    void drawText(FT_Face face, string textString, float x, float y, int size, int align, xpdraw::color color = { 1, 1, 1, 1 }) {
-        glColor4f(color.red, color.green, color.blue, color.alpha);
+    void drawText(xpdraw::Font font, string textString, float x, float y, int size, int align, xpdraw::color textColor) {
+        /*
+        glColor4f(textColor.red, textColor.green, textColor.blue, textColor.alpha);
 
         const char* text = textString.c_str();
-        FT_Set_Pixel_Sizes(face, 0, size * 1.5);
+        FT_Set_Pixel_Sizes(font.face, 0, size * 1.5);
         const char *p;
-        FT_GlyphSlot g = face->glyph;
+        FT_GlyphSlot g = font.face->glyph;
         float width = 0;
 
         // Attempt to calculate the length of the string *without* drawing it
         for(p = text; *p; p++) {
             // Cache char data if it isn't already
-            if (!charBitmapCache[size][p[0] - '0'].gl_texture) {
-                cacheChar(face, size, p[0]);
+            if (!font.cache[size][p[0] - '0'].gl_texture) {
+                font.cacheChar(size, p[0]);
             }
 
             if (isspace(p[0])) {
                 width = width + lastGlyphWidth + 1.3;
             }
             else {
-                lastGlyphWidth = charBitmapCache[size][p[0] - '0'].width;
+                lastGlyphWidth = font.cache[size][p[0] - '0'].width;
                 width = width + lastGlyphWidth + 1.3;
             }
         }
@@ -89,12 +91,13 @@ namespace xpdraw::fonts {
                 x = lastRight + lastGlyphWidth + 2.6;
             }
             else {
-                xpdraw::texture image = charBitmapCache[size][p[0] - '0'];
-                xpdraw::drawFlippedTexture(image, x, y + y_offset, image.width, image.height, color);
+                texture image = font.cache[size][p[0] - '0'];
+                drawFlippedTexture(image, x, y + y_offset, image.width, image.height, textColor);
                 lastGlyphWidth = image.width;
                 lastRight = x + image.width;
                 x = lastRight + 1.3;
             }
         }
+        */
     }
 }

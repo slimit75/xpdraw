@@ -28,8 +28,8 @@ jobs:
     
     - uses: actions/upload-artifact@v3
       with:
-        name: Static library for macOS
-        path: export/lib/mac/libxpdraw.a
+        name: Export folder
+        path: export/
 
   Linux:
     runs-on: ubuntu-20.04
@@ -56,8 +56,8 @@ jobs:
     
     - uses: actions/upload-artifact@v3
       with:
-        name: Static library for Linux
-        path: export/lib/lin/libxpdraw.a
+        name: Export folder
+        path: export/
         
   Windows:
     runs-on: windows-2019
@@ -92,5 +92,5 @@ jobs:
 
     - uses: actions/upload-artifact@v3
       with:
-        name: Static library for Windows
-        path: export/lib/win/libxpdraw.a
+        name: Export folder
+        path: export/

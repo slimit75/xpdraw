@@ -20,7 +20,6 @@ namespace xpdraw {
             XPLMHandleCursor_f cursorFunc;
 
             void initWindow(int newWidth, int newHeight);
-            void setDrawFunc(XPLMDrawWindow_f newDrawFunc);
             void createWindow(std::string title, int winLeft = 50, int winDown = 150);
             void setResizeLimits(int minWidth, int minHeight, int maxWidth, int maxHeight);
     };
