@@ -1,12 +1,7 @@
 #pragma once
 
 #include <GL/gl.h>
-
 #include <string>
-#include <vector>
-
-#include <ft2build.h>
-#include FT_FREETYPE_H
 
 /*
     Drawing functions to simplify OpenGL
@@ -29,22 +24,6 @@ namespace xpdraw {
         float blue;
         float alpha = 1;
     };
-
-    namespace tools {
-        std::string findPluginPath();
-        std::string findXPlanePath();
-    }
-
-    namespace fonts {
-        struct font {
-            FT_Face face;
-            texture texCache[256][256];
-        };
-
-        void initFonts();
-        void loadFont(FT_Face *font, std::string filename);
-        void drawText(FT_Face face, std::string textString, float x, float y, int size, int align, xpdraw::color color);
-    }
 
     xpdraw::texture loadBuffer(void* buffer, int width, int height, GLenum format);
     void setAnchor(int newAnchor_x, int newAnchor_y);

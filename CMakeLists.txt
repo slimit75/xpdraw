@@ -10,6 +10,13 @@ include_directories(${FREETYPE_INCLUDE_DIRS})
 
 add_library(xpdraw 
     src/xpdraw.cpp
+    src/xpdraw/xpdraw.h
+    src/windows.cpp
+    src/xpdraw/windows.h
+    src/tools.cpp
+    src/xpdraw/tools.h
+    src/fonts.cpp
+    src/xpdraw/fonts.h
 )
 
 add_definitions(-DXPLM200)

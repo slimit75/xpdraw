@@ -1,146 +1,15 @@
-#include "xpdraw.h"
-
-#include <filesystem>
-
 #include <GL/gl.h>
-
-#include <XPLMPlugin.h>
-#include <XPLMUtilities.h>
-#include <math.h>
-
-#include <freetype2/ft2build.h>
-#include FT_FREETYPE_H
-
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
-/*
-    Drawing functions to simplify OpenGL
-*/
+#include "xpdraw/xpdraw.h"
 
 using namespace std;
-using namespace std::filesystem;
-using std::filesystem::current_path;
 
 int anchor_x = 0;
 int anchor_y = 0;
-int lastRight = 0;
-int lastGlyphWidth = 0;
-xpdraw::texture charBitmapCache[256][256];
-
-FT_Library ft;
 
 namespace xpdraw {
-    namespace tools {
-        string findPluginPath() {
-            XPLMEnableFeature("XPLM_USE_NATIVE_PATHS", 1);
-
-            char pluginPathChar[256];
-            XPLMGetPluginInfo(XPLMGetMyID(), NULL, pluginPathChar, NULL, NULL);
-            string pluginPath = pluginPathChar;
-            pluginPath.erase(pluginPath.end() - 10, pluginPath.end());
-
-            return pluginPath;
-        }
-
-        string findXPlanePath() {
-            XPLMEnableFeature("XPLM_USE_NATIVE_PATHS", 1);
-
-            char xplanePath[512];
-            XPLMGetSystemPath(xplanePath);
-            string xpPath = xplanePath;
-            
-            return xpPath;
-        }
-    }
-    
-    namespace fonts {
-        void initFonts() {
-            if (FT_Init_FreeType(&ft)) {
-                throw("Error initializing FreeType library!");
-            }
-        }
-
-        void cacheChar(FT_Face face, int size, char character) {
-            FT_Set_Pixel_Sizes(face, 0, size * 1.5);
-            FT_GlyphSlot g = face->glyph;
-            FT_Load_Char(face, character, FT_LOAD_RENDER);
-            charBitmapCache[size][character - '0'] = loadBuffer(g->bitmap.buffer, g->bitmap.width, g->bitmap.rows, GL_ALPHA);
-        }
-
-        void loadFont(FT_Face *font, string filename) {
-            // Get file locations
-            string filePath = filename;
-
-            if(FT_New_Face(ft, filePath.c_str(), 0, font)) {
-                throw("Error loading font!");
-            }
-        }
-
-        void drawText(FT_Face face, string textString, float x, float y, int size, int align, xpdraw::color color = { 1, 1, 1, 1 }) {
-            glColor4f(color.red, color.green, color.blue, color.alpha);
-
-            const char* text = textString.c_str();
-            FT_Set_Pixel_Sizes(face, 0, size * 1.5);
-            const char *p;
-            FT_GlyphSlot g = face->glyph;
-            float width = 0;
-
-            // Attempt to calculate the length of the string *without* drawing it
-            for(p = text; *p; p++) {
-                // Cache char data if it isn't already
-                if (!charBitmapCache[size][p[0] - '0'].gl_texture) {
-                    cacheChar(face, size, p[0]);
-                }
-
-                // Windows is completely stupid and does NOT load the metrics when told to load METRICS ONLY!!!!!!!
-                if (isspace(p[0])) {
-                    width = width + lastGlyphWidth + 1.3;
-                }
-                else {
-                    lastGlyphWidth = charBitmapCache[size][p[0] - '0'].width;
-                    width = width + lastGlyphWidth + 1.3;
-                }
-            }
-            width = width - 1.3;
-
-            if (align == ALIGN_CENTER) {
-                x = x - (width / 2);
-            }
-            else if (align == ALIGN_RIGHT) {
-                x = x - width;
-            }
-
-            // Render text using cached data
-            for(p = text; *p; p++) {
-                int y_offset;
-                if (p[0] == 'Q') {
-                    y_offset = size / -6.5;
-                }
-                else if (p[0] == '-') {
-                    y_offset = size / 3;
-                }
-                else if (p[0] == '.') {
-                    x += 3;
-                    width += 6;
-                }
-                else {
-                    y_offset = 0;
-                }
-
-                if (isspace(p[0])) {
-                    x = lastRight + lastGlyphWidth + 2.6;
-                }
-                else {
-                    xpdraw::texture image = charBitmapCache[size][p[0] - '0'];
-                    xpdraw::drawFlippedTexture(image, x, y + y_offset, image.width, image.height, color);
-                    lastGlyphWidth = image.width;
-                    x = lastRight + 1.3;
-                }
-            }
-        }
-    }
-
     xpdraw::texture loadBuffer(void* buffer, int width, int height, GLenum format) {
         GLuint tex;
         glGenTextures(1, &tex);
@@ -258,8 +127,6 @@ namespace xpdraw {
         glEnd();
         glDisable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, 0);
-
-        lastRight = x2 - anchor_x;
     }
 
     void drawFlippedTexture(xpdraw::texture texture, int left, int bottom, int width, int height, xpdraw::color color) {
@@ -284,8 +151,6 @@ namespace xpdraw {
         glEnd();
         glDisable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, 0);
-
-        lastRight = x2 - anchor_x;
     }
 
     void drawRotatedTexture(xpdraw::texture texture, float angle, float left, float bottom, float width, float height, float rx, float ry, xpdraw::color color) {
@@ -329,13 +194,11 @@ namespace xpdraw {
     xpdraw::texture loadTexture(string filename) {
         stbi_set_flip_vertically_on_load(true);
 
-        string filePath = xpdraw::tools::findPluginPath() += filename;
-
         int width, height, nrChannels;
-        unsigned char* texDat = stbi_load(filePath.c_str(), &width, &height, &nrChannels, 4);
+        unsigned char* texDat = stbi_load(filename.c_str(), &width, &height, &nrChannels, 4);
 
         if (texDat == NULL) {
-            throw("Failed to load texture: %s!", filePath.c_str());
+            throw("Failed to load texture: %s!", filename.c_str());
 
             return { 0, 0, 0 };
         }
