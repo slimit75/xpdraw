@@ -2,13 +2,7 @@
 
 #include <filesystem>
 
-#if LIN
-	#include <GL/gl.h>
-#elif __GNUC__
-	#include <OpenGL/gl.h>
-#else
-	#include <GL/gl.h>
-#endif
+#include <GL/gl.h>
 
 #include <XPLMPlugin.h>
 #include <XPLMUtilities.h>
