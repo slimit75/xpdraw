@@ -11,7 +11,7 @@ void Window::initWindow(int newWidth, int newHeight) {
     height = newHeight;
 };
 
-void Window::createWindow(std::string title, int winLeft, int winDown, int minScale, int maxScale) {
+void Window::createWindow(std::string title, int winLeft, int winDown) {
     params.structSize = sizeof(params);
     params.visible = 1;
     params.drawWindowFunc = drawFunc;
@@ -34,6 +34,9 @@ void Window::createWindow(std::string title, int winLeft, int winDown, int minSc
     windowID = XPLMCreateWindowEx(&params);
     
     XPLMSetWindowPositioningMode(windowID, xplm_WindowPositionFree, -1);
-    XPLMSetWindowResizingLimits(windowID, (width * minScale) - 20, (height * minScale) - 20, (width * minScale) - 20, (height * minScale) - 20);
-    XPLMSetWindowTitle(windowID, "MD302 Left Display");
+    XPLMSetWindowTitle(windowID, title.c_str());
+};
+
+void Window::setResizeLimits(int minWidth, int minHeight, int maxWidth, int maxHeight) {
+    XPLMSetWindowResizingLimits(windowID, minWidth - 20, minHeight - 20, maxWidth - 20, maxHeight - 20);
 };
