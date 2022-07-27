@@ -3,7 +3,7 @@
 #include <GL/gl.h>
 #include "xpdraw/windows.h"
 
-using namespace xpdraw::windows;
+using namespace xpdraw;
 
 void Window::initWindow(int newWidth, int newHeight) {
     buffer = new unsigned char[newWidth * newHeight * 4];

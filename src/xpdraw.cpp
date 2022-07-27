@@ -1,4 +1,11 @@
-#include <GL/gl.h>
+#if LIN or __MINGW32__
+	#include <GL/gl.h>
+#elif __GNUC__
+	#include <OpenGL/gl.h>
+#else
+	#include <GL/gl.h>
+#endif
+
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
@@ -8,6 +15,8 @@ using namespace std;
 
 int anchor_x = 0;
 int anchor_y = 0;
+
+xpdraw::color currentColor;
 
 namespace xpdraw {
     xpdraw::texture loadBuffer(void* buffer, int width, int height, GLenum format) {
