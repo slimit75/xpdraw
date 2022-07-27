@@ -3,7 +3,7 @@
 #include <XPLMDisplay.h>
 #include <string>
 
-namespace xpdraw::windows {
+namespace xpdraw {
     class Window {
         public:
             XPLMCreateWindow_t params;
