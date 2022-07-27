@@ -238,10 +238,10 @@ namespace xpdraw {
     void drawTexture(xpdraw::texture texture, int left, int bottom, int width, int height, xpdraw::color color) {
         glColor4f(color.red, color.green, color.blue, color.alpha);
 
-        if (width = -1) {
+        if (width != -1) {
             width = texture.width;
         }
-        if (height = -1) {
+        if (height != -1) {
             height = texture.height;
         }
         
