@@ -1,6 +1,14 @@
 #include <XPLMDisplay.h>
 #include <XPLMGraphics.h>
-#include <GL/gl.h>
+
+#if LIN or __MINGW32__
+	#include <GL/gl.h>
+#elif __GNUC__
+	#include <OpenGL/gl.h>
+#else
+	#include <GL/gl.h>
+#endif
+
 #include "xpdraw/windows.h"
 
 using namespace xpdraw;
