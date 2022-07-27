@@ -6,7 +6,7 @@
 
 using namespace std;
 
-namespace tools {
+namespace xpdraw::tools {
     string findPluginPath() {
         XPLMEnableFeature("XPLM_USE_NATIVE_PATHS", 1);
 
