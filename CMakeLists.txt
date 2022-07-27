@@ -3,7 +3,6 @@ project(xpdraw)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "-O3 -fPIC -fvisibility=hidden -Wno-narrowing")
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY build/libraries)
 
 find_package(Freetype REQUIRED)
 include_directories(${FREETYPE_INCLUDE_DIRS})
@@ -28,6 +27,7 @@ if (CMAKE_SYSTEM_NAME MATCHES "Windows")
     add_definitions(-DIBM)
     #add_definitions(-DGLEW_STATIC)
     add_definitions(-D_USE_MATH_DEFINES)
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY build/libraries/win)
 
     target_link_libraries(xpdraw
         "${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Win/XPLM_64.lib"
@@ -40,6 +40,7 @@ if (CMAKE_SYSTEM_NAME MATCHES "Windows")
 elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -shared -Wl,-exported_symbol -Wl,_XPluginStart -Wl,-exported_symbol -Wl,_XPluginEnable -Wl,-exported_symbol -Wl,_XPluginReceiveMessage -Wl,-exported_symbol -Wl,_XPluginDisable -Wl,-exported_symbol -Wl,_XPluginStop")
     add_definitions(-DAPL)
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY build/libraries/mac)
 
     target_link_libraries(xpdraw
         "${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Mac/XPLM.framework"
@@ -51,6 +52,7 @@ elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
 elseif (CMAKE_SYSTEM_NAME MATCHES "Linux")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -shared -Wl,--version-script=exports.txt")
     add_definitions(-DLIN)
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY build/libraries/lin)
 
     target_link_libraries(xpdraw 
         stdc++
