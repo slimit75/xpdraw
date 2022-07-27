@@ -10,10 +10,6 @@
 
 #include <string>
 
-/*
-    Drawing functions to simplify OpenGL
-*/
-
 #define ALIGN_LEFT 1
 #define ALIGN_CENTER 2
 #define ALIGN_RIGHT 3
