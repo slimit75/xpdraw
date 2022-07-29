@@ -51,16 +51,14 @@ namespace xpdraw::fonts {
     void drawText(Face font, string text, int x, int y, int size, int align, xpdraw::color textColor) {
         glColor4f(textColor.red, textColor.green, textColor.blue, textColor.alpha);
 
-        /*
         int width = 0;
+        int charSpacing = 0;
 
-        // Attempt to calculate the length of the string *without* drawing it
+        // Calculate the length of the string before drawing it
         for(const char *p = text.c_str(); *p; p++) {
-            // Cache char data if it isn't already.
-            // font.add should automatically skip caching a letter if it already exists
-            font.add(size, p[0]);
+            font.add(size, p[0]); // Automatically cache char if it isn't already cached
 
-            width += font.getMetrics(size, p[0]).width;
+            width += (font.getMetrics(size, p[0]).horiAdvance) / 64;
         }
 
         if (align == ALIGN_CENTER) {
@@ -72,10 +70,10 @@ namespace xpdraw::fonts {
 
         // Render text using cached data
         for(const char *p = text.c_str(); *p; p++) {
+            int y_offset = (((font.getMetrics(size, p[0]).horiBearingY) / 64) - (font.getMetrics(size, p[0]).height) / 64);
             texture image = font.getTexture(size, p[0]);
-            drawFlippedTexture(image, x, y, image.width, image.height, textColor);
-            x += image.width;
+            drawFlippedTexture(image, x + ((font.getMetrics(size, p[0]).horiBearingX) / 64), y + y_offset, image.width, image.height, textColor);
+            x += ((font.getMetrics(size, p[0]).horiAdvance) / 64);
         }
-        */
     }
 }

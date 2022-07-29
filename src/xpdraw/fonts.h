@@ -10,7 +10,6 @@
 #define ALIGN_CENTER 2
 #define ALIGN_RIGHT 3
 
-
 namespace xpdraw::fonts {
     class Face {
         public:
