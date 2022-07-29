@@ -10,10 +10,6 @@
 
 #include <string>
 
-#define ALIGN_LEFT 1
-#define ALIGN_CENTER 2
-#define ALIGN_RIGHT 3
-
 namespace xpdraw {
     struct texture {
         GLuint gl_texture;

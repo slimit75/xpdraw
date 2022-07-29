@@ -1,0 +1,15 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch X-Plane",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/home/slimit75/X-Plane 11/X-Plane-x86_64",
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
