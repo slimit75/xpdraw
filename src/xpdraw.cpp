@@ -60,13 +60,9 @@ namespace xpdraw {
             int x2 = x1 + width;
             int y2 = y1 + height;
             glBegin(GL_QUADS);
-            glTexCoord2f(0, 0);
             glVertex2f(x1, y1);
-            glTexCoord2f(0, 1);
             glVertex2f(x1, y2);
-            glTexCoord2f(1, 1);
             glVertex2f(x2, y2);
-            glTexCoord2f(1, 0);
             glVertex2f(x2, y1);
             glEnd();
         }
@@ -91,13 +87,9 @@ namespace xpdraw {
         x4 += anchor_x;
         y4 += anchor_y;
         glBegin(GL_QUADS);
-        glTexCoord2f(0, 0);
         glVertex2f(x1, y1);
-        glTexCoord2f(0, 1);
         glVertex2f(x2, y2);
-        glTexCoord2f(1, 1);
         glVertex2f(x3, y3);
-        glTexCoord2f(1, 0);
         glVertex2f(x4, y4);
         glEnd();
     }
