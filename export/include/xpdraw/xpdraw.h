@@ -26,6 +26,7 @@ namespace xpdraw {
 
     xpdraw::texture loadBuffer(void* buffer, int width, int height, GLenum format);
     void setAnchor(int newAnchor_x, int newAnchor_y);
+    void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, xpdraw::color color = { 1, 1, 1, 1 });
     void drawRect(int left, int bottom, int width, int height, xpdraw::color color = { 1, 1, 1, 1 }, int borderSize = -1, xpdraw::color borderColor = { 1, 1, 1, 1 });
     void drawQuad(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, xpdraw::color color = { 1, 1, 1, 1 });
     void drawLine(int start_x, int start_y, int end_x, int end_y, xpdraw::color color = { 1, 1, 1, 1 }, int thickness = 1);

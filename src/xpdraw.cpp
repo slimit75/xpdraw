@@ -41,6 +41,16 @@ namespace xpdraw {
         anchor_y = newAnchor_y;
     }
     
+    void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, xpdraw::color color) {
+        glColor4f(color.red, color.green, color.blue, color.alpha);
+
+        glBegin(GL_TRIANGLES);
+        glVertex2f(x1 + anchor_x, y1 + anchor_y);
+        glVertex2f(x2 + anchor_x, y2 + anchor_y);
+        glVertex2f(x3 + anchor_x, y3 + anchor_y);
+        glEnd();
+    }
+
     void drawRect(int left, int bottom, int width, int height, xpdraw::color color, int borderSize, xpdraw::color borderColor) {
         if (borderSize == -1) {
             glColor4f(color.red, color.green, color.blue, color.alpha);
