@@ -28,12 +28,7 @@ namespace xpdraw {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glBindTexture(GL_TEXTURE_2D, 0);
 
-        xpdraw::texture return_value;
-        return_value.gl_texture = tex;
-        return_value.width = width;
-        return_value.height = height;
-
-        return return_value;
+        return { tex, width, height };
     }
 
     void setAnchor(int newAnchor_x, int newAnchor_y) {
@@ -55,10 +50,10 @@ namespace xpdraw {
         if (borderSize == -1) {
             glColor4f(color.red, color.green, color.blue, color.alpha);
 
-            int x1 = anchor_x + left;
-            int y1 = anchor_y + bottom;
-            int x2 = x1 + width;
-            int y2 = y1 + height;
+            const int x1 = anchor_x + left;
+            const int y1 = anchor_y + bottom;
+            const int x2 = x1 + width;
+            const int y2 = y1 + height;
             glBegin(GL_QUADS);
             glVertex2f(x1, y1);
             glVertex2f(x1, y2);
@@ -78,29 +73,21 @@ namespace xpdraw {
     void drawQuad(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, xpdraw::color color) {
         glColor4f(color.red, color.green, color.blue, color.alpha);
 
-        x1 += anchor_x;
-        y1 += anchor_y;
-        x2 += anchor_x;
-        y2 += anchor_y;
-        x3 += anchor_x;
-        y3 += anchor_y;
-        x4 += anchor_x;
-        y4 += anchor_y;
         glBegin(GL_QUADS);
-        glVertex2f(x1, y1);
-        glVertex2f(x2, y2);
-        glVertex2f(x3, y3);
-        glVertex2f(x4, y4);
+        glVertex2f(x1 + anchor_x, y1 + anchor_y);
+        glVertex2f(x2 + anchor_x, y2 + anchor_y);
+        glVertex2f(x3 + anchor_x, y3 + anchor_y);
+        glVertex2f(x4 + anchor_x, y4 + anchor_y);
         glEnd();
     }
 
     void drawLine(int start_x, int start_y, int end_x, int end_y, xpdraw::color color, int thickness) {
         glColor4f(color.red, color.green, color.blue, color.alpha);
 
-        int x1 = start_x + anchor_x;
-        int y1 = start_y + anchor_y;
-        int x2 = end_x + anchor_x;
-        int y2 = end_y + anchor_y;
+        const int x1 = start_x + anchor_x;
+        const int y1 = start_y + anchor_y;
+        const int x2 = end_x + anchor_x;
+        const int y2 = end_y + anchor_y;
 
         glLineWidth(thickness);
         glBegin(GL_LINES);
@@ -119,10 +106,10 @@ namespace xpdraw {
             height = texture.height;
         }
         
-        int x1 = anchor_x + left;
-        int y1 = anchor_y + bottom;
-        int x2 = x1 + width;
-        int y2 = y1 + height;
+        const int x1 = anchor_x + left;
+        const int y1 = anchor_y + bottom;
+        const int x2 = x1 + width;
+        const int y2 = y1 + height;
 
         glBindTexture(GL_TEXTURE_2D, texture.gl_texture);
         glEnable(GL_TEXTURE_2D);
