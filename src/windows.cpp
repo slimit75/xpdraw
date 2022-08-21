@@ -17,7 +17,7 @@ void Window::initWindow(int newWidth, int newHeight) {
     buffer = new unsigned char[newWidth * newHeight * 4];
     width = newWidth;
     height = newHeight;
-};
+}
 
 void Window::createWindow(std::string title, int winLeft, int winDown) {
     params.structSize = sizeof(params);
@@ -43,8 +43,8 @@ void Window::createWindow(std::string title, int winLeft, int winDown) {
     
     XPLMSetWindowPositioningMode(windowID, xplm_WindowPositionFree, -1);
     XPLMSetWindowTitle(windowID, title.c_str());
-};
+}
 
 void Window::setResizeLimits(int minWidth, int minHeight, int maxWidth, int maxHeight) {
     XPLMSetWindowResizingLimits(windowID, minWidth - 20, minHeight - 20, maxWidth - 20, maxHeight - 20);
-};
+}

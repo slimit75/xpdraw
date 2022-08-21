@@ -23,7 +23,7 @@ namespace xpdraw::fonts {
     void Face::init(string filename) {
         FT_New_Face(ft, filename.c_str(), 0, &ftFace);
         path = filename;
-    };
+    }
 
     void Face::add(int size, char letter) {
         if (cache[path][size][letter].loaded == false) {
@@ -38,7 +38,7 @@ namespace xpdraw::fonts {
 
     FT_Glyph_Metrics Face::getMetrics(int size, char letter) {
         return cache[path][size][letter].metrics;
-    };
+    }
 
     texture Face::getTexture(int size, char letter) {
         return cache[path][size][letter].bitmap;
