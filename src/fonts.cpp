@@ -4,8 +4,6 @@
 #include "xpdraw/fonts.h"
 #include "xpdraw/xpdraw.h"
 
-using namespace std;
-
 int lastRight = 0;
 int lastGlyphWidth = 0;
 
@@ -20,7 +18,7 @@ struct faceCache {
 std::map<std::string, std::map<int, std::map<char, faceCache>>> cache;
 
 namespace xpdraw::fonts {
-    void Face::init(string filename) {
+    void Face::init(std::string filename) {
         FT_New_Face(ft, filename.c_str(), 0, &ftFace);
         path = filename;
     }
@@ -48,7 +46,7 @@ namespace xpdraw::fonts {
         FT_Init_FreeType(&ft);
     }
 
-    void drawText(Face font, string text, int x, int y, int size, int align, xpdraw::color textColor) {
+    void drawText(Face font, std::string text, int x, int y, int size, int align, xpdraw::color textColor) {
         glColor4f(textColor.red, textColor.green, textColor.blue, textColor.alpha);
 
         int width = 0;

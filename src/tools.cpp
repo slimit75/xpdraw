@@ -4,26 +4,24 @@
 
 #include "xpdraw/tools.h"
 
-using namespace std;
-
 namespace xpdraw::tools {
-    string findPluginPath() {
+    std::string findPluginPath() {
         XPLMEnableFeature("XPLM_USE_NATIVE_PATHS", 1);
 
         char pluginPathChar[256];
         XPLMGetPluginInfo(XPLMGetMyID(), NULL, pluginPathChar, NULL, NULL);
-        string pluginPath = pluginPathChar;
+        std::string pluginPath = pluginPathChar;
         pluginPath.erase(pluginPath.end() - 10, pluginPath.end());
 
         return pluginPath;
     }
 
-    string findXPlanePath() {
+    std::string findXPlanePath() {
         XPLMEnableFeature("XPLM_USE_NATIVE_PATHS", 1);
 
         char xplanePath[512];
         XPLMGetSystemPath(xplanePath);
-        string xpPath = xplanePath;
+        std::string xpPath = xplanePath;
         
         return xpPath;
     }

@@ -11,8 +11,6 @@
 
 #include "xpdraw/xpdraw.h"
 
-using namespace std;
-
 int anchor_x = 0;
 int anchor_y = 0;
 
@@ -130,10 +128,10 @@ namespace xpdraw {
     void drawFlippedTexture(xpdraw::texture texture, int left, int bottom, int width, int height, xpdraw::color color) {
         glColor4f(color.red, color.green, color.blue, color.alpha);
 
-        int x1 = anchor_x + left;
-        int y1 = anchor_y + bottom;
-        int x2 = x1 + width;
-        int y2 = y1 + height;
+        const int x1 = anchor_x + left;
+        const int y1 = anchor_y + bottom;
+        const int x2 = x1 + width;
+        const int y2 = y1 + height;
 
         glBindTexture(GL_TEXTURE_2D, texture.gl_texture);
         glEnable(GL_TEXTURE_2D);
@@ -154,24 +152,17 @@ namespace xpdraw {
     void drawRotatedTexture(xpdraw::texture texture, float angle, float left, float bottom, float width, float height, float rx, float ry, xpdraw::color color) {
         glColor4f(color.red, color.green, color.blue, color.alpha);
 
-        rx = left + rx;
-        ry = bottom + ry;
-
-        float x1 = left - rx;
-        float y1 = bottom - ry;
-        float x2 = x1 + width;
-        float y2 = y1 + height;
-
-        angle = 360 - angle;
+        const float x1 = left - rx;
+        const float y1 = bottom - ry;
+        const float x2 = x1 + width;
+        const float y2 = y1 + height;
 
         glBindTexture(GL_TEXTURE_2D, texture.gl_texture);
         glEnable(GL_TEXTURE_2D);
 
         glPushMatrix();
-
-        glTranslatef(rx + anchor_x, ry + anchor_y, 0);
-        glRotatef(angle, 0, 0, 1);
-
+        glTranslatef(rx + left + anchor_x, ry + bottom + anchor_y, 0);
+        glRotatef(360 - angle, 0, 0, 1);
         glBegin(GL_QUADS);
         glTexCoord2f(0, 0);
         glVertex2f(x1, y1);
@@ -182,14 +173,13 @@ namespace xpdraw {
         glTexCoord2f(1, 0);
         glVertex2f(x2, y1);
         glEnd();
-
         glPopMatrix();
 
         glDisable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, 0);
     }
 
-    xpdraw::texture loadTexture(string filename) {
+    xpdraw::texture loadTexture(std::string filename) {
         stbi_set_flip_vertically_on_load(true);
 
         int width, height, nrChannels;
