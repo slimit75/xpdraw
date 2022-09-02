@@ -3,7 +3,8 @@ cmake_minimum_required(VERSION 3.9.1)
 project(xpdraw)
 
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_FLAGS "-O3 -fPIC -pedantic")
+set(CMAKE_CXX_FLAGS "-O2 -fPIC -pedantic")
+set(CMAKE_BUILD_TYPE Debug)
 
 find_package(Freetype REQUIRED)
 include_directories(${FREETYPE_INCLUDE_DIRS})

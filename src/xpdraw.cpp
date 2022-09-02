@@ -186,7 +186,8 @@ namespace xpdraw {
         unsigned char* texDat = stbi_load(filename.c_str(), &width, &height, &nrChannels, 4);
 
         if (texDat == NULL) {
-            throw("Failed to load texture: %s!", filename.c_str());
+            // TODO: Alert about this error without crashing the entire sim
+            //throw("Failed to load texture: %s!", filename.c_str());
 
             return { 0, 0, 0 };
         }

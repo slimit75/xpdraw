@@ -1,4 +1,5 @@
-#pragma once
+#ifndef XPDRAW_WINDOWS_H
+#define XPDRAW_WINDOWS_H
 
 #include <XPLMDisplay.h>
 #include <string>
@@ -71,3 +72,5 @@ namespace xpdraw {
             void setResizeLimits(int minWidth, int minHeight, int maxWidth, int maxHeight);
     };
 }
+
+#endif

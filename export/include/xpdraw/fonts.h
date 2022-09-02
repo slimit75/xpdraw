@@ -1,4 +1,5 @@
-#pragma once
+#ifndef XPDRAW_FONTS_H
+#define XPDRAW_FONTS_H
 
 #include <string>
 #include <map>
@@ -69,3 +70,5 @@ namespace xpdraw::fonts {
      */
     void drawText(Face font, std::string text, int x, int y, int size, int align, color color = { 1, 1, 1, 1 });
 }
+
+#endif
