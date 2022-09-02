@@ -152,6 +152,9 @@ namespace xpdraw {
     void drawRotatedTexture(xpdraw::texture texture, float angle, float left, float bottom, float width, float height, float rx, float ry, xpdraw::color color) {
         glColor4f(color.red, color.green, color.blue, color.alpha);
 
+        rx = left + rx;
+        ry = bottom + ry;
+
         const float x1 = left - rx;
         const float y1 = bottom - ry;
         const float x2 = x1 + width;
@@ -161,7 +164,7 @@ namespace xpdraw {
         glEnable(GL_TEXTURE_2D);
 
         glPushMatrix();
-        glTranslatef(rx + left + anchor_x, ry + bottom + anchor_y, 0);
+        glTranslatef(rx + anchor_x, ry + anchor_y, 0);
         glRotatef(360 - angle, 0, 0, 1);
         glBegin(GL_QUADS);
         glTexCoord2f(0, 0);
