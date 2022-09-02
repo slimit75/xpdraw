@@ -28,7 +28,7 @@ jobs:
     
     - uses: actions/upload-artifact@v3
       with:
-        name: Export folder
+        name: macOS Library
         path: export/lib/mac
 
   Linux:
@@ -56,7 +56,7 @@ jobs:
     
     - uses: actions/upload-artifact@v3
       with:
-        name: Export folder
+        name: Linux Library
         path: export/lib/lin
         
   Windows:
@@ -81,5 +81,5 @@ jobs:
 
     - uses: actions/upload-artifact@v3
       with:
-        name: Export folder
+        name: Windows Library
         path: export/lib/win
