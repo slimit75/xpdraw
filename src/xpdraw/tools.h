@@ -1,4 +1,5 @@
-#pragma once
+#ifndef XPDRAW_TOOLS_H
+#define XPDRAW_TOOLS_H
 
 #include <string>
 #include "xpdraw.h"
@@ -18,3 +19,5 @@ namespace xpdraw::tools {
      */
     std::string findXPlanePath();
 }
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef XPDRAW_H
+#define XPDRAW_H
 
 #if LIN or __MINGW32__
 	#include <GL/gl.h>
@@ -143,3 +144,5 @@ namespace xpdraw {
      */
     xpdraw::texture loadTexture(std::string filename);
 }
+
+#endif
