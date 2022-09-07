@@ -33,7 +33,7 @@ namespace xpdraw::tools {
 
     int getXPlaneVersion() {
         if (xpVersion == -1) {
-            xpVersion = floor(XPLMGetDatai(&xpVersion) / 10000);
+            xpVersion = XPLMGetDatai(drefVersion) / 10000;
         }
         return xpVersion;
     }
