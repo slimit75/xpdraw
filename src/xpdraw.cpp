@@ -14,8 +14,6 @@
 int anchor_x = 0;
 int anchor_y = 0;
 
-xpdraw::color currentColor;
-
 namespace xpdraw {
     xpdraw::texture loadBuffer(void* buffer, int width, int height, GLenum format) {
         GLuint tex;

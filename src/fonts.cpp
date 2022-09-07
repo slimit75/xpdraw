@@ -7,14 +7,13 @@
 int lastRight = 0;
 int lastGlyphWidth = 0;
 
-FT_Library ft;
-
 struct faceCache {
     xpdraw::texture bitmap;
     FT_Glyph_Metrics metrics;
     bool loaded = false;
 };
 
+FT_Library ft;
 std::map<std::string, std::map<int, std::map<char, faceCache>>> cache;
 
 namespace xpdraw::fonts {
