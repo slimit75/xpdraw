@@ -1,11 +1,12 @@
-#include <string>
-#include <XPLMPlugin.h>
-#include <XPLMUtilities.h>
 #include <XPLMDataAccess.h>
+#include <XPLMUtilities.h>
+#include <XPLMPlugin.h>
+#include <string>
+#include <math.h> 
 
 #include "xpdraw/tools.h"
 
-int xpVersion;
+int xpVersion = -1;
 XPLMDataRef drefVersion = XPLMFindDataRef("sim/version/xplane_internal_version");
 
 namespace xpdraw::tools {
@@ -31,14 +32,9 @@ namespace xpdraw::tools {
     }
 
     int getXPlaneVersion() {
-        if (XPLMGetDatai(&xpVersion) >= 120000) {
-            return XP12;
+        if (xpVersion == -1) {
+            xpVersion = floor(XPLMGetDatai(&xpVersion) / 10000);
         }
-        else if (XPLMGetDatai(&xpVersion) >= 110000) {
-            return XP11;
-        }
-        else {
-            return XPOLD;
-        }
+        return xpVersion;
     }
 }

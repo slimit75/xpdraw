@@ -4,10 +4,6 @@
 #include <string>
 #include "xpdraw.h"
 
-#define XPOLD 10; // Represents X-Plane 10 and below.
-#define XP11 11;
-#define XP12 12;
-
 namespace xpdraw::tools {
     /**
      * @brief Returns the plugin's current path. Forces XPLM_USE_NATIVE_PATHS to true!
@@ -26,7 +22,7 @@ namespace xpdraw::tools {
     /**
      * @brief Returns what major X-Plane version is running
      * 
-     * @return Can either return XPOLD (XP10 and below), XP11 or XP12
+     * @return int
      */
     int getXPlaneVersion();
 }
