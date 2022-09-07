@@ -26,7 +26,7 @@ namespace xpdraw::tools {
     /**
      * @brief Returns what major X-Plane version is running
      * 
-     * @return int Can either return XPOLD, XP11 or XP12
+     * @return Can either return XPOLD (XP10 and below), XP11 or XP12
      */
     int getXPlaneVersion();
 }
