@@ -45,18 +45,28 @@ namespace xpdraw::fonts {
         FT_Init_FreeType(&ft);
     }
 
+    int getLength(Face font, std::string text, const int size) {
+        int width = 0;
+
+        // Calculate the length of the string before drawing it
+        for(int i = 0; i < text.length(); i++) {
+            font.add(size, text[i]); // Automatically cache char if it isn't already cached
+
+            if (i == (text.length() - 1)) {
+               width += (font.getMetrics(size, text[i]).width + font.getMetrics(size, text[i]).horiBearingX) / 64;
+            }
+            else {
+                width += (font.getMetrics(size, text[i]).horiAdvance) / 64;
+            }
+        }
+
+        return width;
+    } 
+
     void drawText(Face font, std::string text, int x, int y, int size, int align, xpdraw::color textColor) {
         glColor4f(textColor.red, textColor.green, textColor.blue, textColor.alpha);
 
-        int width = 0;
-        int charSpacing = 0;
-
-        // Calculate the length of the string before drawing it
-        for(const char *p = text.c_str(); *p; p++) {
-            font.add(size, p[0]); // Automatically cache char if it isn't already cached
-
-            width += (font.getMetrics(size, p[0]).horiAdvance) / 64;
-        }
+        int width = getLength(font, text, size);
 
         if (align == ALIGN_CENTER) {
             x -= (width / 2);

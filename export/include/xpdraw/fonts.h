@@ -69,6 +69,16 @@ namespace xpdraw::fonts {
      * @param color Color of the text; defaults to white
      */
     void drawText(Face font, std::string text, int x, int y, int size, int align, color color = { 1, 1, 1, 1 });
+
+    /**
+     * @brief Returns the length of a string.
+     * 
+     * @param font Font to use
+     * @param text Text to get the length of
+     * @param size Size of the font to use
+     * @return int 
+     */
+    int getLength(Face font, std::string text, const int size);
 }
 
 #endif
