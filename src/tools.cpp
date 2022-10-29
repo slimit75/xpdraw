@@ -7,7 +7,6 @@
 #include "xpdraw/tools.h"
 
 int xpVersion = -1;
-XPLMDataRef drefVersion = XPLMFindDataRef("sim/version/xplane_internal_version");
 
 namespace xpdraw::tools {
     std::string findPluginPath() {
@@ -33,7 +32,8 @@ namespace xpdraw::tools {
 
     int getXPlaneVersion() {
         if (xpVersion == -1) {
-            xpVersion = XPLMGetDatai(drefVersion) / 10000;
+            XPLMGetVersions(&xpVersion, nullptr, nullptr);
+            xpVersion = xpVersion / 1000;
         }
         return xpVersion;
     }
