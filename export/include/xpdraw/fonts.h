@@ -7,9 +7,7 @@
 #include FT_FREETYPE_H
 #include "xpdraw.h"
 
-#define ALIGN_LEFT 1
-#define ALIGN_CENTER 2
-#define ALIGN_RIGHT 3
+enum textAlignment { xpdAlignLeft = 0x0, xpdAlignCenter = 0x1, xpdAlignRight = 0x2 };
 
 namespace xpdraw::fonts {
     class Face {
@@ -68,7 +66,7 @@ namespace xpdraw::fonts {
      * @param align Alignment of the text relative to x
      * @param color Color of the text; defaults to white
      */
-    void drawText(Face font, std::string text, int x, int y, int size, int align, color color = { 1, 1, 1, 1 });
+    void drawText(Face font, std::string text, int x, int y, int size, textAlignment align, color color = { 1, 1, 1, 1 });
 
     /**
      * @brief Returns the length of a string.

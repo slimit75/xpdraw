@@ -63,20 +63,20 @@ namespace xpdraw::fonts {
         return width;
     } 
 
-    void drawText(Face font, std::string text, int x, int y, int size, int align, xpdraw::color textColor) {
+    void drawText(Face font, std::string text, int x, int y, int size, textAlignment align, xpdraw::color textColor) {
         glColor4f(textColor.red, textColor.green, textColor.blue, textColor.alpha);
 
         int width = getLength(font, text, size);
 
-        if (align == ALIGN_CENTER) {
+        if (align == xpdAlignCenter) {
             x -= (width / 2);
         }
-        else if (align == ALIGN_RIGHT) {
+        else if (align == xpdAlignRight) {
             x -= width;
         }
 
         // Render text using cached data
-        for(const char *p = text.c_str(); *p; p++) {
+        for (const char *p = text.c_str(); *p; p++) {
             int y_offset = (((font.getMetrics(size, p[0]).horiBearingY) / 64) - (font.getMetrics(size, p[0]).height) / 64);
             texture image = font.getTexture(size, p[0]);
             drawFlippedTexture(image, x + ((font.getMetrics(size, p[0]).horiBearingX) / 64), y + y_offset, image.width, image.height, textColor);
