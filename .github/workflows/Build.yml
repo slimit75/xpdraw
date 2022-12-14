@@ -25,11 +25,6 @@ jobs:
 
     - name: Build
       run: cmake --build .
-    
-    - uses: actions/upload-artifact@v3
-      with:
-        name: macOS Library
-        path: export/lib/mac
 
   Linux:
     runs-on: ubuntu-latest
@@ -53,11 +48,6 @@ jobs:
 
     - name: Build
       run: cmake --build .
-    
-    - uses: actions/upload-artifact@v3
-      with:
-        name: Linux Library
-        path: export/lib/lin
         
   Windows:
     runs-on: windows-latest
@@ -78,8 +68,3 @@ jobs:
 
     - name: Build
       run: cmake --build .
-
-    - uses: actions/upload-artifact@v3
-      with:
-        name: Windows Library
-        path: export/lib/win
