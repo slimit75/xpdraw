@@ -38,12 +38,12 @@ target_link_libraries(xpdraw
 # Include directories for both xpdraw & its dependants
 target_include_directories(xpdraw
     PUBLIC
-        "${CMAKE_CURRENT_SOURCE_DIR}/src"
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
 
     PRIVATE
-        "${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/CHeaders/XPLM"
-        "${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/CHeaders/Widgets"
-        "${CMAKE_CURRENT_SOURCE_DIR}/libs/stb"
+        ${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/CHeaders/XPLM
+        ${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/CHeaders/Widgets
+        ${CMAKE_CURRENT_SOURCE_DIR}/libs/stb
 )
 
 # OS-specific options
@@ -56,8 +56,8 @@ if (CMAKE_SYSTEM_NAME MATCHES "Windows")
     
     # Libraries to link
     target_link_libraries(xpdraw
-        "${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Win/XPLM_64.lib"
-        "${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Win/XPWidgets_64.lib"
+        ${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Win/XPLM_64.lib
+        ${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Win/XPWidgets_64.lib
         opengl32
         imagehlp
         Psapi
@@ -76,10 +76,10 @@ elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
 
     # Libraries to link
     target_link_libraries(xpdraw
-        "${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Mac/XPLM.framework"
-        "${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Mac/XPWidgets.framework"
-        "-framework OpenGL"
-        "-framework CoreFoundation"
+        ${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Mac/XPLM.framework
+        ${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Mac/XPWidgets.framework
+        -framework OpenGL
+        -framework CoreFoundation
     )
 
     # Output Directory
