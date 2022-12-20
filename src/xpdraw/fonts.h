@@ -1,59 +1,45 @@
 #ifndef XPDRAW_FONTS_H
 #define XPDRAW_FONTS_H
 
-#include <string>
 #include <map>
+#include <string>
 #include <ft2build.h>
 #include FT_FREETYPE_H
+
 #include "xpdraw.h"
 
-enum textAlignment { xpdAlignLeft = 0x0, xpdAlignCenter = 0x1, xpdAlignRight = 0x2 };
+enum textAlignment { xpdAlignLeft, xpdAlignCenter, xpdAlignRight };
 
 namespace xpdraw::fonts {
-    class Face {
-        public:
-            FT_Face ftFace;
-            std::string path; // File path that this font was loaded from
+    struct charCache {
+      xpdraw::texture bitmap;
+      FT_Glyph_Metrics metrics;
+      bool loaded = false;
+    };
 
-            /**
-             * @brief Load a new face
-             * 
-             * @param filename File path to load
-             */
-            void init(std::string filename);
-
-            /**
-             * @brief Adds a character to the cache
-             * 
-             * @param size Size of the character to cache
-             * @param letter Character to cache
-             */
-            void add(int size, char letter);
-
-            /**
-             * @brief Return a characters metrics
-             * 
-             * @param size Size of character to fetch
-             * @param letter Character to fetch
-             * @return FT_Glyph_Metrics 
-             */
-            FT_Glyph_Metrics getMetrics(int size, char letter);
-
-            /**
-             * @brief Return a characters texture
-             * 
-             * @param size Size of character to fetch
-             * @param letter Character to fetch
-             * @return texture 
-             */
-            texture getTexture(int size, char letter);
+    struct face {
+        FT_Face ftFace;
+        std::string path;
+        std::map<int, std::map<char, charCache>> cache;
     };
 
     /**
-     * @brief Initalize freetype
-     * 
+     * @brief Load a new font
+     *
+     * @param font Pointer to the font we are loading
+     * @param filename File path to load from
      */
-    void initFonts(); 
+    void loadFont(face* font, std::string filename);
+
+    /**
+     * @brief Returns the length of a string.
+     *
+     * @param font Font to use
+     * @param text Text to get the length of
+     * @param size Size of the font to use
+     * @return int
+     */
+    int getLength(face* font, std::string text, const int size);
 
     /**
      * @brief Function to draw text
@@ -66,17 +52,7 @@ namespace xpdraw::fonts {
      * @param align Alignment of the text relative to x
      * @param color Color of the text; defaults to white
      */
-    void drawText(Face font, std::string text, int x, int y, int size, textAlignment align, color color = { 1, 1, 1, 1 });
-
-    /**
-     * @brief Returns the length of a string.
-     * 
-     * @param font Font to use
-     * @param text Text to get the length of
-     * @param size Size of the font to use
-     * @return int 
-     */
-    int getLength(Face font, std::string text, const int size);
+    void drawText(face* font, std::string text, int x, int y, int size, textAlignment align, color color = XPD_COLOR_WHITE);
 }
 
 #endif
