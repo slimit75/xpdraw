@@ -11,6 +11,11 @@
 
 #include <string>
 
+#define XPD_COLOR_WHITE { 1, 1, 1, 1 }
+#define XPD_COLOR_BLACK { 0, 0, 0, 1 }
+#define XPD_RGB(r, g, b) { r/255.0f, g/255.0f, b/255.0f, 1 }
+#define XPD_RGBA(r, g, b, a) { r/255.0f, g/255.0f, b/255.0f, a }
+
 namespace xpdraw {
     struct texture {
         GLuint gl_texture;
@@ -27,14 +32,14 @@ namespace xpdraw {
 
     /**
      * @brief Loads an OpenGL buffer and converts it into a xpdraw texture
-     * 
+     *
+     * @param texture Pointer to the xpdraw texture
      * @param buffer Buffer to load
      * @param width Width of buffer
      * @param height Height of buffer
      * @param format Format of buffer
-     * @return xpdraw::texture 
      */
-    xpdraw::texture loadBuffer(void* buffer, int width, int height, GLenum format);
+    void loadBuffer(xpdraw::texture* texture, void* buffer, int width, int height, GLenum format);
 
     /**
      * @brief Sets the position of the 'anchor'. All future calls will be relative to this location if defined.
@@ -55,7 +60,7 @@ namespace xpdraw {
      * @param y3 Vertical position of third point
      * @param color Color of the triangle; defaults to white
      */
-    void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, xpdraw::color color = { 1, 1, 1, 1 });
+    void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, xpdraw::color color = XPD_COLOR_WHITE);
 
     /**
      * @brief Draw a rectangle with the specified parameters
@@ -68,7 +73,7 @@ namespace xpdraw {
      * @param borderSize Border size of the rectangle if needed; not shown by default
      * @param borderColor Color of the rectangle border (if shown); defaults to white
      */
-    void drawRect(int left, int bottom, int width, int height, xpdraw::color color = { 1, 1, 1, 1 }, int borderSize = -1, xpdraw::color borderColor = { 1, 1, 1, 1 });
+    void drawRect(int left, int bottom, int width, int height, xpdraw::color color = XPD_COLOR_WHITE, int borderSize = -1, xpdraw::color borderColor = XPD_COLOR_WHITE);
     
     /**
      * @brief Draw a quad with the specified points
@@ -83,7 +88,7 @@ namespace xpdraw {
      * @param y4 Vertical position of the fourth point
      * @param color Color of the quad; defaults to white
      */
-    void drawQuad(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, xpdraw::color color = { 1, 1, 1, 1 });
+    void drawQuad(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, xpdraw::color color = XPD_COLOR_WHITE);
 
     /**
      * @brief Draw a line
@@ -95,7 +100,7 @@ namespace xpdraw {
      * @param color Color of the line; defaults to white
      * @param thickness Thickness of the line; defaults to 1
      */
-    void drawLine(int start_x, int start_y, int end_x, int end_y, xpdraw::color color = { 1, 1, 1, 1 }, int thickness = 1);
+    void drawLine(int start_x, int start_y, int end_x, int end_y, xpdraw::color color = XPD_COLOR_WHITE, int thickness = 1);
 
     /**
      * @brief Draw an xpdraw texture
@@ -107,7 +112,7 @@ namespace xpdraw {
      * @param height Height of the drawn texture; defaults to the texture's height
      * @param color Color of the texture; defaults to white
      */
-    void drawTexture(xpdraw::texture texture, int left, int bottom, int width = -1, int height = -1, xpdraw::color color = { 1, 1, 1, 1 });
+    //void drawTexture(xpdraw::texture texture, int left, int bottom, int width = -1, int height = -1, xpdraw::color color = XPD_COLOR_WHITE);
 
     /**
      * @brief Draw a mirrored version of a texture; used by xpdraw::fonts
@@ -119,7 +124,8 @@ namespace xpdraw {
      * @param height Height of the drawn texture; defaults to the texture's height
      * @param color Color of the texture; defaults to white
      */
-    void drawFlippedTexture(xpdraw::texture texture, int left, int bottom, int width, int height, xpdraw::color color = { 1, 1, 1, 1 });
+    // drawFlippedTexture
+    void drawTexture(xpdraw::texture* texture, int left, int bottom, int width = 0, int height = 0, xpdraw::color color = XPD_COLOR_WHITE);
 
     /**
      * @brief Draw a rotated texture
@@ -134,15 +140,15 @@ namespace xpdraw {
      * @param ry Y anchor to rotate around relative to the texture
      * @param color Color of the texture; defaults to white
      */
-    void drawRotatedTexture(xpdraw::texture texture, float angle, float left, float bottom, float width, float height, float rx, float ry, xpdraw::color color = { 1, 1, 1, 1 });
+    void drawRotatedTexture(xpdraw::texture* texture, float angle, float left, float bottom, float width, float height, float rx, float ry, xpdraw::color color = XPD_COLOR_WHITE);
     
     /**
      * @brief Load a texture
-     * 
+     *
+     * @param texture Pointer to the xpdraw texture
      * @param filename File path to load
-     * @return xpdraw::texture 
      */
-    xpdraw::texture loadTexture(std::string filename);
+    void loadTexture(xpdraw::texture* texture, std::string filename);
 }
 
 #endif

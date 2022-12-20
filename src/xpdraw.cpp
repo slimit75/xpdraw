@@ -15,16 +15,16 @@ int anchor_x = 0;
 int anchor_y = 0;
 
 namespace xpdraw {
-    xpdraw::texture loadBuffer(void* buffer, int width, int height, GLenum format) {
-        GLuint tex;
-        glGenTextures(1, &tex);
-        glBindTexture(GL_TEXTURE_2D, tex);
-        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, buffer);
+    void loadBuffer(xpdraw::texture* texture, void* buffer, int width, int height, GLenum format) {
+        texture->width = width;
+        texture->height = height;
+
+        glGenTextures(1, &texture->gl_texture);
+        glBindTexture(GL_TEXTURE_2D, texture->gl_texture);
+        glTexImage2D(GL_TEXTURE_2D, 0, format, texture->width, texture->height, 0, format, GL_UNSIGNED_BYTE, buffer);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glBindTexture(GL_TEXTURE_2D, 0);
-
-        return { tex, width, height };
     }
 
     void setAnchor(int newAnchor_x, int newAnchor_y) {
@@ -92,6 +92,7 @@ namespace xpdraw {
         glEnd();
     }
 
+    /*
     void drawTexture(xpdraw::texture texture, int left, int bottom, int width, int height, xpdraw::color color) {
         glColor4f(color.red, color.green, color.blue, color.alpha);
 
@@ -122,16 +123,25 @@ namespace xpdraw {
         glDisable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, 0);
     }
+    */
 
-    void drawFlippedTexture(xpdraw::texture texture, int left, int bottom, int width, int height, xpdraw::color color) {
+    // drawFlippedTexture
+    void drawTexture(xpdraw::texture* texture, int left, int bottom, int width, int height, xpdraw::color color) {
         glColor4f(color.red, color.green, color.blue, color.alpha);
+
+        if (width == 0) {
+          width = texture->width;
+        }
+        if (height == 0) {
+          height = texture->height;
+        }
 
         const int x1 = anchor_x + left;
         const int y1 = anchor_y + bottom;
         const int x2 = x1 + width;
         const int y2 = y1 + height;
 
-        glBindTexture(GL_TEXTURE_2D, texture.gl_texture);
+        glBindTexture(GL_TEXTURE_2D, texture->gl_texture);
         glEnable(GL_TEXTURE_2D);
         glBegin(GL_QUADS);
         glTexCoord2f(0, 1);
@@ -147,7 +157,7 @@ namespace xpdraw {
         glBindTexture(GL_TEXTURE_2D, 0);
     }
 
-    void drawRotatedTexture(xpdraw::texture texture, float angle, float left, float bottom, float width, float height, float rx, float ry, xpdraw::color color) {
+    void drawRotatedTexture(xpdraw::texture* texture, float angle, float left, float bottom, float width, float height, float rx, float ry, xpdraw::color color) {
         glColor4f(color.red, color.green, color.blue, color.alpha);
 
         rx = left + rx;
@@ -158,7 +168,7 @@ namespace xpdraw {
         const float x2 = x1 + width;
         const float y2 = y1 + height;
 
-        glBindTexture(GL_TEXTURE_2D, texture.gl_texture);
+        glBindTexture(GL_TEXTURE_2D, texture->gl_texture);
         glEnable(GL_TEXTURE_2D);
 
         glPushMatrix();
@@ -180,24 +190,18 @@ namespace xpdraw {
         glBindTexture(GL_TEXTURE_2D, 0);
     }
 
-    xpdraw::texture loadTexture(std::string filename) {
-        stbi_set_flip_vertically_on_load(true);
-
-        int width, height, nrChannels;
+    void loadTexture(xpdraw::texture* texture, std::string filename) {
+        // Get a buffer from the passed file
+        int width, height, nrChannels; // Do we need to store nrChannels?
         unsigned char* texDat = stbi_load(filename.c_str(), &width, &height, &nrChannels, 4);
 
-        if (texDat == NULL) {
-            // TODO: Alert about this error without crashing the entire sim
-            //throw("Failed to load texture: %s!", filename.c_str());
-
-            return { 0, 0, 0 };
+        // Load the buffer into an xpd texture
+        if (texDat != NULL) {
+            loadBuffer(texture, texDat, width, height, GL_RGBA);
+            stbi_image_free(texDat);
         }
-        
-        // Return texture
-        xpdraw::texture return_value;
-        return_value = loadBuffer(texDat, width, height, GL_RGBA);
-        stbi_image_free(texDat);
-
-        return return_value;
+        else {
+          // TODO: Alert about this error without crashing the entire sim
+        }
     }
 }
