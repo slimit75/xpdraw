@@ -27,7 +27,7 @@ namespace xpdraw::fonts {
             FT_Set_Pixel_Sizes(ftFace, 0, size * 1.5);
             FT_Load_Char(ftFace, letter, FT_LOAD_RENDER);
 
-            cache[path][size][letter].bitmap = loadBuffer(ftFace->glyph->bitmap.buffer, ftFace->glyph->bitmap.width, ftFace->glyph->bitmap.rows, GL_ALPHA);
+            loadBuffer(&cache[path][size][letter].bitmap, ftFace->glyph->bitmap.buffer, ftFace->glyph->bitmap.width, ftFace->glyph->bitmap.rows, GL_ALPHA);
             cache[path][size][letter].metrics = ftFace->glyph->metrics;
             cache[path][size][letter].loaded = true;
         }
@@ -79,7 +79,7 @@ namespace xpdraw::fonts {
         for (const char *p = text.c_str(); *p; p++) {
             int y_offset = (((font.getMetrics(size, p[0]).horiBearingY) / 64) - (font.getMetrics(size, p[0]).height) / 64);
             texture image = font.getTexture(size, p[0]);
-            drawFlippedTexture(image, x + ((font.getMetrics(size, p[0]).horiBearingX) / 64), y + y_offset, image.width, image.height, textColor);
+            drawTexture(&image, x + ((font.getMetrics(size, p[0]).horiBearingX) / 64), y + y_offset, image.width, image.height, textColor);
             x += ((font.getMetrics(size, p[0]).horiAdvance) / 64);
         }
     }
