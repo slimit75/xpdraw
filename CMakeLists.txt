@@ -20,8 +20,9 @@ add_definitions(
 
 # Include dependencies
 find_package(Freetype REQUIRED)
+find_package(OpenGL REQUIRED)
 include_directories(${FREETYPE_INCLUDE_DIRS})
-add_library(xpdraw 
+add_library(xpdraw
     ${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw/xpdraw.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/windows.cpp
@@ -33,6 +34,7 @@ add_library(xpdraw
 )
 target_link_libraries(xpdraw
     stdc++
+    ${OPENGL_LIBRARIES}
 )
 
 # Include directories for both xpdraw & its dependants
@@ -53,12 +55,11 @@ if (CMAKE_SYSTEM_NAME MATCHES "Windows")
         -DIBM
         -D_USE_MATH_DEFINES
     )
-    
+
     # Libraries to link
     target_link_libraries(xpdraw
         ${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Win/XPLM_64.lib
         ${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Win/XPWidgets_64.lib
-        opengl32
         imagehlp
         Psapi
     )
@@ -78,7 +79,6 @@ elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
     target_link_libraries(xpdraw
         ${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Mac/XPLM.framework
         ${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Mac/XPWidgets.framework
-        -framework OpenGL
         -framework CoreFoundation
     )
 
