@@ -103,18 +103,6 @@ namespace xpdraw {
     void drawLine(int start_x, int start_y, int end_x, int end_y, xpdraw::color color = XPD_COLOR_WHITE, int thickness = 1);
 
     /**
-     * @brief Draw an xpdraw texture
-     * 
-     * @param texture Texture to draw
-     * @param left X position of the texture
-     * @param bottom Y position of the texture
-     * @param width Width of the drawn texture; defaults to the texture's width
-     * @param height Height of the drawn texture; defaults to the texture's height
-     * @param color Color of the texture; defaults to white
-     */
-    //void drawTexture(xpdraw::texture texture, int left, int bottom, int width = -1, int height = -1, xpdraw::color color = XPD_COLOR_WHITE);
-
-    /**
      * @brief Draw a mirrored version of a texture; used by xpdraw::fonts
      * 
      * @param texture Texture to draw
@@ -124,7 +112,6 @@ namespace xpdraw {
      * @param height Height of the drawn texture; defaults to the texture's height
      * @param color Color of the texture; defaults to white
      */
-    // drawFlippedTexture
     void drawTexture(xpdraw::texture* texture, int left, int bottom, int width = 0, int height = 0, xpdraw::color color = XPD_COLOR_WHITE);
 
     /**
