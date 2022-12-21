@@ -92,40 +92,6 @@ namespace xpdraw {
         glEnd();
     }
 
-    /*
-    void drawTexture(xpdraw::texture texture, int left, int bottom, int width, int height, xpdraw::color color) {
-        glColor4f(color.red, color.green, color.blue, color.alpha);
-
-        if (width == -1) {
-            width = texture.width;
-        }
-        if (height == -1) {
-            height = texture.height;
-        }
-        
-        const int x1 = anchor_x + left;
-        const int y1 = anchor_y + bottom;
-        const int x2 = x1 + width;
-        const int y2 = y1 + height;
-
-        glBindTexture(GL_TEXTURE_2D, texture.gl_texture);
-        glEnable(GL_TEXTURE_2D);
-        glBegin(GL_QUADS);
-        glTexCoord2f(0, 0);
-        glVertex2f(x1, y1);
-        glTexCoord2f(0, 1);
-        glVertex2f(x1, y2);
-        glTexCoord2f(1, 1);
-        glVertex2f(x2, y2);
-        glTexCoord2f(1, 0);
-        glVertex2f(x2, y1);
-        glEnd();
-        glDisable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, 0);
-    }
-    */
-
-    // drawFlippedTexture
     void drawTexture(xpdraw::texture* texture, int left, int bottom, int width, int height, xpdraw::color color) {
         glColor4f(color.red, color.green, color.blue, color.alpha);
 
@@ -175,13 +141,13 @@ namespace xpdraw {
         glTranslatef(rx + anchor_x, ry + anchor_y, 0);
         glRotatef(360 - angle, 0, 0, 1);
         glBegin(GL_QUADS);
-        glTexCoord2f(0, 0);
-        glVertex2f(x1, y1);
         glTexCoord2f(0, 1);
+        glVertex2f(x1, y1);
+        glTexCoord2f(0, 0);
         glVertex2f(x1, y2);
-        glTexCoord2f(1, 1);
-        glVertex2f(x2, y2);
         glTexCoord2f(1, 0);
+        glVertex2f(x2, y2);
+        glTexCoord2f(1, 1);
         glVertex2f(x2, y1);
         glEnd();
         glPopMatrix();
