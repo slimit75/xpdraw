@@ -34,10 +34,14 @@ namespace xpdraw::fonts {
     }
 
     inline FT_Glyph_Metrics getMetrics(face* font, int size, char letter) {
+        addToCache(font, size, letter); // Automatically cache char if it isn't already cached
+
         return font->cache[size][letter].metrics;
     }
 
     inline texture* getCharTexture(face* font, int size, char letter) {
+        addToCache(font, size, letter); // Automatically cache char if it isn't already cached
+
         return &font->cache[size][letter].bitmap;
     }
 
@@ -46,8 +50,6 @@ namespace xpdraw::fonts {
 
         // Calculate the length of the string before drawing it
         for (int i = 0; i < text.length(); i++) {
-            addToCache(font, size, text[i]); // Automatically cache char if it isn't already cached
-
             if (i == (text.length() - 1)) {
                width += (getMetrics(font, size, text[i]).width + getMetrics(font, size, text[i]).horiBearingX) / 64;
             }

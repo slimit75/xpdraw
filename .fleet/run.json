@@ -4,13 +4,13 @@
             "type": "command",
             "name": "Run X-Plane 12",
             "program": "/bin/gdb",
-            "args": ["$USER_HOME$/X-Plane 12/X-Plane-x86_64"]
+            "args": ["--eval-command=run", "$USER_HOME$/X-Plane 12/X-Plane-x86_64"]
         },
         {
             "type": "command",
             "name": "Run X-Plane 11",
             "program": "/bin/gdb",
-            "args": ["$USER_HOME$/X-Plane 11/X-Plane-x86_64"]
+            "args": ["--eval-command=run", "$USER_HOME$/X-Plane 11/X-Plane-x86_64"]
         },
     ]
 }
