@@ -1,71 +1,33 @@
-name: Build
+name: Compile
 
 on:
   push:
-    branches:
-    - unstable
-    - very-unstable
+    branches: [ "*" ]
+  pull_request:
+    branches: [ "*" ]
 
 jobs:
-  Mac:
-    runs-on: macos-latest
+  Compile:
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+
+      runs-on: ${{matrix.os}}
 
     steps:
     - uses: actions/checkout@v3
-    
-    - name: Clone fpw/XSDK
-      run: git clone https://github.com/fpw/XSDK
-      working-directory: ./libs
-    
-    - name: Clone nothings/stb
-      run: git clone https://github.com/nothings/stb
-      working-directory: ./libs
+      with:
+        submodules: recursive
 
-    - name: Configure CMake
-      run: cmake .
-
-    - name: Build
-      run: cmake --build .
-
-  Linux:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v3
-
-    - name: Clone fpw/XSDK
-      run: git clone https://github.com/fpw/XSDK
-      working-directory: ./libs
-    
-    - name: Clone nothings/stb
-      run: git clone https://github.com/nothings/stb
-      working-directory: ./libs
-
-    - name: Install other dependancies
+    - name: Install Linux dependencies
+      if: runner.os == 'Linux'
       run: sudo apt-get install libglfw3-dev libgl1-mesa-dev libglu1-mesa-dev -y
-  
+
     - name: Configure CMake
       run: cmake .
-
-    - name: Build
-      run: cmake --build .
-        
-  Windows:
-    runs-on: windows-latest
-
-    steps:
-    - uses: actions/checkout@v3
-  
-    - name: Clone fpw/XSDK
-      run: git clone https://github.com/fpw/XSDK
-      working-directory: ./libs
-
-    - name: Clone nothings/stb
-      run: git clone https://github.com/nothings/stb
-      working-directory: ./libs
-
-    - name: Configure CMake
-      run: cmake . -G "MinGW Makefiles"
 
     - name: Build
       run: cmake --build .
