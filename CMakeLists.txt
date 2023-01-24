@@ -2,9 +2,7 @@ cmake_minimum_required(VERSION 3.24)
 project(xpdraw)
 
 # CMake Settings
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_FLAGS "-O2 -fPIC -pedantic")
-set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_CXX_FLAGS "-O3 -fPIC -pedantic")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64")
 
@@ -22,7 +20,7 @@ add_definitions(
 find_package(Freetype REQUIRED)
 find_package(OpenGL REQUIRED)
 include_directories(${FREETYPE_INCLUDE_DIRS})
-add_library(xpdraw
+add_library(xpdraw 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw/xpdraw.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/windows.cpp
@@ -32,9 +30,8 @@ add_library(xpdraw
     ${CMAKE_CURRENT_SOURCE_DIR}/src/fonts.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw/fonts.h
 )
-target_link_libraries(xpdraw
+target_link_libraries(xpdraw 
     stdc++
-    ${OPENGL_LIBRARIES}
 )
 
 # Include directories for both xpdraw & its dependants
@@ -55,7 +52,7 @@ if (CMAKE_SYSTEM_NAME MATCHES "Windows")
         -DIBM
         -D_USE_MATH_DEFINES
     )
-
+    
     # Libraries to link
     target_link_libraries(xpdraw
         ${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Win/XPLM_64.lib
