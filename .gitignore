@@ -9,3 +9,9 @@ CMakeFiles/*
 compile_commands.json
 build/*
 libs/*
+
+# IDE Stuff
+.fleet/*
+.idea/*
+.vscode/*
+cmake-build-debug/*
