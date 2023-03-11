@@ -1,3 +1,5 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 #ifndef XPDRAW_FONTS_H
 #define XPDRAW_FONTS_H
 
@@ -19,7 +21,7 @@ namespace xpdraw::fonts {
 
     struct face {
         FT_Face ftFace;
-        std::string path;
+        const char* path;
         std::map<int, std::map<char, charCache>> cache;
     };
 
@@ -29,7 +31,7 @@ namespace xpdraw::fonts {
      * @param font Pointer to the font we are loading
      * @param filename File path to load from
      */
-    void loadFont(face* font, std::string filename);
+    void loadFont(face* font, const std::string& filename);
 
     /**
      * @brief Returns the length of a string.
@@ -39,7 +41,7 @@ namespace xpdraw::fonts {
      * @param size Size of the font to use
      * @return int
      */
-    int getLength(face* font, std::string text, const int size);
+    int getLength(face* font, std::string text, int size);
 
     /**
      * @brief Function to draw text
@@ -52,7 +54,8 @@ namespace xpdraw::fonts {
      * @param align Alignment of the text relative to x
      * @param color Color of the text; defaults to white
      */
-    void drawText(face* font, std::string text, int x, int y, int size, textAlignment align, color color = XPD_COLOR_WHITE);
+    void drawText(face* font, const std::string& text, int x, int y, int size, textAlignment align, color color = XPD_COLOR_WHITE);
 }
 
 #endif
+#pragma clang diagnostic pop

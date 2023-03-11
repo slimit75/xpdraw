@@ -1,3 +1,5 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 #ifndef XPDRAW_WINDOWS_H
 #define XPDRAW_WINDOWS_H
 
@@ -17,8 +19,9 @@ namespace xpdraw::windows {
     // TODO: Documentation
     void newWindow(window* inWindow, int width, int height);
     void setCallbacks(window* inWindow, XPLMHandleMouseClick_f mouseHandler, XPLMDrawWindow_f drawHandler, XPLMHandleMouseWheel_f mouseWheelHandler, XPLMHandleKey_f keyHandler, XPLMHandleCursor_f cursorHandler);
-    void createWindow(window* inWindow, std::string title, int winLeft = 50, int winDown = 150);
+    void createWindow(window* inWindow, const char* title, int winLeft = 50, int winDown = 150);
     void setResizeLimits(window* inWindow, int minWidth, int minHeight, int maxWidth, int maxHeight);
 }
 
 #endif
+#pragma clang diagnostic pop

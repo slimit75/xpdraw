@@ -27,18 +27,21 @@ namespace xpdraw {
         glBindTexture(GL_TEXTURE_2D, 0);
     }
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
     void setAnchor(int newAnchor_x, int newAnchor_y) {
         anchor_x = newAnchor_x;
         anchor_y = newAnchor_y;
     }
+#pragma clang diagnostic pop
     
     void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, xpdraw::color color) {
         glColor4f(color.red, color.green, color.blue, color.alpha);
 
         glBegin(GL_TRIANGLES);
-        glVertex2f(x1 + anchor_x, y1 + anchor_y);
-        glVertex2f(x2 + anchor_x, y2 + anchor_y);
-        glVertex2f(x3 + anchor_x, y3 + anchor_y);
+        glVertex2i(x1 + anchor_x, y1 + anchor_y);
+        glVertex2i(x2 + anchor_x, y2 + anchor_y);
+        glVertex2i(x3 + anchor_x, y3 + anchor_y);
         glEnd();
     }
 
@@ -51,10 +54,10 @@ namespace xpdraw {
             const int x2 = x1 + width;
             const int y2 = y1 + height;
             glBegin(GL_QUADS);
-            glVertex2f(x1, y1);
-            glVertex2f(x1, y2);
-            glVertex2f(x2, y2);
-            glVertex2f(x2, y1);
+            glVertex2i(x1, y1);
+            glVertex2i(x1, y2);
+            glVertex2i(x2, y2);
+            glVertex2i(x2, y1);
             glEnd();
         }
         else {
@@ -70,10 +73,10 @@ namespace xpdraw {
         glColor4f(color.red, color.green, color.blue, color.alpha);
 
         glBegin(GL_QUADS);
-        glVertex2f(x1 + anchor_x, y1 + anchor_y);
-        glVertex2f(x2 + anchor_x, y2 + anchor_y);
-        glVertex2f(x3 + anchor_x, y3 + anchor_y);
-        glVertex2f(x4 + anchor_x, y4 + anchor_y);
+        glVertex2i(x1 + anchor_x, y1 + anchor_y);
+        glVertex2i(x2 + anchor_x, y2 + anchor_y);
+        glVertex2i(x3 + anchor_x, y3 + anchor_y);
+        glVertex2i(x4 + anchor_x, y4 + anchor_y);
         glEnd();
     }
 
@@ -87,8 +90,8 @@ namespace xpdraw {
 
         glLineWidth(thickness);
         glBegin(GL_LINES);
-        glVertex2f(x1, y1);
-        glVertex2f(x2, y2);
+        glVertex2i(x1, y1);
+        glVertex2i(x2, y2);
         glEnd();
     }
 
@@ -110,14 +113,14 @@ namespace xpdraw {
         glBindTexture(GL_TEXTURE_2D, texture->gl_texture);
         glEnable(GL_TEXTURE_2D);
         glBegin(GL_QUADS);
-        glTexCoord2f(0, 1);
-        glVertex2f(x1, y1);
-        glTexCoord2f(0, 0);
-        glVertex2f(x1, y2);
-        glTexCoord2f(1, 0);
-        glVertex2f(x2, y2);
-        glTexCoord2f(1, 1);
-        glVertex2f(x2, y1);
+        glTexCoord2i(0, 1);
+        glVertex2i(x1, y1);
+        glTexCoord2i(0, 0);
+        glVertex2i(x1, y2);
+        glTexCoord2i(1, 0);
+        glVertex2i(x2, y2);
+        glTexCoord2i(1, 1);
+        glVertex2i(x2, y1);
         glEnd();
         glDisable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, 0);
@@ -156,13 +159,13 @@ namespace xpdraw {
         glBindTexture(GL_TEXTURE_2D, 0);
     }
 
-    void loadTexture(xpdraw::texture* texture, std::string filename) {
+    void loadTexture(xpdraw::texture* texture, const char* filename) {
         // Get a buffer from the passed file
         int width, height, nrChannels; // Do we need to store nrChannels?
-        unsigned char* texDat = stbi_load(filename.c_str(), &width, &height, &nrChannels, 4);
+        unsigned char* texDat = stbi_load(filename, &width, &height, &nrChannels, 4);
 
         // Load the buffer into an xpd texture
-        if (texDat != NULL) {
+        if (texDat != nullptr) {
             loadBuffer(texture, texDat, width, height, GL_RGBA);
             stbi_image_free(texDat);
         }

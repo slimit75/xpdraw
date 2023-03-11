@@ -1,29 +1,27 @@
 #include "xpdraw/fonts.h"
 #include "xpdraw/xpdraw.h"
 
-#include <map>
-#include <string>
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-int lastRight = 0;
-int lastGlyphWidth = 0;
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 bool fontsInit = false;
 FT_Library ft;
 
 namespace xpdraw::fonts {
-    void loadFont(face* font, std::string filename) {
+    void loadFont(face* font, const char* filename) {
         if (!fontsInit) {
             FT_Init_FreeType(&ft);
             fontsInit = true;
         }
 
-        FT_New_Face(ft, filename.c_str(), 0, &font->ftFace);
+        FT_New_Face(ft, filename, 0, &font->ftFace);
         font->path = filename;
     }
 
     void addToCache(face* font, int size, char letter) {
-        if (font->cache[size][letter].loaded == false) {
+        if (!font->cache[size][letter].loaded) {
             FT_Set_Pixel_Sizes(font->ftFace, 0, size * 1.5);
             FT_Load_Char(font->ftFace, letter, FT_LOAD_RENDER);
 
@@ -86,3 +84,4 @@ namespace xpdraw::fonts {
         }
     }
 }
+#pragma clang diagnostic pop
