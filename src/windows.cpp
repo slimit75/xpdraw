@@ -2,8 +2,6 @@
 
 #include "xpdraw/windows.h"
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 namespace xpdraw::windows {
     void newWindow(window* inWindow, int width, int height) {
         inWindow->width = width;
