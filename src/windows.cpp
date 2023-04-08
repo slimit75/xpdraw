@@ -1,13 +1,4 @@
 #include <XPLMDisplay.h>
-#include <XPLMGraphics.h>
-
-#if LIN or __MINGW32__
-	#include <GL/gl.h>
-#elif __GNUC__
-	#include <OpenGL/gl.h>
-#else
-	#include <GL/gl.h>
-#endif
 
 #include "xpdraw/windows.h"
 
@@ -19,7 +10,7 @@ namespace xpdraw::windows {
 
         inWindow->params.structSize = sizeof(inWindow->params);
         inWindow->params.visible = 1;
-        inWindow->params.refcon = NULL;
+        inWindow->params.refcon = nullptr;
         inWindow->params.layer = xplm_WindowLayerFloatingWindows;
         inWindow->params.decorateAsFloatingWindow = xplm_WindowDecorationRoundRectangle;
     }
@@ -33,7 +24,7 @@ namespace xpdraw::windows {
       inWindow->params.handleCursorFunc = cursorHandler;
     }
 
-    void createWindow(window* inWindow, std::string title, int winLeft, int winDown) {
+    void createWindow(window* inWindow, const char *title, int winLeft, int winDown) {
         int left, bottom, right, top;
         XPLMGetScreenBoundsGlobal(&left, &top, &right, &bottom);
         inWindow->params.left = left + winLeft;
@@ -43,10 +34,11 @@ namespace xpdraw::windows {
         inWindow->windowID = XPLMCreateWindowEx(&inWindow->params);
         
         XPLMSetWindowPositioningMode(inWindow->windowID, xplm_WindowPositionFree, -1);
-        XPLMSetWindowTitle(inWindow->windowID, title.c_str());
+        XPLMSetWindowTitle(inWindow->windowID, title);
     }
 
     void setResizeLimits(window* inWindow, int minWidth, int minHeight, int maxWidth, int maxHeight) {
         XPLMSetWindowResizingLimits(inWindow->windowID, minWidth - 20, minHeight - 20, maxWidth - 20, maxHeight - 20);
     }
 }
+#pragma clang diagnostic pop

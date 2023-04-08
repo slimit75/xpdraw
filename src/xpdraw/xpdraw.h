@@ -1,3 +1,5 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 #ifndef XPDRAW_H
 #define XPDRAW_H
 
@@ -24,9 +26,9 @@ namespace xpdraw {
     };
 
     struct color {
-        float red;
-        float green;
-        float blue;
+        float red = 0;
+        float green = 0;
+        float blue = 0;
         float alpha = 1;
     };
 
@@ -135,7 +137,8 @@ namespace xpdraw {
      * @param texture Pointer to the xpdraw texture
      * @param filename File path to load
      */
-    void loadTexture(xpdraw::texture* texture, std::string filename);
+    void loadTexture(xpdraw::texture* texture, const char* filename);
 }
 
 #endif
+#pragma clang diagnostic pop

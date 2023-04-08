@@ -1,3 +1,5 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 #ifndef XPDRAW_FONTS_H
 #define XPDRAW_FONTS_H
 
@@ -19,7 +21,7 @@ namespace xpdraw::fonts {
 
     struct face {
         FT_Face ftFace;
-        std::string path;
+        const char* path;
         std::map<int, std::map<char, charCache>> cache;
     };
 
@@ -56,3 +58,4 @@ namespace xpdraw::fonts {
 }
 
 #endif
+#pragma clang diagnostic pop

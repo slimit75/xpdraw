@@ -1,11 +1,11 @@
-#include <XPLMDataAccess.h>
 #include <XPLMUtilities.h>
 #include <XPLMPlugin.h>
 #include <string>
-#include <math.h> 
 
 #include "xpdraw/tools.h"
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 int xpVersion = -1;
 
 namespace xpdraw::tools {
@@ -13,7 +13,7 @@ namespace xpdraw::tools {
         XPLMEnableFeature("XPLM_USE_NATIVE_PATHS", 1);
 
         char pluginPathChar[256];
-        XPLMGetPluginInfo(XPLMGetMyID(), NULL, pluginPathChar, NULL, NULL);
+        XPLMGetPluginInfo(XPLMGetMyID(), nullptr, pluginPathChar, nullptr, nullptr);
         std::string pluginPath = pluginPathChar;
         pluginPath.erase(pluginPath.end() - 10, pluginPath.end());
 
@@ -38,3 +38,4 @@ namespace xpdraw::tools {
         return xpVersion;
     }
 }
+#pragma clang diagnostic pop

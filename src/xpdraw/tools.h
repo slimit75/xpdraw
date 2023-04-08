@@ -1,3 +1,5 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 #ifndef XPDRAW_TOOLS_H
 #define XPDRAW_TOOLS_H
 
@@ -28,3 +30,4 @@ namespace xpdraw::tools {
 }
 
 #endif
+#pragma clang diagnostic pop
