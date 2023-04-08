@@ -1,17 +1,18 @@
 # CMake
+CMakeFiles/*
+Testing/*
+cmake-build-debug/*
+.cache/*
+.cmake/*
 cmake_install.cmake
 CMakeCache.txt
 Makefile
-CMakeFiles/*
-.cache/*
-
-# Build Stuff
 compile_commands.json
-build/*
-libs/*
 
-# IDE Stuff
+# Build output
+build/*
+
+# IDE files
+.vscode/*
 .fleet/*
 .idea/*
-.vscode/*
-cmake-build-debug/*
