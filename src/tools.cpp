@@ -1,8 +1,7 @@
+#include "xpdraw/tools.h"
 #include <XPLMUtilities.h>
 #include <XPLMPlugin.h>
-#include <string>
-
-#include "xpdraw/tools.h"
+#include <cstring>
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"

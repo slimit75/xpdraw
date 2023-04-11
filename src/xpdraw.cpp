@@ -1,21 +1,15 @@
-#if LIN or __MINGW32__
-	#include <GL/gl.h>
-#elif __GNUC__
-	#include <OpenGL/gl.h>
-#else
-	#include <GL/gl.h>
-#endif
+#include "xpdraw/xpdraw.h"
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
-
-#include "xpdraw/xpdraw.h"
 
 int anchor_x = 0;
 int anchor_y = 0;
 
 namespace xpdraw {
-    void loadBuffer(xpdraw::texture* texture, void* buffer, int width, int height, GLenum format) {
+    void loadBuffer(xpdraw::texture* texture, void* buffer, int width, int height, GLint format) {
         texture->width = width;
         texture->height = height;
 
@@ -27,13 +21,10 @@ namespace xpdraw {
         glBindTexture(GL_TEXTURE_2D, 0);
     }
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
     void setAnchor(int newAnchor_x, int newAnchor_y) {
         anchor_x = newAnchor_x;
         anchor_y = newAnchor_y;
     }
-#pragma clang diagnostic pop
     
     void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, xpdraw::color color) {
         glColor4f(color.red, color.green, color.blue, color.alpha);
@@ -80,7 +71,7 @@ namespace xpdraw {
         glEnd();
     }
 
-    void drawLine(int start_x, int start_y, int end_x, int end_y, xpdraw::color color, int thickness) {
+    void drawLine(int start_x, int start_y, int end_x, int end_y, xpdraw::color color, float thickness) {
         glColor4f(color.red, color.green, color.blue, color.alpha);
 
         const int x1 = start_x + anchor_x;
@@ -174,3 +165,4 @@ namespace xpdraw {
         }
     }
 }
+#pragma clang diagnostic pop

@@ -1,11 +1,8 @@
 #include "xpdraw/fonts.h"
-#include "xpdraw/xpdraw.h"
-
-#include <ft2build.h>
-#include FT_FREETYPE_H
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
+
 bool fontsInit = false;
 FT_Library ft;
 

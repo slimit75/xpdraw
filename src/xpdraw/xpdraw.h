@@ -1,4 +1,21 @@
+/*
+ * xpdraw.h - OpenGL rendering functions
+ * Copyright 2022 Ian Ward
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+*/
 #pragma clang diagnostic push
+#pragma ide diagnostic ignored "OCUnusedMacroInspection"
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 #ifndef XPDRAW_H
 #define XPDRAW_H
@@ -41,7 +58,7 @@ namespace xpdraw {
      * @param height Height of buffer
      * @param format Format of buffer
      */
-    void loadBuffer(xpdraw::texture* texture, void* buffer, int width, int height, GLenum format);
+    void loadBuffer(xpdraw::texture* texture, void* buffer, int width, int height, GLint format);
 
     /**
      * @brief Sets the position of the 'anchor'. All future calls will be relative to this location if defined.
@@ -102,7 +119,7 @@ namespace xpdraw {
      * @param color Color of the line; defaults to white
      * @param thickness Thickness of the line; defaults to 1
      */
-    void drawLine(int start_x, int start_y, int end_x, int end_y, xpdraw::color color = XPD_COLOR_WHITE, int thickness = 1);
+    void drawLine(int start_x, int start_y, int end_x, int end_y, xpdraw::color color = XPD_COLOR_WHITE, float thickness = 1);
 
     /**
      * @brief Draw a mirrored version of a texture; used by xpdraw::fonts
