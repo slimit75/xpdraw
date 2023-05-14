@@ -130,8 +130,9 @@ namespace xpdraw {
      * @param width Width of the drawn texture; defaults to the texture's width
      * @param height Height of the drawn texture; defaults to the texture's height
      * @param color Color of the texture; defaults to white
+     * @param flipped Flips the texture vertically, if true
      */
-    void drawTexture(xpdraw::texture* texture, int left, int bottom, int width = 0, int height = 0, xpdraw::color color = XPD_COLOR_WHITE);
+    void drawTexture(xpdraw::texture* texture, int left, int bottom, int width = 0, int height = 0, xpdraw::color color = XPD_COLOR_WHITE, bool flipped = false);
 
     /**
      * @brief Draw a rotated texture

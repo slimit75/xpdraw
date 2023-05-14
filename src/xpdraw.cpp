@@ -86,7 +86,7 @@ namespace xpdraw {
         glEnd();
     }
 
-    void drawTexture(xpdraw::texture* texture, int left, int bottom, int width, int height, xpdraw::color color) {
+    void drawTexture(xpdraw::texture* texture, int left, int bottom, int width, int height, xpdraw::color color, bool flipped) {
         glColor4f(color.red, color.green, color.blue, color.alpha);
 
         if (width == 0) {
@@ -104,13 +104,13 @@ namespace xpdraw {
         glBindTexture(GL_TEXTURE_2D, texture->gl_texture);
         glEnable(GL_TEXTURE_2D);
         glBegin(GL_QUADS);
-        glTexCoord2i(0, 1);
+        glTexCoord2i(0, 1 - flipped);
         glVertex2i(x1, y1);
-        glTexCoord2i(0, 0);
+        glTexCoord2i(0, 0 + flipped);
         glVertex2i(x1, y2);
-        glTexCoord2i(1, 0);
+        glTexCoord2i(1, 0 + flipped);
         glVertex2i(x2, y2);
-        glTexCoord2i(1, 1);
+        glTexCoord2i(1, 1 - flipped);
         glVertex2i(x2, y1);
         glEnd();
         glDisable(GL_TEXTURE_2D);
