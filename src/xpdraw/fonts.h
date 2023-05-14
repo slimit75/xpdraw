@@ -46,7 +46,7 @@ namespace xpdraw::fonts {
      * @param font Pointer to the font we are loading
      * @param filename File path to load from
      */
-    void loadFont(face* font, std::string filename);
+    void loadFont(face* font, const char* filename);
 
     /**
      * @brief Returns the length of a string.
