@@ -77,7 +77,7 @@ elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
     target_link_libraries(xpdraw
         ${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Mac/XPLM.framework
         ${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Mac/XPWidgets.framework
-        -framework CoreFoundation
+        "-framework CoreFoundation"
     )
 
     # Output Directory
