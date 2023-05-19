@@ -78,6 +78,7 @@ elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
         ${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Mac/XPLM.framework
         ${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Mac/XPWidgets.framework
         "-framework CoreFoundation"
+        "-framework OpenGL"
     )
 
     # Output Directory
