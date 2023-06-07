@@ -58,6 +58,7 @@ if (CMAKE_SYSTEM_NAME MATCHES "Windows")
     target_link_libraries(xpdraw
         ${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Win/XPLM_64.lib
         ${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Win/XPWidgets_64.lib
+        opengl32
         imagehlp
         Psapi
     )
