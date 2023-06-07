@@ -32,6 +32,8 @@ add_library(xpdraw
     ${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw/fonts.h
 )
 target_link_libraries(xpdraw 
+    ${FREETYPE_LIBRARIES}
+    ${OPENGL_LIBRARIES}
     stdc++
 )
 
@@ -56,9 +58,9 @@ if (CMAKE_SYSTEM_NAME MATCHES "Windows")
     
     # Libraries to link
     target_link_libraries(xpdraw
+        ${LINK_LIBRARIES}
         ${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Win/XPLM_64.lib
         ${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Win/XPWidgets_64.lib
-        opengl32
         imagehlp
         Psapi
     )
@@ -76,10 +78,10 @@ elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
 
     # Libraries to link
     target_link_libraries(xpdraw
+        ${LINK_LIBRARIES}
         ${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Mac/XPLM.framework
         ${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Mac/XPWidgets.framework
         "-framework CoreFoundation"
-        "-framework OpenGL"
     )
 
     # Output Directory
@@ -94,4 +96,5 @@ elseif (CMAKE_SYSTEM_NAME MATCHES "Linux")
     set_target_properties(xpdraw PROPERTIES
         ARCHIVE_OUTPUT_DIRECTORY ./build/lin
     )
+
 endif ()
