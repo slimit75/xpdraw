@@ -147,7 +147,7 @@ namespace xpdraw {
      * @param ry Y anchor to rotate around relative to the texture
      * @param color Color of the texture; defaults to white
      */
-    void drawRotatedTexture(xpdraw::texture* texture, float angle, float left, float bottom, float width, float height, float rx, float ry, xpdraw::color color = XPD_COLOR_WHITE);
+    void drawRotatedTexture(xpdraw::texture* texture, double angle, int left, int bottom, int width, int height, int rx, int ry, xpdraw::color color = XPD_COLOR_WHITE);
     
     /**
      * @brief Load a texture

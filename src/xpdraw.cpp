@@ -117,32 +117,32 @@ namespace xpdraw {
         glBindTexture(GL_TEXTURE_2D, 0);
     }
 
-    void drawRotatedTexture(xpdraw::texture* texture, float angle, float left, float bottom, float width, float height, float rx, float ry, xpdraw::color color) {
+    void drawRotatedTexture(xpdraw::texture* texture, double angle, int left, int bottom, int width, int height, int rx, int ry, xpdraw::color color) {
         glColor4f(color.red, color.green, color.blue, color.alpha);
 
         rx = left + rx;
         ry = bottom + ry;
 
-        const float x1 = left - rx;
-        const float y1 = bottom - ry;
-        const float x2 = x1 + width;
-        const float y2 = y1 + height;
+        const int x1 = left - rx;
+        const int y1 = bottom - ry;
+        const int x2 = x1 + width;
+        const int y2 = y1 + height;
 
         glBindTexture(GL_TEXTURE_2D, texture->gl_texture);
         glEnable(GL_TEXTURE_2D);
 
         glPushMatrix();
-        glTranslatef(rx + anchor_x, ry + anchor_y, 0);
-        glRotatef(360 - angle, 0, 0, 1);
+        glTranslated(rx + anchor_x, ry + anchor_y, 0);
+        glRotated(360 - angle, 0, 0, 1);
         glBegin(GL_QUADS);
-        glTexCoord2f(0, 1);
-        glVertex2f(x1, y1);
-        glTexCoord2f(0, 0);
-        glVertex2f(x1, y2);
-        glTexCoord2f(1, 0);
-        glVertex2f(x2, y2);
-        glTexCoord2f(1, 1);
-        glVertex2f(x2, y1);
+        glTexCoord2i(0, 1);
+        glVertex2i(x1, y1);
+        glTexCoord2i(0, 0);
+        glVertex2i(x1, y2);
+        glTexCoord2i(1, 0);
+        glVertex2i(x2, y2);
+        glTexCoord2i(1, 1);
+        glVertex2i(x2, y1);
         glEnd();
         glPopMatrix();
 
