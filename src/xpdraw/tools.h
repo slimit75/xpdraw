@@ -31,10 +31,10 @@ namespace xpdraw::tools {
      * @param str2 
      * @return char* 
      */
-    static char* constr(const char* str1, const char* str2) {
+    static char* constr(const char *str1, const char *str2) {
         char str3[256];
         strcpy(str3, str1);
-        return strcat(str3, str2);
+        return strncat(str3, str2, sizeof(str3) - strlen(str3) - 1);
     }
 
     /**
