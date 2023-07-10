@@ -19,7 +19,6 @@ add_definitions(
 
 # Include dependencies
 find_package(Freetype REQUIRED)
-find_package(OpenGL REQUIRED)
 include_directories(${FREETYPE_INCLUDE_DIRS})
 add_library(xpdraw
         ${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw.cpp
@@ -32,7 +31,6 @@ add_library(xpdraw
         ${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw/fonts.h
 )
 target_link_libraries(xpdraw
-    ${OPENGL_LIBRARIES}
     stdc++
 )
 
