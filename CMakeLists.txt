@@ -78,6 +78,7 @@ elseif (APPLE)
         ${LINK_LIBRARIES}
         ${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Mac/XPLM.framework
         ${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/Libraries/Mac/XPWidgets.framework
+        "-framework OpenGL"
         "-framework CoreFoundation"
     )
 
