@@ -30,11 +30,15 @@ namespace xpdraw::tools {
     }
 
     int getXPlaneVersion() {
+#ifdef IBM
+        return 11;
+#else
         if (xpVersion == -1) {
             XPLMGetVersions(&xpVersion, nullptr, nullptr);
             xpVersion = xpVersion / 1000;
         }
         return xpVersion;
+#endif
     }
 }
 #pragma clang diagnostic pop
