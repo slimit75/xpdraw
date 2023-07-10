@@ -21,18 +21,17 @@ add_definitions(
 find_package(Freetype REQUIRED)
 find_package(OpenGL REQUIRED)
 include_directories(${FREETYPE_INCLUDE_DIRS})
-add_library(xpdraw 
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw/xpdraw.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/windows.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw/windows.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/tools.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw/tools.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/fonts.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw/fonts.h
+add_library(xpdraw
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw/xpdraw.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/windows.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw/windows.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/tools.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw/tools.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/fonts.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw/fonts.h
 )
-target_link_libraries(xpdraw 
-    ${FREETYPE_LIBRARIES}
+target_link_libraries(xpdraw
     ${OPENGL_LIBRARIES}
     stdc++
 )
@@ -49,7 +48,7 @@ target_include_directories(xpdraw
 )
 
 # OS-specific options
-if (CMAKE_SYSTEM_NAME MATCHES "Windows")
+if (WIN32)
     # Compiler Definitions
     add_definitions(
         -DIBM
@@ -69,11 +68,11 @@ if (CMAKE_SYSTEM_NAME MATCHES "Windows")
     set_target_properties(xpdraw PROPERTIES
         ARCHIVE_OUTPUT_DIRECTORY ./build/win
     )
-elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
+elseif (APPLE)
     # Compiler Definitions
     add_definitions(
-        -DAPL
-        -DGL_SILENCE_DEPRECATION
+            -DAPL
+            -DGL_SILENCE_DEPRECATION
     )
 
     # Libraries to link
@@ -88,13 +87,12 @@ elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
     set_target_properties(xpdraw PROPERTIES
         ARCHIVE_OUTPUT_DIRECTORY ./build/mac
     )
-elseif (CMAKE_SYSTEM_NAME MATCHES "Linux")
+else ()
     # Compiler Definitions
     add_definitions(-DLIN)
 
     # Output Directory
     set_target_properties(xpdraw PROPERTIES
-        ARCHIVE_OUTPUT_DIRECTORY ./build/lin
+            ARCHIVE_OUTPUT_DIRECTORY ./build/lin
     )
-
 endif ()
