@@ -21,9 +21,9 @@ add_definitions(
 find_package(Freetype REQUIRED)
 include_directories(${FREETYPE_INCLUDE_DIRS})
 add_library(xpdraw
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw.c
         ${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw/xpdraw.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/windows.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/windows.c
         ${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw/windows.h
         ${CMAKE_CURRENT_SOURCE_DIR}/src/tools.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw/tools.h

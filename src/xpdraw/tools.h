@@ -14,8 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 #ifndef XPDRAW_TOOLS_H
 #define XPDRAW_TOOLS_H
 
@@ -24,40 +22,39 @@
 #include "xpdraw.h"
 
 namespace xpdraw::tools {
-    /**
-     * @brief Concentrate two C strings into one
-     * 
-     * @param str1 
-     * @param str2 
-     * @return char* 
-     */
-    static char* constr(const char *str1, const char *str2) {
-        char str3[256];
-        strcpy(str3, str1);
-        return strncat(str3, str2, sizeof(str3) - strlen(str3) - 1);
-    }
+	/**
+	 * @brief Concentrate two C strings into one
+	 *
+	 * @param str1
+	 * @param str2
+	 * @return char*
+	 */
+	static char* constr(const char *str1, const char *str2) {
+		char str3[256];
+		strcpy(str3, str1);
+		return strncat(str3, str2, sizeof(str3) - strlen(str3) - 1);
+	}
 
-    /**
-     * @brief Returns the plugin's current path. Forces XPLM_USE_NATIVE_PATHS to true!
-     * 
-     * @return std::string 
-     */
-    std::string findPluginPath();
+	/**
+	 * @brief Returns the plugin's current path. Forces XPLM_USE_NATIVE_PATHS to true!
+	 *
+	 * @return std::string
+	 */
+	std::string findPluginPath();
 
-    /**
-     * @brief Returns the X-Plane instance's path. Forces XPLM_USE_NATIVE_PATHS to true!
-     * 
-     * @return std::string 
-     */
-    std::string findXPlanePath();
+	/**
+	 * @brief Returns the X-Plane instance's path. Forces XPLM_USE_NATIVE_PATHS to true!
+	 *
+	 * @return std::string
+	 */
+	std::string findXPlanePath();
 
-    /**
-     * @brief Returns what major X-Plane version is running
-     * 
-     * @return int
-     */
-    int getXPlaneVersion();
+	/**
+	 * @brief Returns what major X-Plane version is running
+	 *
+	 * @return int
+	 */
+	int getXPlaneVersion();
 }
 
 #endif
-#pragma clang diagnostic pop
