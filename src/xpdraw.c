@@ -1,6 +1,5 @@
-#include "xpdraw/xpdraw.h"
-
 #define STB_IMAGE_IMPLEMENTATION
+#include "xpdraw/xpdraw.h"
 #include <stb_image.h>
 
 int anchor_x = 0;
@@ -156,7 +155,7 @@ void xpd_load_texture(xpd_texture_t* texture, const char* filename) {
 	unsigned char* texDat = stbi_load(filename, &width, &height, &nrChannels, 4);
 
 	// Load the buffer into an xpd texture
-	if (texDat != nullptr) {
+	if (texDat != NULL) {
 		xpd_load_buffer(texture, texDat, width, height, GL_RGBA);
 		stbi_image_free(texDat);
 	}
