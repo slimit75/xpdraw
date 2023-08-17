@@ -21,40 +21,38 @@
 #include <cstring>
 #include "xpdraw.h"
 
-namespace xpdraw::tools {
-	/**
-	 * @brief Concentrate two C strings into one
-	 *
-	 * @param str1
-	 * @param str2
-	 * @return char*
-	 */
-	static char* constr(const char *str1, const char *str2) {
-		char str3[256];
-		strcpy(str3, str1);
-		return strncat(str3, str2, sizeof(str3) - strlen(str3) - 1);
-	}
-
-	/**
-	 * @brief Returns the plugin's current path. Forces XPLM_USE_NATIVE_PATHS to true!
-	 *
-	 * @return std::string
-	 */
-	std::string findPluginPath();
-
-	/**
-	 * @brief Returns the X-Plane instance's path. Forces XPLM_USE_NATIVE_PATHS to true!
-	 *
-	 * @return std::string
-	 */
-	std::string findXPlanePath();
-
-	/**
-	 * @brief Returns what major X-Plane version is running
-	 *
-	 * @return int
-	 */
-	int getXPlaneVersion();
+/**
+ * @brief Concentrate two C strings into one
+ *
+ * @param str1
+ * @param str2
+ * @return char*
+ */
+inline char* xpd_tools_constr(const char *str1, const char *str2) {
+	char str3[256];
+	strcpy(str3, str1);
+	return strncat(str3, str2, sizeof(str3) - strlen(str3) - 1);
 }
+
+/**
+ * @brief Returns the plugin's current path. Forces XPLM_USE_NATIVE_PATHS to true!
+ *
+ * @return std::string
+ */
+std::string xpd_tools_plugin_fp();
+
+/**
+ * @brief Returns the X-Plane instance's path. Forces XPLM_USE_NATIVE_PATHS to true!
+ *
+ * @return std::string
+ */
+std::string xpd_tools_xp_fp();
+
+/**
+ * @brief Returns what major X-Plane version is running
+ *
+ * @return int
+ */
+int xpd_tools_xp_ver();
 
 #endif

@@ -18,23 +18,20 @@
 #define XPDRAW_WINDOWS_H
 
 #include <XPLMDisplay.h>
-#include <string>
 
-namespace xpdraw::windows {
-	struct window {
-		XPLMCreateWindow_t params;
-		XPLMWindowID windowID;
-		int texNum;
-		unsigned char* buffer;
-		int width;
-		int height;
-	};
+typedef struct xpd_win {
+	XPLMCreateWindow_t params;
+	XPLMWindowID windowID;
+	int texNum;
+	unsigned char* buffer;
+	int width;
+	int height;
+} xpd_win_t;
 
-	// TODO: Documentation
-	void newWindow(window* inWindow, int width, int height);
-	void setCallbacks(window* inWindow, XPLMHandleMouseClick_f mouseHandler, XPLMDrawWindow_f drawHandler, XPLMHandleMouseWheel_f mouseWheelHandler, XPLMHandleKey_f keyHandler, XPLMHandleCursor_f cursorHandler);
-	void createWindow(window* inWindow, const char* title, int winLeft = 50, int winDown = 150);
-	void setResizeLimits(window* inWindow, int minWidth, int minHeight, int maxWidth, int maxHeight);
-}
+// TODO: Documentation
+void xpd_win_new(xpd_win_t* inWindow, int width, int height);
+void xpd_win_set_cb(xpd_win_t* inWindow, XPLMHandleMouseClick_f mouseHandler, XPLMDrawWindow_f drawHandler, XPLMHandleMouseWheel_f mouseWheelHandler, XPLMHandleKey_f keyHandler, XPLMHandleCursor_f cursorHandler);
+void xpd_win_create(xpd_win_t* inWindow, const char* title, int winLeft = 50, int winDown = 150);
+void xpd_win_resize_lims(xpd_win_t* inWindow, int minWidth, int minHeight, int maxWidth, int maxHeight);
 
 #endif
