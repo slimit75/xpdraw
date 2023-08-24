@@ -34,6 +34,10 @@
 #define XPD_RGB(r, g, b) { r/255.0f, g/255.0f, b/255.0f, 1 }
 #define XPD_RGBA(r, g, b, a) { r/255.0f, g/255.0f, b/255.0f, a }
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct xpd_texture {
 	GLuint gl_texture;
 	int width;
@@ -178,5 +182,9 @@ void xpd_draw_rotated_texture(xpd_texture_t* texture, double angle, int left, in
  * @param filename File path to load
  */
 void xpd_load_texture(xpd_texture_t* texture, const char* filename);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
