@@ -26,6 +26,11 @@ typedef struct xpd_win {
 	unsigned char* buffer;
 	int width;
 	int height;
+	XPLMDrawWindow_f drawFunc;
+	XPLMHandleMouseClick_f mouseFunc;
+	XPLMHandleMouseWheel_f wheelFunc;
+	XPLMHandleKey_f keyFunc;
+	XPLMHandleCursor_f cursorFunc;
 } xpd_win_t;
 
 // TODO: Documentation
