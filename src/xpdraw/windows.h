@@ -33,10 +33,46 @@ typedef struct xpd_win {
 	XPLMHandleCursor_f cursorFunc;
 } xpd_win_t;
 
-// TODO: Documentation
+/**
+ * @brief Create a new window
+ *
+ * @param inWindow Window to create
+ * @param width Width of the window's framebuffer
+ * @param height Height of the window's framebuffer
+ */
 void xpd_win_new(xpd_win_t* inWindow, int width, int height);
+
+/**
+ * @brief Define callbacks for a window
+ *
+ * @param inWindow Window to update
+ * @param mouseHandler Mouse click handler
+ * @param drawHandler Render function
+ * @param mouseWheelHandler Mouse wheel handler
+ * @param keyHandler Keyboard handler
+ * @param cursorHandler Cursor handler (render your own cursor?)
+ */
 void xpd_win_set_cb(xpd_win_t* inWindow, XPLMHandleMouseClick_f mouseHandler, XPLMDrawWindow_f drawHandler, XPLMHandleMouseWheel_f mouseWheelHandler, XPLMHandleKey_f keyHandler, XPLMHandleCursor_f cursorHandler);
+
+/**
+ * @brief Display a window created with xpd_win_new
+ *
+ * @param inWindow Window to start rendering
+ * @param title Title of the window
+ * @param winLeft Position of the left edge of the window
+ * @param winDown Position of the bottom edge of the window
+ */
 void xpd_win_create(xpd_win_t* inWindow, const char* title, int winLeft = 50, int winDown = 150);
+
+/**
+ * @brief Set the minimum & maximum sizes of a window
+ *
+ * @param inWindow Window to update
+ * @param minWidth New minimum width of the window
+ * @param minHeight New minimum height of the window
+ * @param maxWidth New maximum width of the window
+ * @param maxHeight New maximum height of the window
+ */
 void xpd_win_resize_lims(xpd_win_t* inWindow, int minWidth, int minHeight, int maxWidth, int maxHeight);
 
 #endif
