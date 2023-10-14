@@ -27,11 +27,18 @@ typedef struct xpd_win {
 	int width;
 	int height;
 	XPLMDrawWindow_f drawFunc;
-	XPLMHandleMouseClick_f mouseFunc;
+	XPLMHandleMouseClick_f clickFunc;
 	XPLMHandleMouseWheel_f wheelFunc;
 	XPLMHandleKey_f keyFunc;
 	XPLMHandleCursor_f cursorFunc;
 } xpd_win_t;
+
+// Dummy callbacks adapted from https://developer.x-plane.com/code-sample/hello-world-sdk-3/
+void base_draw(XPLMWindowID in_window_id, void * in_refcon);
+int base_mouse(XPLMWindowID in_window_id, int x, int y, int is_down, void * in_refcon);
+XPLMCursorStatus base_cursor(XPLMWindowID in_window_id, int x, int y, void * in_refcon);
+int base_wheel(XPLMWindowID in_window_id, int x, int y, int wheel, int clicks, void * in_refcon);
+void base_key(XPLMWindowID in_window_id, char key, XPLMKeyFlags flags, char virtual_key, void * in_refcon, int losing_focus);
 
 /**
  * @brief Create a new window
@@ -43,16 +50,44 @@ typedef struct xpd_win {
 void xpd_win_new(xpd_win_t* inWindow, int width, int height);
 
 /**
- * @brief Define callbacks for a window
+ * @brief Register a callback to render the window
  *
  * @param inWindow Window to update
- * @param mouseHandler Mouse click handler
- * @param drawHandler Render function
- * @param mouseWheelHandler Mouse wheel handler
- * @param keyHandler Keyboard handler
- * @param cursorHandler Cursor handler (render your own cursor?)
+ * @param new_cb New callback
  */
-void xpd_win_set_cb(xpd_win_t* inWindow, XPLMHandleMouseClick_f mouseHandler, XPLMDrawWindow_f drawHandler, XPLMHandleMouseWheel_f mouseWheelHandler, XPLMHandleKey_f keyHandler, XPLMHandleCursor_f cursorHandler);
+void xpd_win_set_draw_cb(xpd_win_t* inWindow, XPLMDrawWindow_f new_cb);
+
+/**
+ * @brief Register a callback to handle clicks in the window
+ *
+ * @param inWindow Window to update
+ * @param new_cb New callback
+ */
+void xpd_win_set_click_cb(xpd_win_t* inWindow, XPLMHandleMouseClick_f new_cb);
+
+/**
+ * @brief Register a callback to handle the cursor style (how it looks on the screen)
+ *
+ * @param inWindow Window to update
+ * @param new_cb New callback
+ */
+void xpd_win_set_cursor_cb(xpd_win_t* inWindow, XPLMHandleCursor_f new_cb);
+
+/**
+ * @brief Register a callback to handle scrolling in a window
+ *
+ * @param inWindow Window to update
+ * @param new_cb New callback
+ */
+void xpd_win_set_wheel_cb(xpd_win_t* inWindow, XPLMHandleMouseWheel_f new_cb);
+
+/**
+ * @brief Register a callback to handle keyboard presses in a window
+ *
+ * @param inWindow
+ * @param new_cb
+ */
+void xpd_win_set_key_cb(xpd_win_t* inWindow, XPLMHandleKey_f new_cb);
 
 /**
  * @brief Display a window created with xpd_win_new
