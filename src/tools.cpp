@@ -3,24 +3,28 @@
 #include <XPLMPlugin.h>
 
 int xpVersion = -1;
+char xpPath[512];
+char pluginPath[512];
 
-std::string xpd_tools_plugin_fp() {
+char *xpd_tools_plugin_fp() {
 	XPLMEnableFeature("XPLM_USE_NATIVE_PATHS", 1);
 
-	char pluginPathChar[256];
-	XPLMGetPluginInfo(XPLMGetMyID(), nullptr, pluginPathChar, nullptr, nullptr);
-	std::string pluginPath = pluginPathChar;
-	pluginPath.erase(pluginPath.end() - 10, pluginPath.end());
+	if (strlen(pluginPath) == 0) {
+		XPLMGetPluginInfo(XPLMGetMyID(), nullptr, pluginPath, nullptr, nullptr);
+		std::string pluginPathTemp = pluginPath;
+		pluginPathTemp.erase(pluginPathTemp.end() - 10, pluginPathTemp.end());
+		strcpy(pluginPath, pluginPathTemp.c_str());
+	}
 
 	return pluginPath;
 }
 
-std::string xpd_tools_xp_fp() {
+char *xpd_tools_xp_fp() {
 	XPLMEnableFeature("XPLM_USE_NATIVE_PATHS", 1);
 
-	char xplanePath[512];
-	XPLMGetSystemPath(xplanePath);
-	std::string xpPath = xplanePath;
+	if (strlen(xpPath) == 0) {
+		XPLMGetSystemPath(xpPath);
+	}
 
 	return xpPath;
 }

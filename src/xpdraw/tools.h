@@ -19,7 +19,6 @@
 
 #include <string>
 #include <cstring>
-#include "xpdraw.h"
 
 /**
  * @brief Concentrate two C strings into one
@@ -28,7 +27,7 @@
  * @param str2
  * @return char*
  */
-inline char* xpd_tools_constr(const char *str1, const char *str2) {
+inline char *xpd_tools_constr(const char *str1, const char *str2) {
 	char str3[256];
 	strcpy(str3, str1);
 	return strncat(str3, str2, sizeof(str3) - strlen(str3) - 1);
@@ -39,14 +38,14 @@ inline char* xpd_tools_constr(const char *str1, const char *str2) {
  *
  * @return std::string
  */
-std::string xpd_tools_plugin_fp();
+char *xpd_tools_plugin_fp();
 
 /**
  * @brief Returns the X-Plane instance's path. Forces XPLM_USE_NATIVE_PATHS to true!
  *
- * @return std::string
+ * @return char*
  */
-std::string xpd_tools_xp_fp();
+char *xpd_tools_xp_fp();
 
 /**
  * @brief Returns what major X-Plane version is running
