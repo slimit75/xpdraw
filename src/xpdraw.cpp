@@ -5,7 +5,7 @@
 int anchor_x = 0;
 int anchor_y = 0;
 
-void xpd_load_buffer(xpd_texture_t* texture, void* buffer, int width, int height, GLint format) {
+void xpd_load_buffer(xpd_texture_t *texture, void *buffer, int width, int height, GLint format) {
 	texture->width = width;
 	texture->height = height;
 
@@ -47,7 +47,8 @@ void xpd_draw_rect(int left, int bottom, int width, int height, xpd_color_t colo
 	glEnd();
 }
 
-void xpd_draw_rect2(int left, int bottom, int width, int height, xpd_color_t color, int borderSize, xpd_color_t borderColor) {
+void xpd_draw_rect2(int left, int bottom, int width, int height, xpd_color_t color, int borderSize,
+                    xpd_color_t borderColor) {
 	xpd_draw_rect(left, bottom, width, height, color);
 	xpd_draw_rect(left, bottom, borderSize, height, borderColor);
 	xpd_draw_rect(left + width - borderSize, bottom, borderSize, height, borderColor);
@@ -81,7 +82,8 @@ void xpd_draw_line(int start_x, int start_y, int end_x, int end_y, xpd_color_t c
 	glEnd();
 }
 
-void xpd_draw_texture2(xpd_texture_t* texture, int left, int bottom, int width, int height, xpd_color_t color, bool flipped) {
+void xpd_draw_texture2(xpd_texture_t *texture, int left, int bottom, int width, int height, xpd_color_t color,
+                       bool flipped) {
 	glColor4f(color.red, color.green, color.blue, color.alpha);
 
 	if (width == 0) {
@@ -112,11 +114,12 @@ void xpd_draw_texture2(xpd_texture_t* texture, int left, int bottom, int width, 
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void xpd_draw_texture(xpd_texture_t* texture, int left, int bottom, int width, int height, xpd_color_t color) {
+void xpd_draw_texture(xpd_texture_t *texture, int left, int bottom, int width, int height, xpd_color_t color) {
 	xpd_draw_texture2(texture, left, bottom, width, height, color, false);
 }
 
-void xpd_draw_rotated_texture(xpd_texture_t* texture, double angle, int left, int bottom, int width, int height, int rx, int ry, xpd_color_t color) {
+void xpd_draw_rotated_texture(xpd_texture_t *texture, double angle, int left, int bottom, int width, int height, int rx,
+                              int ry, xpd_color_t color) {
 	glColor4f(color.red, color.green, color.blue, color.alpha);
 
 	rx = left + rx;
@@ -149,10 +152,10 @@ void xpd_draw_rotated_texture(xpd_texture_t* texture, double angle, int left, in
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void xpd_load_texture(xpd_texture_t* texture, const char* filename) {
+void xpd_load_texture(xpd_texture_t *texture, const char *filename) {
 	// Get a buffer from the passed file
 	int width, height, nrChannels; // Do we need to store nrChannels?
-	unsigned char* texDat = stbi_load(filename, &width, &height, &nrChannels, 4);
+	unsigned char *texDat = stbi_load(filename, &width, &height, &nrChannels, 4);
 
 	// Load the buffer into an xpd texture
 	if (texDat != NULL) {
@@ -160,6 +163,6 @@ void xpd_load_texture(xpd_texture_t* texture, const char* filename) {
 		stbi_image_free(texDat);
 	}
 	else {
-        // TODO: Alert about this error without crashing the entire sim
+		// TODO: Alert about this error without crashing the entire sim
 	}
 }

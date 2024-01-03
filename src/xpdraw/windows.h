@@ -23,7 +23,7 @@ typedef struct xpd_win {
 	XPLMCreateWindow_t params;
 	XPLMWindowID windowID;
 	int texNum;
-	unsigned char* buffer;
+	unsigned char *buffer;
 	int width;
 	int height;
 	XPLMDrawWindow_f drawFunc;
@@ -34,11 +34,12 @@ typedef struct xpd_win {
 } xpd_win_t;
 
 // Dummy callbacks adapted from https://developer.x-plane.com/code-sample/hello-world-sdk-3/
-void base_draw(XPLMWindowID in_window_id, void * in_refcon);
-int base_mouse(XPLMWindowID in_window_id, int x, int y, int is_down, void * in_refcon);
-XPLMCursorStatus base_cursor(XPLMWindowID in_window_id, int x, int y, void * in_refcon);
-int base_wheel(XPLMWindowID in_window_id, int x, int y, int wheel, int clicks, void * in_refcon);
-void base_key(XPLMWindowID in_window_id, char key, XPLMKeyFlags flags, char virtual_key, void * in_refcon, int losing_focus);
+void base_draw(XPLMWindowID in_window_id, void *in_refcon);
+int base_mouse(XPLMWindowID in_window_id, int x, int y, int is_down, void *in_refcon);
+XPLMCursorStatus base_cursor(XPLMWindowID in_window_id, int x, int y, void *in_refcon);
+int base_wheel(XPLMWindowID in_window_id, int x, int y, int wheel, int clicks, void *in_refcon);
+void base_key(XPLMWindowID in_window_id, char key, XPLMKeyFlags flags, char virtual_key, void *in_refcon,
+              int losing_focus);
 
 /**
  * @brief Create a new window
@@ -47,7 +48,7 @@ void base_key(XPLMWindowID in_window_id, char key, XPLMKeyFlags flags, char virt
  * @param width Width of the window's framebuffer
  * @param height Height of the window's framebuffer
  */
-void xpd_win_new(xpd_win_t* inWindow, int width, int height);
+void xpd_win_new(xpd_win_t *inWindow, int width, int height);
 
 /**
  * @brief Register a callback to render the window
@@ -55,7 +56,7 @@ void xpd_win_new(xpd_win_t* inWindow, int width, int height);
  * @param inWindow Window to update
  * @param new_cb New callback
  */
-void xpd_win_set_draw_cb(xpd_win_t* inWindow, XPLMDrawWindow_f new_cb);
+void xpd_win_set_draw_cb(xpd_win_t *inWindow, XPLMDrawWindow_f new_cb);
 
 /**
  * @brief Register a callback to handle clicks in the window
@@ -63,7 +64,7 @@ void xpd_win_set_draw_cb(xpd_win_t* inWindow, XPLMDrawWindow_f new_cb);
  * @param inWindow Window to update
  * @param new_cb New callback
  */
-void xpd_win_set_click_cb(xpd_win_t* inWindow, XPLMHandleMouseClick_f new_cb);
+void xpd_win_set_click_cb(xpd_win_t *inWindow, XPLMHandleMouseClick_f new_cb);
 
 /**
  * @brief Register a callback to handle the cursor style (how it looks on the screen)
@@ -71,7 +72,7 @@ void xpd_win_set_click_cb(xpd_win_t* inWindow, XPLMHandleMouseClick_f new_cb);
  * @param inWindow Window to update
  * @param new_cb New callback
  */
-void xpd_win_set_cursor_cb(xpd_win_t* inWindow, XPLMHandleCursor_f new_cb);
+void xpd_win_set_cursor_cb(xpd_win_t *inWindow, XPLMHandleCursor_f new_cb);
 
 /**
  * @brief Register a callback to handle scrolling in a window
@@ -79,7 +80,7 @@ void xpd_win_set_cursor_cb(xpd_win_t* inWindow, XPLMHandleCursor_f new_cb);
  * @param inWindow Window to update
  * @param new_cb New callback
  */
-void xpd_win_set_wheel_cb(xpd_win_t* inWindow, XPLMHandleMouseWheel_f new_cb);
+void xpd_win_set_wheel_cb(xpd_win_t *inWindow, XPLMHandleMouseWheel_f new_cb);
 
 /**
  * @brief Register a callback to handle keyboard presses in a window
@@ -87,7 +88,7 @@ void xpd_win_set_wheel_cb(xpd_win_t* inWindow, XPLMHandleMouseWheel_f new_cb);
  * @param inWindow
  * @param new_cb
  */
-void xpd_win_set_key_cb(xpd_win_t* inWindow, XPLMHandleKey_f new_cb);
+void xpd_win_set_key_cb(xpd_win_t *inWindow, XPLMHandleKey_f new_cb);
 
 /**
  * @brief Display a window created with xpd_win_new
@@ -97,7 +98,7 @@ void xpd_win_set_key_cb(xpd_win_t* inWindow, XPLMHandleKey_f new_cb);
  * @param winLeft Position of the left edge of the window
  * @param winDown Position of the bottom edge of the window
  */
-void xpd_win_create(xpd_win_t* inWindow, const char* title, int winLeft = 50, int winDown = 150);
+void xpd_win_create(xpd_win_t *inWindow, const char *title, int winLeft = 50, int winDown = 150);
 
 /**
  * @brief Set the minimum & maximum sizes of a window
@@ -108,6 +109,6 @@ void xpd_win_create(xpd_win_t* inWindow, const char* title, int winLeft = 50, in
  * @param maxWidth New maximum width of the window
  * @param maxHeight New maximum height of the window
  */
-void xpd_win_resize_lims(xpd_win_t* inWindow, int minWidth, int minHeight, int maxWidth, int maxHeight);
+void xpd_win_resize_lims(xpd_win_t *inWindow, int minWidth, int minHeight, int maxWidth, int maxHeight);
 
 #endif

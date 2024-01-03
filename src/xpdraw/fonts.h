@@ -33,7 +33,7 @@ typedef struct xpd_font_cache {
 
 typedef struct xpd_font_face {
 	FT_Face ftFace;
-	const char* path;
+	const char *path;
 	std::map<int, std::map<char, xpd_font_cache_t>> cache;
 } xpd_font_face_t;
 
@@ -43,7 +43,7 @@ typedef struct xpd_font_face {
  * @param font Pointer to the font we are loading
  * @param filename File path to load from
  */
-void xpd_font_load(xpd_font_face_t * font, const char* filename);
+void xpd_font_load(xpd_font_face_t *font, const char *filename);
 
 /**
  * @brief Returns the length of a string.
@@ -53,7 +53,7 @@ void xpd_font_load(xpd_font_face_t * font, const char* filename);
  * @param size Size of the font to use
  * @return int
  */
-int xpd_text_length(xpd_font_face_t * font, std::string text, int size);
+int xpd_text_length(xpd_font_face_t *font, std::string text, int size);
 
 /**
  * @brief Function to draw text
@@ -66,6 +66,7 @@ int xpd_text_length(xpd_font_face_t * font, std::string text, int size);
  * @param align Alignment of the text relative to x
  * @param color Color of the text; defaults to white
  */
-void xpd_text_draw(xpd_font_face_t * font, std::string text, int x, int y, int size, xpd_text_align_t align, xpd_color_t color = XPD_COLOR_WHITE);
+void xpd_text_draw(xpd_font_face_t *font, std::string text, int x, int y, int size, xpd_text_align_t align,
+                   xpd_color_t color = XPD_COLOR_WHITE);
 
 #endif
