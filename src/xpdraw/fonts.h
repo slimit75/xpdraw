@@ -18,23 +18,32 @@
 #define XPDRAW_FONTS_H
 
 #include "xpdraw.h"
-#include <map>
-#include <string>
+#include <limits.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-enum xpd_text_align_t { xpdAlignLeft, xpdAlignCenter, xpdAlignRight };
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+typedef enum { xpdAlignLeft, xpdAlignCenter, xpdAlignRight } xpd_text_align_t;
 
 typedef struct xpd_font_cache {
-	xpd_texture_t bitmap;
 	FT_Glyph_Metrics metrics;
-	bool loaded = false;
+	xpd_texture_t bitmap;
 } xpd_font_cache_t;
+
+typedef struct xpd_font_letter {
+	int size;
+	char letter;
+	xpd_font_cache_t data;
+} xpd_font_letter_t;
 
 typedef struct xpd_font_face {
 	FT_Face ftFace;
 	const char *path;
-	std::map<int, std::map<char, xpd_font_cache_t>> cache;
+	xpd_font_letter_t letters[CHAR_MAX];
+	int letters_idx;
 } xpd_font_face_t;
 
 /**
@@ -53,7 +62,7 @@ void xpd_font_load(xpd_font_face_t *font, const char *filename);
  * @param size Size of the font to use
  * @return int
  */
-int xpd_text_length(xpd_font_face_t *font, std::string text, int size);
+int xpd_text_length(xpd_font_face_t *font, const char* text, int size);
 
 /**
  * @brief Function to draw text
@@ -66,7 +75,11 @@ int xpd_text_length(xpd_font_face_t *font, std::string text, int size);
  * @param align Alignment of the text relative to x
  * @param color Color of the text; defaults to white
  */
-void xpd_text_draw(xpd_font_face_t *font, std::string text, int x, int y, int size, xpd_text_align_t align,
-                   xpd_color_t color = XPD_COLOR_WHITE);
+void xpd_text_draw(xpd_font_face_t *font, const char* text, int x, int y, int size, xpd_text_align_t align, xpd_color_t color);
+
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

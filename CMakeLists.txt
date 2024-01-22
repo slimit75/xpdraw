@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.24)
 project(xpdraw)
 
 # CMake Settings
-set(CMAKE_CXX_FLAGS "-O3 -fPIC -pedantic")
+set(CMAKE_CXX_FLAGS "-O3 -fPIC -pedantic -static")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64")
 
@@ -22,7 +22,7 @@ add_definitions(
 find_package(Freetype REQUIRED)
 include_directories(${FREETYPE_INCLUDE_DIRS})
 add_library(xpdraw
-		${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw/xpdraw.h
 	${CMAKE_CURRENT_SOURCE_DIR}/src/windows.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw/windows.h
