@@ -19,6 +19,10 @@
 
 #include <XPLMDisplay.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct xpd_win {
 	XPLMCreateWindow_t params;
 	XPLMWindowID windowID;
@@ -110,5 +114,9 @@ void xpd_win_create(xpd_win_t *inWindow, const char *title, int winLeft = 50, in
  * @param maxHeight New maximum height of the window
  */
 void xpd_win_resize_lims(xpd_win_t *inWindow, int minWidth, int minHeight, int maxWidth, int maxHeight);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

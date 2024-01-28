@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.24)
 project(xpdraw)
 
 # CMake Settings
-set(CMAKE_CXX_FLAGS "-O3 -fPIC -pedantic -static")
+set(CMAKE_CXX_FLAGS "-O3 -fPIC -pedantic")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64")
 
@@ -28,7 +28,7 @@ add_library(xpdraw
 	${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw/windows.h
 	${CMAKE_CURRENT_SOURCE_DIR}/src/tools.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw/tools.h
-	${CMAKE_CURRENT_SOURCE_DIR}/src/fonts.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/fonts.c
 	${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw/fonts.h
 )
 target_link_libraries(xpdraw

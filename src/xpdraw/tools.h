@@ -20,6 +20,10 @@
 #include <string>
 #include <cstring>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @brief Concentrate two C strings into one
  *
@@ -53,5 +57,9 @@ char *xpd_tools_xp_fp();
  * @return int
  */
 int xpd_tools_xp_ver();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

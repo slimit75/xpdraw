@@ -77,7 +77,6 @@ int xpd_text_length(xpd_font_face_t *font, const char* text, int size);
  */
 void xpd_text_draw(xpd_font_face_t *font, const char* text, int x, int y, int size, xpd_text_align_t align, xpd_color_t color);
 
-
 #ifdef __cplusplus
 }
 #endif

@@ -17,8 +17,8 @@ void xpd_font_load(xpd_font_face_t *font, const char *filename) {
 void xpd_font_cache(xpd_font_face_t *font, int size, char letter) {
 	bool not_loaded = true;
 
-	for (xpd_font_letter_t i_letter : font->letters) {
-		if ((i_letter.size == size) && (i_letter.letter == letter)) {
+	for (int i = 0; i < CHAR_MAX; i++) {
+		if (font->letters[i].size == size && font->letters[i].letter == letter) {
 			not_loaded = false;
 			break;
 		}
@@ -29,13 +29,9 @@ void xpd_font_cache(xpd_font_face_t *font, int size, char letter) {
 		FT_Load_Char(font->ftFace, letter, FT_LOAD_RENDER);
 
 		font->letters_idx++;
-		font->letters[font->letters_idx] = {
-			size,
-			letter,
-			{
-				font->ftFace->glyph->metrics,
-			}
-		};
+		font->letters[font->letters_idx].size = size;
+		font->letters[font->letters_idx].letter = letter;
+		font->letters[font->letters_idx].data.metrics = font->ftFace->glyph->metrics;
 
 		xpd_load_buffer(&font->letters[font->letters_idx].data.bitmap, font->ftFace->glyph->bitmap.buffer, font->ftFace->glyph->bitmap.width, font->ftFace->glyph->bitmap.rows, GL_ALPHA);
 	}
@@ -44,9 +40,9 @@ void xpd_font_cache(xpd_font_face_t *font, int size, char letter) {
 FT_Glyph_Metrics xpd_font_get_metrics(xpd_font_face_t *font, int size, char letter) {
 	xpd_font_cache(font, size, letter); // Automatically cache char if it isn't already cached
 
-	for (xpd_font_letter i_letter : font->letters) {
-		if ((i_letter.size == size) && (i_letter.letter == letter)) {
-			return i_letter.data.metrics;
+	for (int i = 0; i < CHAR_MAX; i++) {
+		if (font->letters[i].size == size && font->letters[i].letter == letter) {
+			return font->letters[i].data.metrics;
 		}
 	}
 
@@ -56,9 +52,9 @@ FT_Glyph_Metrics xpd_font_get_metrics(xpd_font_face_t *font, int size, char lett
 xpd_texture_t xpd_font_get_texture(xpd_font_face_t *font, int size, char letter) {
 	xpd_font_cache(font, size, letter); // Automatically cache char if it isn't already cached
 
-	for (xpd_font_letter i_letter : font->letters) {
-		if ((i_letter.size == size) && (i_letter.letter == letter)) {
-			return i_letter.data.bitmap;
+	for (int i = 0; i < CHAR_MAX; i++) {
+		if (font->letters[i].size == size && font->letters[i].letter == letter) {
+			return font->letters[i].data.bitmap;
 		}
 	}
 

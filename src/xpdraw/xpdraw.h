@@ -34,6 +34,10 @@
 #define XPD_RGB(r, g, b) { r/255.0f, g/255.0f, b/255.0f, 1 }
 #define XPD_RGBA(r, g, b, a) { r/255.0f, g/255.0f, b/255.0f, a }
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct xpd_texture {
 	GLuint gl_texture;
 	int width;
@@ -102,7 +106,7 @@ void xpd_draw_rect(int left, int bottom, int width, int height, xpd_color_t colo
  * @param borderColor Color of the rectangle border (if shown)
  */
 void xpd_draw_rect2(int left, int bottom, int width, int height, xpd_color_t color, int borderSize,
-                    xpd_color_t borderColor);
+					xpd_color_t borderColor);
 
 /**
  * @brief Draw a quad with the specified points
@@ -143,7 +147,7 @@ void xpd_draw_line(int start_x, int start_y, int end_x, int end_y, xpd_color_t c
  * @param flipped Flips the texture vertically, if true
  */
 void xpd_draw_texture2(xpd_texture_t *texture, int left, int bottom, int width, int height, xpd_color_t color,
-                       bool flipped);
+					   bool flipped);
 
 
 /**
@@ -172,7 +176,7 @@ void xpd_draw_texture(xpd_texture_t *texture, int left, int bottom, int width, i
  * @param color Color of the texture
  */
 void xpd_draw_rotated_texture(xpd_texture_t *texture, double angle, int left, int bottom, int width, int height, int rx,
-                              int ry, xpd_color_t color);
+							  int ry, xpd_color_t color);
 
 /**
  * @brief Load a texture
@@ -181,5 +185,9 @@ void xpd_draw_rotated_texture(xpd_texture_t *texture, double angle, int left, in
  * @param filename File path to load
  */
 void xpd_load_texture(xpd_texture_t *texture, const char *filename);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
