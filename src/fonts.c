@@ -4,14 +4,13 @@
 bool fontsInit = false;
 FT_Library ft;
 
-void xpd_font_load(xpd_font_face_t *font, const char *filename) {
+void xpd_font_load(xpd_font_face_t *font, const char *path) {
 	if (!fontsInit) {
 		FT_Init_FreeType(&ft);
 		fontsInit = true;
 	}
 
-	FT_New_Face(ft, filename, 0, &font->ftFace);
-	font->path = filename;
+	FT_New_Face(ft, path, 0, &font->ftFace);
 }
 
 void xpd_font_cache(xpd_font_face_t *font, int size, char letter) {

@@ -18,7 +18,6 @@
 #define XPDRAW_FONTS_H
 
 #include "xpdraw.h"
-#include <limits.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
@@ -26,7 +25,11 @@
 extern "C" {
 #endif
 
-typedef enum { xpdAlignLeft, xpdAlignCenter, xpdAlignRight } xpd_text_align_t;
+typedef enum {
+	xpdAlignLeft,
+	xpdAlignCenter,
+	xpdAlignRight
+} xpd_text_align_t;
 
 typedef struct xpd_font_cache {
 	FT_Glyph_Metrics metrics;
@@ -41,7 +44,6 @@ typedef struct xpd_font_letter {
 
 typedef struct xpd_font_face {
 	FT_Face ftFace;
-	const char *path;
 	xpd_font_letter_t letters[CHAR_MAX];
 	int letters_idx;
 } xpd_font_face_t;
@@ -50,9 +52,9 @@ typedef struct xpd_font_face {
  * @brief Load a new font
  *
  * @param font Pointer to the font we are loading
- * @param filename File path to load from
+ * @param path File path to load from
  */
-void xpd_font_load(xpd_font_face_t *font, const char *filename);
+void xpd_font_load(xpd_font_face_t *font, const char *path);
 
 /**
  * @brief Returns the length of a string.
