@@ -28,12 +28,7 @@ jobs:
       if: runner.os == 'Windows'
       run: vcpkg install freetype
 
-    - name: Configure CMake (Windows)
-      if: runner.os == 'Windows'
-      run: cmake . -G "MinGW Makefiles"
-
-    - name: Configure CMake (*nix)
-      if: runner.os != 'Windows'
+    - name: Configure CMake
       run: cmake . 
 
     - name: Build
