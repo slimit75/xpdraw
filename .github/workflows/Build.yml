@@ -24,6 +24,10 @@ jobs:
       if: runner.os == 'Linux'
       run: sudo apt-get install libglfw3-dev libgl1-mesa-dev libglu1-mesa-dev -y
 
+    - name: Install Windows dependencies
+      if: runner.os == 'Windows'
+      run: vcpkg install freetype
+
     - name: Configure CMake (Windows)
       if: runner.os == 'Windows'
       run: cmake . -G "MinGW Makefiles"
