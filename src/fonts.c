@@ -23,8 +23,8 @@ void xpd_font_cache(xpd_font_face_t *font, int size, char letter) {
 		}
 	}
 
-	if (not_loaded) {
-		FT_Set_Pixel_Sizes(font->ftFace, 0, size * 1.5);
+	if (not_loaded == true) {
+		FT_Set_Pixel_Sizes(font->ftFace, 0, (int)(size * 1.5));
 		FT_Load_Char(font->ftFace, letter, FT_LOAD_RENDER);
 
 		font->letters_idx++;
@@ -66,10 +66,10 @@ int xpd_text_length(xpd_font_face_t *font, const char *text, const int size) {
 	// Calculate the length of the string before drawing it
 	for (int i = 0; i < strlen(text); i++) {
 		if (i == strlen(text) - 1) {
-			width += (xpd_font_get_metrics(font, size, text[i]).width + xpd_font_get_metrics(font, size, text[i]).horiBearingX) / 64;
+			width += (int)((xpd_font_get_metrics(font, size, text[i]).width + xpd_font_get_metrics(font, size, text[i]).horiBearingX) / 64);
 		}
 		else {
-			width += xpd_font_get_metrics(font, size, text[i]).horiAdvance / 64;
+			width += (int)(xpd_font_get_metrics(font, size, text[i]).horiAdvance / 64);
 		}
 	}
 
