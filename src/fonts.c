@@ -16,7 +16,7 @@ void xpd_font_load(xpd_font_face_t *font, const char *path) {
 void xpd_font_cache(xpd_font_face_t *font, int size, char letter) {
 	bool not_loaded = true;
 
-	for (int i = 0; i < CHAR_MAX; i++) {
+	for (int i = 0; (i < CHAR_MAX) && (i <= font->letters_idx); i++) {
 		if (font->letters[i].size == size && font->letters[i].letter == letter) {
 			not_loaded = false;
 			break;
