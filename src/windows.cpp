@@ -2,7 +2,8 @@
 #include <XPLMDisplay.h>
 
 // "Dummy" callbacks. Adapted from https://developer.x-plane.com/code-sample/hello-world-sdk-3/
-void base_draw(XPLMWindowID in_window_id, void *in_refcon) {};
+void base_draw(XPLMWindowID in_window_id, void *in_refcon) {
+};
 
 int base_mouse(XPLMWindowID in_window_id, int x, int y, int is_down, void *in_refcon) {
 	return 0;
@@ -17,7 +18,8 @@ int base_wheel(XPLMWindowID in_window_id, int x, int y, int wheel, int clicks, v
 }
 
 void base_key(XPLMWindowID in_window_id, char key, XPLMKeyFlags flags, char virtual_key, void *in_refcon,
-              int losing_focus) {}
+			  int losing_focus) {
+}
 
 // Real functions
 void xpd_win_new(xpd_win_t *inWindow, int width, int height) {

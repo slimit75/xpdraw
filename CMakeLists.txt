@@ -22,7 +22,7 @@ add_definitions(
 find_package(Freetype REQUIRED)
 include_directories(${FREETYPE_INCLUDE_DIRS})
 add_library(xpdraw
-	${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw.c
 	${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw/xpdraw.h
 	${CMAKE_CURRENT_SOURCE_DIR}/src/windows.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw/windows.h
@@ -38,12 +38,12 @@ target_link_libraries(xpdraw
 # Include directories for both xpdraw & its dependants
 target_include_directories(xpdraw
 	PUBLIC
-		${CMAKE_CURRENT_SOURCE_DIR}/src
+	${CMAKE_CURRENT_SOURCE_DIR}/src
 
 	PRIVATE
-		${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/CHeaders/XPLM
-		${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/CHeaders/Widgets
-		${CMAKE_CURRENT_SOURCE_DIR}/libs/stb
+	${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/CHeaders/XPLM
+	${CMAKE_CURRENT_SOURCE_DIR}/libs/XSDK/CHeaders/Widgets
+	${CMAKE_CURRENT_SOURCE_DIR}/libs/stb
 )
 
 # OS-specific options
@@ -93,6 +93,6 @@ else ()
 
 	# Output Directory
 	set_target_properties(xpdraw PROPERTIES
-        ARCHIVE_OUTPUT_DIRECTORY ./build/lin
+		ARCHIVE_OUTPUT_DIRECTORY ./build/lin
 	)
 endif ()

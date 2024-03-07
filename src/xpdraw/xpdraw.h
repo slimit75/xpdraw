@@ -60,7 +60,7 @@ typedef struct xpd_color {
  * @param height Height of buffer
  * @param format Format of buffer
  */
-void xpd_load_buffer(xpd_texture_t *texture, void *buffer, int width, int height, GLint format);
+void xpd_load_buffer(xpd_texture_t *texture, void *buffer, unsigned int width, unsigned int height, GLint format);
 
 /**
  * @brief Sets the position of the 'anchor'. All future calls will be relative to this location if defined.
