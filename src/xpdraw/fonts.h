@@ -31,18 +31,18 @@ typedef enum {
 	xpdAlignRight
 } xpd_text_align_t;
 
-typedef struct xpd_font_cache {
+typedef struct {
 	FT_Glyph_Metrics metrics;
 	xpd_texture_t bitmap;
 } xpd_font_cache_t;
 
-typedef struct xpd_font_letter {
+typedef struct {
 	int size;
 	char letter;
 	xpd_font_cache_t data;
 } xpd_font_letter_t;
 
-typedef struct xpd_font_face {
+typedef struct {
 	FT_Face ftFace;
 	xpd_font_letter_t letters[CHAR_MAX];
 	int letters_idx;

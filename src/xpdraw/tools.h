@@ -40,7 +40,7 @@ inline char *xpd_tools_constr(const char *str1, const char *str2) {
 /**
  * @brief Returns the plugin's current path. Forces XPLM_USE_NATIVE_PATHS to true!
  *
- * @return std::string
+ * @return char*
  */
 char *xpd_tools_plugin_fp();
 

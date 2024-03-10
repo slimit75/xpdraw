@@ -23,7 +23,7 @@
 extern "C" {
 #endif
 
-typedef struct xpd_win {
+typedef struct {
 	XPLMCreateWindow_t params;
 	XPLMWindowID windowID;
 	int texNum;

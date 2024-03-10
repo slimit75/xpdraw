@@ -38,13 +38,13 @@
 extern "C" {
 #endif
 
-typedef struct xpd_texture {
+typedef struct {
 	GLuint gl_texture;
 	int width;
 	int height;
 } xpd_texture_t;
 
-typedef struct xpd_color {
+typedef struct {
 	float red;
 	float green;
 	float blue;
