@@ -1,5 +1,6 @@
-#define STB_IMAGE_IMPLEMENTATION
 #include "xpdraw/xpdraw.h"
+
+#define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
 int anchor_x = 0;

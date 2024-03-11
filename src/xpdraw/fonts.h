@@ -17,9 +17,10 @@
 #ifndef XPDRAW_FONTS_H
 #define XPDRAW_FONTS_H
 
-#include "xpdraw.h"
 #include <ft2build.h>
 #include FT_FREETYPE_H
+
+#include "xpdraw.h"
 
 #ifdef __cplusplus
 extern "C" {

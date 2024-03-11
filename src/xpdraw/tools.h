@@ -17,8 +17,7 @@
 #ifndef XPDRAW_TOOLS_H
 #define XPDRAW_TOOLS_H
 
-#include <string>
-#include <cstring>
+#include <string.h>
 
 #ifdef __cplusplus
 extern "C" {

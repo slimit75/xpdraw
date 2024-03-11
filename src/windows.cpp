@@ -1,4 +1,5 @@
 #include "xpdraw/windows.h"
+
 #include <XPLMDisplay.h>
 
 // "Dummy" callbacks. Adapted from https://developer.x-plane.com/code-sample/hello-world-sdk-3/

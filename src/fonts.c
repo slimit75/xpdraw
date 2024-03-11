@@ -1,5 +1,8 @@
 #include "xpdraw/fonts.h"
+
 #include <assert.h>
+//#include <limits.h>
+#include <stdbool.h>
 
 bool fontsInit = false;
 FT_Library ft;
