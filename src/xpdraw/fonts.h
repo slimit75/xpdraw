@@ -26,6 +26,8 @@
 extern "C" {
 #endif
 
+#define XPD_CHAR_MAX (CHAR_MAX - CHAR_MIN)
+
 typedef enum {
 	xpdAlignLeft,
 	xpdAlignCenter,
@@ -45,7 +47,7 @@ typedef struct {
 
 typedef struct {
 	FT_Face ftFace;
-	xpd_font_letter_t letters[CHAR_MAX];
+	xpd_font_letter_t letters[XPD_CHAR_MAX];
 	int letters_idx;
 } xpd_font_face_t;
 

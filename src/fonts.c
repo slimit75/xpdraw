@@ -22,10 +22,9 @@ void xpd_font_cache(xpd_font_face_t *font, int size, char letter) {
 
 #define XSTR(x) STR(x)
 #define STR(x) #x
-#pragma message "The value of CHAR_MAX: " XSTR(CHAR_MAX)
-#pragma message "The value of CHAR_MIN: " XSTR(CHAR_MIN)
+#pragma message "The value of XPD_CHAR_MAX: " XSTR(XPD_CHAR_MAX)
 
-	for (int i = 0; (i < CHAR_MAX) && (i <= font->letters_idx); i++) {
+	for (int i = 0; (i < XPD_CHAR_MAX) && (i <= font->letters_idx); i++) {
 		if (font->letters[i].size == size && font->letters[i].letter == letter) {
 			not_loaded = false;
 			break;
