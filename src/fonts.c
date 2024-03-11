@@ -4,13 +4,13 @@
 //#include <limits.h>
 #include <stdbool.h>
 
-bool fontsInit = false;
+bool fonts_init = false;
 FT_Library ft;
 
 void xpd_font_load(xpd_font_face_t *font, const char *path) {
-	if (fontsInit == false) {
+	if (fonts_init == false) {
 		FT_Init_FreeType(&ft);
-		fontsInit = true;
+		fonts_init = true;
 	}
 
 	FT_New_Face(ft, path, 0, &font->ftFace);
@@ -19,6 +19,11 @@ void xpd_font_load(xpd_font_face_t *font, const char *path) {
 
 void xpd_font_cache(xpd_font_face_t *font, int size, char letter) {
 	bool not_loaded = true;
+
+#define XSTR(x) STR(x)
+#define STR(x) #x
+#pragma message "The value of CHAR_MAX: " XSTR(CHAR_MAX)
+#pragma message "The value of CHAR_MIN: " XSTR(CHAR_MIN)
 
 	for (int i = 0; (i < CHAR_MAX) && (i <= font->letters_idx); i++) {
 		if (font->letters[i].size == size && font->letters[i].letter == letter) {
