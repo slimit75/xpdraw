@@ -1,8 +1,8 @@
 #include "xpdraw/fonts.h"
 
 #include <assert.h>
-//#include <limits.h>
 #include <stdbool.h>
+#include <XPLMUtilities.h>
 
 bool fonts_init = false;
 FT_Library ft;
@@ -20,11 +20,14 @@ void xpd_font_load(xpd_font_face_t *font, const char *path) {
 void xpd_font_cache(xpd_font_face_t *font, int size, char letter) {
 	bool not_loaded = true;
 
-#define XSTR(x) STR(x)
-#define STR(x) #x
-#pragma message "The value of XPD_CHAR_MAX: " XSTR(XPD_CHAR_MAX)
+	char str[255];
+	sprintf(str, "[xpdraw] Size of font->letters array: %lu\n", sizeof(font->letters));
+	XPLMDebugString(str);
 
 	for (int i = 0; (i < XPD_CHAR_MAX) && (i <= font->letters_idx); i++) {
+		sprintf(str, "[xpdraw] Current index position: %i\n", font->letters_idx);
+		XPLMDebugString(str);
+
 		if (font->letters[i].size == size && font->letters[i].letter == letter) {
 			not_loaded = false;
 			break;

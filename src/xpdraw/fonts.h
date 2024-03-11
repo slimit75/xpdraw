@@ -17,6 +17,7 @@
 #ifndef XPDRAW_FONTS_H
 #define XPDRAW_FONTS_H
 
+#include <limits.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
