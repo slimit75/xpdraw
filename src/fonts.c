@@ -23,11 +23,10 @@ void xpd_font_cache(xpd_font_face_t *font, int size, char letter) {
 	char str[255];
 	sprintf(str, "[xpdraw] Size of font->letters array: %lu\n", sizeof(font->letters));
 	XPLMDebugString(str);
+	sprintf(str, "[xpdraw] Current end of index: %i\n", font->letters_idx);
+	XPLMDebugString(str);
 
 	for (int i = 0; (i < XPD_CHAR_MAX) && (i <= font->letters_idx); i++) {
-		sprintf(str, "[xpdraw] Current index position: %i\n", font->letters_idx);
-		XPLMDebugString(str);
-
 		if (font->letters[i].size == size && font->letters[i].letter == letter) {
 			not_loaded = false;
 			break;
