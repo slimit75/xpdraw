@@ -20,7 +20,7 @@
 #include <stdbool.h>
 
 #if LIN
-	#include <GL/gl.h>
+#include <GL/gl.h>
 #elif __MINGW32__
 	#include <GL/gl.h>
 #elif __GNUC__
@@ -50,6 +50,12 @@ typedef struct xpd_color {
 	float blue;
 	float alpha;
 } xpd_color_t;
+
+static const xpd_texture_t xpd_texture_empty = {
+	0,
+	0,
+	0
+};
 
 /**
  * @brief Loads an OpenGL buffer and converts it into a xpdraw texture
