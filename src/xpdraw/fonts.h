@@ -52,6 +52,17 @@ typedef struct {
 	int letters_idx;
 } xpd_font_face_t;
 
+static const FT_Glyph_Metrics xpd_metrics_empty = {
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0
+};
+
 /**
  * @brief Load a new font
  *

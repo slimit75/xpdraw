@@ -5,16 +5,16 @@
 #include <XPLMUtilities.h>
 
 bool fonts_init = false;
+char str[255];
 FT_Library ft;
 
 void xpd_font_load(xpd_font_face_t *font, const char *path) {
-	if (fonts_init == false) {
+	if (!fonts_init) {
 		FT_Init_FreeType(&ft);
 		fonts_init = true;
 	}
 
 	FT_New_Face(ft, path, 0, &font->ftFace);
-	font->letters_idx = -1;
 }
 
 void xpd_font_cache(xpd_font_face_t *font, int size, char letter) {
@@ -37,8 +37,8 @@ void xpd_font_cache(xpd_font_face_t *font, int size, char letter) {
 		FT_Load_Char(font->ftFace, letter, FT_LOAD_RENDER);
 
 		font->letters_idx++;
-		font->letters[font->letters_idx].size = size;
-		font->letters[font->letters_idx].letter = letter;
+		font->letters[font->letters_idx].size         = size;
+		font->letters[font->letters_idx].letter       = letter;
 		font->letters[font->letters_idx].data.metrics = font->ftFace->glyph->metrics;
 
 		xpd_load_buffer(&font->letters[font->letters_idx].data.bitmap, font->ftFace->glyph->bitmap.buffer,
@@ -55,7 +55,10 @@ FT_Glyph_Metrics xpd_font_get_metrics(xpd_font_face_t *font, int size, char lett
 		}
 	}
 
-	assert("xpdraw: Error caching font!");
+	sprintf(str, "xpdraw: Unable to load metrics for font family %s at letter %c & size %i!\n",
+			font->ftFace->family_name, letter, size);
+	XPLMDebugString(str);
+	return xpd_metrics_empty;
 }
 
 xpd_texture_t xpd_font_get_texture(xpd_font_face_t *font, int size, char letter) {
@@ -67,7 +70,10 @@ xpd_texture_t xpd_font_get_texture(xpd_font_face_t *font, int size, char letter)
 		}
 	}
 
-	assert("xpdraw: Error caching font!");
+	sprintf(str, "xpdraw: Unable to load texture for font family %s at letter %c & size %i!\n",
+			font->ftFace->family_name, letter, size);
+	XPLMDebugString(str);
+	return xpd_texture_empty;
 }
 
 int xpd_text_length(xpd_font_face_t *font, const char *text, const int size) {
@@ -88,7 +94,7 @@ int xpd_text_length(xpd_font_face_t *font, const char *text, const int size) {
 }
 
 void xpd_text_draw(xpd_font_face_t *font, const char *text, int x, int y, int size, xpd_text_align_t align,
-					xpd_color_t textColor) {
+				   xpd_color_t textColor) {
 	glColor4f(textColor.red, textColor.green, textColor.blue, textColor.alpha);
 
 	// Handle text alignment
@@ -109,7 +115,7 @@ void xpd_text_draw(xpd_font_face_t *font, const char *text, int x, int y, int si
 		// Fetch & draw texture
 		xpd_texture_t image = xpd_font_get_texture(font, size, text[i]);
 		xpd_draw_texture(&image, x + (text_metrics.horiBearingX / 64), y + y_offset, image.width, image.height,
-						textColor);
+						 textColor);
 
 		// Advance to the next character
 		x += text_metrics.horiAdvance / 64;
