@@ -14,17 +14,16 @@ void xpd_font_load(xpd_font_face_t *font, const char *path) {
 	}
 
 	FT_New_Face(ft, path, 0, &font->ftFace);
-	font->letters_idx = 0;
+	font->letters_idx = -1;
 }
 
 void xpd_font_cache(xpd_font_face_t *font, int size, char letter) {
+	// TODO: Does this need to be called as often as it currently is?
 	bool not_loaded = true;
 
-	char str[255];
-	sprintf(str, "[xpdraw] Size of font->letters array: %lu\n", sizeof(font->letters));
-	XPLMDebugString(str);
-	sprintf(str, "[xpdraw] Current end of index: %i\n", font->letters_idx);
-	XPLMDebugString(str);
+	if (font->ftFace == NULL) {
+		assert("font->ftFace == NULL");
+	}
 
 	for (int i = 0; (i < XPD_CHAR_MAX) && (i <= font->letters_idx); i++) {
 		if (font->letters[i].size == size && font->letters[i].letter == letter) {
