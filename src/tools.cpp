@@ -1,6 +1,8 @@
 #include "xpdraw/tools.h"
-#include <XPLMUtilities.h>
+
+#include <string>
 #include <XPLMPlugin.h>
+#include <XPLMUtilities.h>
 
 int xpVersion = -1;
 char xpPath[512];

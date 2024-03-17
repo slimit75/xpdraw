@@ -1,13 +1,14 @@
-#define STB_IMAGE_IMPLEMENTATION
 #include "xpdraw/xpdraw.h"
+
+#define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
 int anchor_x = 0;
 int anchor_y = 0;
 
-void xpd_load_buffer(xpd_texture_t *texture, void *buffer, int width, int height, GLint format) {
-	texture->width = width;
-	texture->height = height;
+void xpd_load_buffer(xpd_texture_t *texture, void *buffer, unsigned int width, unsigned int height, GLint format) {
+	texture->width = (int)width;
+	texture->height = (int)height;
 
 	glGenTextures(1, &texture->gl_texture);
 	glBindTexture(GL_TEXTURE_2D, texture->gl_texture);
@@ -48,7 +49,7 @@ void xpd_draw_rect(int left, int bottom, int width, int height, xpd_color_t colo
 }
 
 void xpd_draw_rect2(int left, int bottom, int width, int height, xpd_color_t color, int borderSize,
-                    xpd_color_t borderColor) {
+					xpd_color_t borderColor) {
 	xpd_draw_rect(left, bottom, width, height, color);
 	xpd_draw_rect(left, bottom, borderSize, height, borderColor);
 	xpd_draw_rect(left + width - borderSize, bottom, borderSize, height, borderColor);
@@ -83,7 +84,7 @@ void xpd_draw_line(int start_x, int start_y, int end_x, int end_y, xpd_color_t c
 }
 
 void xpd_draw_texture2(xpd_texture_t *texture, int left, int bottom, int width, int height, xpd_color_t color,
-                       bool flipped) {
+					   bool flipped) {
 	glColor4f(color.red, color.green, color.blue, color.alpha);
 
 	if (width == 0) {
@@ -119,7 +120,7 @@ void xpd_draw_texture(xpd_texture_t *texture, int left, int bottom, int width, i
 }
 
 void xpd_draw_rotated_texture(xpd_texture_t *texture, double angle, int left, int bottom, int width, int height, int rx,
-                              int ry, xpd_color_t color) {
+							  int ry, xpd_color_t color) {
 	glColor4f(color.red, color.green, color.blue, color.alpha);
 
 	rx = left + rx;

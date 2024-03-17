@@ -1,6 +1,6 @@
 /*
  * tools.h - Minor tools/functions
- * Copyright 2023 Ian Ward
+ * Copyright 2024 Ian Ward
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,7 @@
 #ifndef XPDRAW_TOOLS_H
 #define XPDRAW_TOOLS_H
 
-#include <string>
-#include <cstring>
+#include <string.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -40,7 +39,7 @@ inline char *xpd_tools_constr(const char *str1, const char *str2) {
 /**
  * @brief Returns the plugin's current path. Forces XPLM_USE_NATIVE_PATHS to true!
  *
- * @return std::string
+ * @return char*
  */
 char *xpd_tools_plugin_fp();
 

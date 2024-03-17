@@ -1,6 +1,6 @@
 /*
  * fonts.h - Font handler & renderer
- * Copyright 2023 Ian Ward
+ * Copyright 2024 Ian Ward
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,32 +17,38 @@
 #ifndef XPDRAW_FONTS_H
 #define XPDRAW_FONTS_H
 
-#include "xpdraw.h"
 #include <limits.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
+
+#include "xpdraw.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef enum { xpdAlignLeft, xpdAlignCenter, xpdAlignRight } xpd_text_align_t;
+#define XPD_CHAR_MAX (CHAR_MAX - CHAR_MIN)
 
-typedef struct xpd_font_cache {
+typedef enum {
+	xpdAlignLeft,
+	xpdAlignCenter,
+	xpdAlignRight
+} xpd_text_align_t;
+
+typedef struct {
 	FT_Glyph_Metrics metrics;
 	xpd_texture_t bitmap;
 } xpd_font_cache_t;
 
-typedef struct xpd_font_letter {
+typedef struct {
 	int size;
 	char letter;
 	xpd_font_cache_t data;
 } xpd_font_letter_t;
 
-typedef struct xpd_font_face {
+typedef struct {
 	FT_Face ftFace;
-	const char *path;
-	xpd_font_letter_t letters[CHAR_MAX];
+	xpd_font_letter_t letters[XPD_CHAR_MAX];
 	int letters_idx;
 } xpd_font_face_t;
 
@@ -61,9 +67,9 @@ static const FT_Glyph_Metrics xpd_metrics_empty = {
  * @brief Load a new font
  *
  * @param font Pointer to the font we are loading
- * @param filename File path to load from
+ * @param path File path to load from
  */
-void xpd_font_load(xpd_font_face_t *font, const char *filename);
+void xpd_font_load(xpd_font_face_t *font, const char *path);
 
 /**
  * @brief Returns the length of a string.
