@@ -9,12 +9,13 @@ char str[255];
 FT_Library ft;
 
 void xpd_font_load(xpd_font_face_t *font, const char *path) {
-	if (!fonts_init) {
+	if (fonts_init == false) {
 		FT_Init_FreeType(&ft);
 		fonts_init = true;
 	}
 
 	FT_New_Face(ft, path, 0, &font->ftFace);
+	font->letters_idx = -1;
 }
 
 void xpd_font_cache(xpd_font_face_t *font, int size, char letter) {
