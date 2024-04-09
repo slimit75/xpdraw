@@ -36,32 +36,16 @@ typedef enum {
 } xpd_text_align_t;
 
 typedef struct {
+	char letter;
 	FT_Glyph_Metrics metrics;
 	xpd_texture_t bitmap;
-} xpd_font_cache_t;
-
-typedef struct {
-	int size;
-	char letter;
-	xpd_font_cache_t data;
 } xpd_font_letter_t;
 
 typedef struct {
 	FT_Face ftFace;
-	xpd_font_letter_t letters[XPD_CHAR_MAX];
+	xpd_font_letter_t letters[255][XPD_CHAR_MAX];
 	int letters_idx;
 } xpd_font_face_t;
-
-static const FT_Glyph_Metrics xpd_metrics_empty = {
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0
-};
 
 /**
  * @brief Load a new font
@@ -93,7 +77,7 @@ int xpd_text_length(xpd_font_face_t *font, const char *text, int size);
  * @param color Color of the text; defaults to white
  */
 void xpd_text_draw(xpd_font_face_t *font, const char *text, int x, int y, int size, xpd_text_align_t align,
-				   xpd_color_t color);
+                   xpd_color_t color);
 
 #ifdef __cplusplus
 }
