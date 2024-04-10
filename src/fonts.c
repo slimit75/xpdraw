@@ -1,6 +1,5 @@
 #include "xpdraw/fonts.h"
-
-#include <assert.h>
+#include "xpdraw/tools.h"
 
 int fonts_init = 0;
 FT_Library ft;
@@ -17,9 +16,8 @@ void xpd_font_load(xpd_font_face_t *font, const char *path) {
 
 void xpd_font_cache(xpd_font_face_t *font, int size) {
 	// Throw a fatal error if the font isn't properly loaded
-	if (font->ftFace == NULL) {
-		assert("font->ftFace == NULL");
-	}
+	xpd_assert(font != NULL, "ERROR: Font not loaded!");
+	xpd_assert(font->ftFace != NULL, "ERROR: Font not loaded!");
 
 	if (font->letters[size][7].letter == 0u) {
 		// Tell FreeType what font size we want
@@ -56,6 +54,8 @@ int xpd_text_length(xpd_font_face_t *font, const char *text, const int size) {
 
 void xpd_text_draw(xpd_font_face_t *font, const char *text, int x, int y, int size, xpd_text_align_t align,
                    xpd_color_t textColor) {
+	xpd_assert(font != NULL, "ERROR: Font not loaded!");
+
 	xpd_font_cache(font, size);
 	glColor4f(textColor.red, textColor.green, textColor.blue, textColor.alpha);
 
