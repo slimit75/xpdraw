@@ -21,8 +21,6 @@
 extern "C" {
 #endif
 
-#include <string.h>
-
 /**
  * @brief Concentrate two C strings into one
  *
@@ -30,11 +28,7 @@ extern "C" {
  * @param str2
  * @return char*
  */
-inline char *xpd_tools_constr(const char *str1, const char *str2) {
-	char str3[256];
-	strcpy(str3, str1);
-	return strncat(str3, str2, sizeof(str3) - strlen(str3) - 1);
-}
+char *xpd_tools_constr(const char *str1, const char *str2);
 
 /**
  * @brief Returns the plugin's current path. Forces XPLM_USE_NATIVE_PATHS to true!

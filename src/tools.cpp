@@ -1,5 +1,6 @@
 #include "xpdraw/tools.h"
 
+#include <string.h>
 #include <string>
 #include <XPLMPlugin.h>
 #include <XPLMUtilities.h>
@@ -7,6 +8,13 @@
 int xpVersion = -1;
 char xpPath[512];
 char pluginPath[512];
+char str3[512];
+
+char *xpd_tools_constr(const char *str1, const char *str2) {
+	strcpy(str3, str1);
+	strncat(str3, str2, sizeof(str3) - strlen(str3) - 1);
+	return str3;
+}
 
 char *xpd_tools_plugin_fp() {
 	XPLMEnableFeature("XPLM_USE_NATIVE_PATHS", 1);
