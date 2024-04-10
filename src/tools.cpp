@@ -1,6 +1,8 @@
 #include "xpdraw/tools.h"
-#include <XPLMUtilities.h>
+
+#include <string>
 #include <XPLMPlugin.h>
+#include <XPLMUtilities.h>
 
 int xpVersion = -1;
 char xpPath[512];
@@ -35,4 +37,13 @@ int xpd_tools_xp_ver() {
 		xpVersion = xpVersion / 1000;
 	}
 	return xpVersion;
+}
+
+void xpd_assert(int exp, char *msg) {
+	if (!exp) {
+		char str[256];
+		sprintf(str, "xpdraw: %s \n", msg);
+		XPLMDebugString(str);
+		abort();
+	}
 }

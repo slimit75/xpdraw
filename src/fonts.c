@@ -1,73 +1,39 @@
 #include "xpdraw/fonts.h"
+#include "xpdraw/tools.h"
 
-#include <XPLMUtilities.h>
-
-bool fontsInit = false;
-char str[255];
+int fonts_init = 0;
 FT_Library ft;
 
-void xpd_font_load(xpd_font_face_t *font, const char *filename) {
-	if (!fontsInit) {
+void xpd_font_load(xpd_font_face_t *font, const char *path) {
+	if (fonts_init == 0) {
 		FT_Init_FreeType(&ft);
-		fontsInit = true;
+		fonts_init = 1;
 	}
 
-	FT_New_Face(ft, filename, 0, &font->ftFace);
-	font->path = filename;
+	FT_New_Face(ft, path, 0, &font->ftFace);
+	font->letters_idx = -1;
 }
 
-void xpd_font_cache(xpd_font_face_t *font, int size, char letter) {
-	bool not_loaded = true;
+void xpd_font_cache(xpd_font_face_t *font, int size) {
+	// Throw a fatal error if the font isn't properly loaded
+	xpd_assert(font != NULL, "ERROR: Font not loaded!");
+	xpd_assert(font->ftFace != NULL, "ERROR: Font not loaded!");
 
-	for (int i = 0; i < CHAR_MAX; i++) {
-		if (font->letters[i].size == size && font->letters[i].letter == letter) {
-			not_loaded = false;
-			break;
+	if (font->letters[size][7].letter == 0u) {
+		// Tell FreeType what font size we want
+		FT_Set_Pixel_Sizes(font->ftFace, 0, (int) (size * 1.5));
+
+		// Load data for each available character
+		for (int i = CHAR_MIN; i <= CHAR_MAX; i++) {
+			FT_Load_Char(font->ftFace, i, FT_LOAD_RENDER);
+
+			font->letters[size][i].letter = i;
+			font->letters[size][i].metrics = font->ftFace->glyph->metrics;
+
+			xpd_load_buffer(&font->letters[size][i].bitmap, font->ftFace->glyph->bitmap.buffer,
+			                font->ftFace->glyph->bitmap.width, font->ftFace->glyph->bitmap.rows, GL_ALPHA);
 		}
 	}
-
-	if (not_loaded) {
-		FT_Set_Pixel_Sizes(font->ftFace, 0, size * 1.5);
-		FT_Load_Char(font->ftFace, letter, FT_LOAD_RENDER);
-
-		font->letters_idx++;
-		font->letters[font->letters_idx].size         = size;
-		font->letters[font->letters_idx].letter       = letter;
-		font->letters[font->letters_idx].data.metrics = font->ftFace->glyph->metrics;
-
-		xpd_load_buffer(&font->letters[font->letters_idx].data.bitmap, font->ftFace->glyph->bitmap.buffer,
-						font->ftFace->glyph->bitmap.width, font->ftFace->glyph->bitmap.rows, GL_ALPHA);
-	}
-}
-
-FT_Glyph_Metrics xpd_font_get_metrics(xpd_font_face_t *font, int size, char letter) {
-	xpd_font_cache(font, size, letter); // Automatically cache char if it isn't already cached
-
-	for (int i = 0; i < CHAR_MAX; i++) {
-		if (font->letters[i].size == size && font->letters[i].letter == letter) {
-			return font->letters[i].data.metrics;
-		}
-	}
-
-	sprintf(str, "xpdraw: Unable to load metrics for font family %s at letter %c & size %i!\n",
-			font->ftFace->family_name, letter, size);
-	XPLMDebugString(str);
-	return xpd_metrics_empty;
-}
-
-xpd_texture_t xpd_font_get_texture(xpd_font_face_t *font, int size, char letter) {
-	xpd_font_cache(font, size, letter); // Automatically cache char if it isn't already cached
-
-	for (int i = 0; i < CHAR_MAX; i++) {
-		if (font->letters[i].size == size && font->letters[i].letter == letter) {
-			return font->letters[i].data.bitmap;
-		}
-	}
-
-	sprintf(str, "xpdraw: Unable to load texture for font family %s at letter %c & size %i!\n",
-			font->ftFace->family_name, letter, size);
-	XPLMDebugString(str);
-	return xpd_texture_empty;
 }
 
 int xpd_text_length(xpd_font_face_t *font, const char *text, const int size) {
@@ -75,12 +41,11 @@ int xpd_text_length(xpd_font_face_t *font, const char *text, const int size) {
 
 	// Calculate the length of the string before drawing it
 	for (int i = 0; i < strlen(text); i++) {
+		FT_Glyph_Metrics text_metrics = font->letters[size][text[i]].metrics;
 		if (i == strlen(text) - 1) {
-			width += (xpd_font_get_metrics(font, size, text[i]).width + xpd_font_get_metrics(font, size, text[i]).
-					  horiBearingX) / 64;
-		}
-		else {
-			width += xpd_font_get_metrics(font, size, text[i]).horiAdvance / 64;
+			width += (int) ((text_metrics.width + text_metrics.horiBearingX) / 64);
+		} else {
+			width += (int) (text_metrics.horiAdvance / 64);
 		}
 	}
 
@@ -88,29 +53,32 @@ int xpd_text_length(xpd_font_face_t *font, const char *text, const int size) {
 }
 
 void xpd_text_draw(xpd_font_face_t *font, const char *text, int x, int y, int size, xpd_text_align_t align,
-				   xpd_color_t textColor) {
+                   xpd_color_t textColor) {
+	xpd_assert(font != NULL, "ERROR: Font not loaded!");
+
+	xpd_font_cache(font, size);
 	glColor4f(textColor.red, textColor.green, textColor.blue, textColor.alpha);
 
 	// Handle text alignment
 	if (align == xpdAlignCenter) {
 		x -= xpd_text_length(font, text, size) / 2;
-	}
-	else if (align == xpdAlignRight) {
+	} else if (align == xpdAlignRight) {
 		x -= xpd_text_length(font, text, size);
 	}
 
 	// Draw each character
 	for (int i = 0; i < strlen(text); i++) {
+		FT_Glyph_Metrics text_metrics = font->letters[size][text[i]].metrics;
+
 		// Calculate offset from the passed y value
-		int y_offset = (xpd_font_get_metrics(font, size, text[i]).horiBearingY / 64) - (
-						   xpd_font_get_metrics(font, size, text[i]).height / 64);
+		int y_offset = (text_metrics.horiBearingY / 64) - (text_metrics.height / 64);
 
 		// Fetch & draw texture
-		xpd_texture_t image = xpd_font_get_texture(font, size, text[i]);
-		xpd_draw_texture(&image, x + (xpd_font_get_metrics(font, size, text[i]).horiBearingX / 64), y + y_offset,
-						 image.width, image.height, textColor);
+		xpd_texture_t image = font->letters[size][text[i]].bitmap;
+		xpd_draw_texture(&image, x + (text_metrics.horiBearingX / 64), y + y_offset, image.width, image.height,
+		                 textColor);
 
 		// Advance to the next character
-		x += xpd_font_get_metrics(font, size, text[i]).horiAdvance / 64;
+		x += text_metrics.horiAdvance / 64;
 	}
 }

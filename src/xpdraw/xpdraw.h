@@ -1,6 +1,6 @@
 /*
  * xpdraw.h - OpenGL rendering functions
- * Copyright 2023 Ian Ward
+ * Copyright 2024 Ian Ward
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,13 +38,13 @@
 extern "C" {
 #endif
 
-typedef struct xpd_texture {
+typedef struct {
 	GLuint gl_texture;
 	int width;
 	int height;
 } xpd_texture_t;
 
-typedef struct xpd_color {
+typedef struct {
 	float red;
 	float green;
 	float blue;
@@ -66,7 +66,7 @@ static const xpd_texture_t xpd_texture_empty = {
  * @param height Height of buffer
  * @param format Format of buffer
  */
-void xpd_load_buffer(xpd_texture_t *texture, void *buffer, int width, int height, GLint format);
+void xpd_load_buffer(xpd_texture_t *texture, void *buffer, unsigned int width, unsigned int height, GLint format);
 
 /**
  * @brief Sets the position of the 'anchor'. All future calls will be relative to this location if defined.

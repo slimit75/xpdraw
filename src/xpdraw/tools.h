@@ -1,6 +1,6 @@
 /*
  * tools.h - Minor tools/functions
- * Copyright 2023 Ian Ward
+ * Copyright 2024 Ian Ward
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,12 +17,11 @@
 #ifndef XPDRAW_TOOLS_H
 #define XPDRAW_TOOLS_H
 
-#include <string>
-#include <cstring>
-
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#include <string.h>
 
 /**
  * @brief Concentrate two C strings into one
@@ -40,7 +39,7 @@ inline char *xpd_tools_constr(const char *str1, const char *str2) {
 /**
  * @brief Returns the plugin's current path. Forces XPLM_USE_NATIVE_PATHS to true!
  *
- * @return std::string
+ * @return char*
  */
 char *xpd_tools_plugin_fp();
 
@@ -57,6 +56,14 @@ char *xpd_tools_xp_fp();
  * @return int
  */
 int xpd_tools_xp_ver();
+
+/**
+ * @brief Checks to see if `exp` is true, if not then throws an error and quits
+ *
+ * @param exp Expression to check
+ * @param msg Error message to print
+ */
+void xpd_assert(int exp, char *msg);
 
 #ifdef __cplusplus
 }
