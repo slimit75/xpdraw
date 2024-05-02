@@ -1,7 +1,8 @@
 #include "xpdraw/tools.h"
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-#include <string>
 #include <XPLMPlugin.h>
 #include <XPLMUtilities.h>
 
@@ -20,10 +21,8 @@ char *xpd_tools_plugin_fp() {
 	XPLMEnableFeature("XPLM_USE_NATIVE_PATHS", 1);
 
 	if (strlen(pluginPath) == 0) {
-		XPLMGetPluginInfo(XPLMGetMyID(), nullptr, pluginPath, nullptr, nullptr);
-		std::string pluginPathTemp = pluginPath;
-		pluginPathTemp.erase(pluginPathTemp.end() - 10, pluginPathTemp.end());
-		strcpy(pluginPath, pluginPathTemp.c_str());
+		XPLMGetPluginInfo(XPLMGetMyID(), NULL, pluginPath, NULL, NULL);
+		pluginPath[strlen(pluginPath) - 10] = '\0';
 	}
 
 	return pluginPath;
@@ -41,7 +40,7 @@ char *xpd_tools_xp_fp() {
 
 int xpd_tools_xp_ver() {
 	if (xpVersion == -1) {
-		XPLMGetVersions(&xpVersion, nullptr, nullptr);
+		XPLMGetVersions(&xpVersion, NULL, NULL);
 		xpVersion = xpVersion / 1000;
 	}
 	return xpVersion;

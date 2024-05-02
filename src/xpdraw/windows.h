@@ -103,10 +103,18 @@ void xpd_win_set_key_cb(xpd_win_t *inWindow, XPLMHandleKey_f new_cb);
  *
  * @param inWindow Window to start rendering
  * @param title Title of the window
+ */
+void xpd_win_create(xpd_win_t *inWindow, const char *title);
+
+/**
+ * @brief Display a window created with xpd_win_new
+ *
+ * @param inWindow Window to start rendering
+ * @param title Title of the window
  * @param winLeft Position of the left edge of the window
  * @param winDown Position of the bottom edge of the window
  */
-void xpd_win_create(xpd_win_t *inWindow, const char *title, int winLeft = 50, int winDown = 150);
+void xpd_win_create2(xpd_win_t *inWindow, const char *title, int winLeft, int winDown);
 
 /**
  * @brief Set the minimum & maximum sizes of a window

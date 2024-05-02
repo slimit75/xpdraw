@@ -1,4 +1,5 @@
 #include "xpdraw/fonts.h"
+
 #include "xpdraw/tools.h"
 
 int fonts_init = 0;
@@ -21,17 +22,17 @@ void xpd_font_cache(xpd_font_face_t *font, int size) {
 
 	if (font->letters[size][7].letter == 0u) {
 		// Tell FreeType what font size we want
-		FT_Set_Pixel_Sizes(font->ftFace, 0, (int) (size * 1.5));
+		FT_Set_Pixel_Sizes(font->ftFace, 0, (int)(size * 1.5));
 
 		// Load data for each available character
 		for (int i = CHAR_MIN; i <= CHAR_MAX; i++) {
 			FT_Load_Char(font->ftFace, i, FT_LOAD_RENDER);
 
-			font->letters[size][i].letter = i;
+			font->letters[size][i].letter  = i;
 			font->letters[size][i].metrics = font->ftFace->glyph->metrics;
 
 			xpd_load_buffer(&font->letters[size][i].bitmap, font->ftFace->glyph->bitmap.buffer,
-			                font->ftFace->glyph->bitmap.width, font->ftFace->glyph->bitmap.rows, GL_ALPHA);
+							font->ftFace->glyph->bitmap.width, font->ftFace->glyph->bitmap.rows, GL_ALPHA);
 		}
 	}
 }
@@ -43,9 +44,10 @@ int xpd_text_length(xpd_font_face_t *font, const char *text, const int size) {
 	for (int i = 0; i < strlen(text); i++) {
 		FT_Glyph_Metrics text_metrics = font->letters[size][text[i]].metrics;
 		if (i == strlen(text) - 1) {
-			width += (int) ((text_metrics.width + text_metrics.horiBearingX) / 64);
-		} else {
-			width += (int) (text_metrics.horiAdvance / 64);
+			width += (int)((text_metrics.width + text_metrics.horiBearingX) / 64);
+		}
+		else {
+			width += (int)(text_metrics.horiAdvance / 64);
 		}
 	}
 
@@ -53,7 +55,7 @@ int xpd_text_length(xpd_font_face_t *font, const char *text, const int size) {
 }
 
 void xpd_text_draw(xpd_font_face_t *font, const char *text, int x, int y, int size, xpd_text_align_t align,
-                   xpd_color_t textColor) {
+				   xpd_color_t textColor) {
 	xpd_assert(font != NULL, "ERROR: Font not loaded!");
 
 	xpd_font_cache(font, size);
@@ -62,7 +64,8 @@ void xpd_text_draw(xpd_font_face_t *font, const char *text, int x, int y, int si
 	// Handle text alignment
 	if (align == xpdAlignCenter) {
 		x -= xpd_text_length(font, text, size) / 2;
-	} else if (align == xpdAlignRight) {
+	}
+	else if (align == xpdAlignRight) {
 		x -= xpd_text_length(font, text, size);
 	}
 
@@ -76,7 +79,7 @@ void xpd_text_draw(xpd_font_face_t *font, const char *text, int x, int y, int si
 		// Fetch & draw texture
 		xpd_texture_t image = font->letters[size][text[i]].bitmap;
 		xpd_draw_texture(&image, x + (text_metrics.horiBearingX / 64), y + y_offset, image.width, image.height,
-		                 textColor);
+						 textColor);
 
 		// Advance to the next character
 		x += text_metrics.horiAdvance / 64;
