@@ -1,11 +1,9 @@
 cmake_minimum_required(VERSION 3.24)
 project(xpdraw)
 
-set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_C_STANDARD 17)
 
 # CMake Settings
-set(CMAKE_CXX_FLAGS "-O3 -fPIC -pedantic -Wall")
 set(CMAKE_C_FLAGS "-O3 -fPIC -pedantic -Wall")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64")
@@ -26,15 +24,12 @@ include_directories(${FREETYPE_INCLUDE_DIRS})
 add_library(xpdraw
 	${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw.c
 	${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw/xpdraw.h
-	${CMAKE_CURRENT_SOURCE_DIR}/src/windows.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/windows.c
 	${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw/windows.h
-	${CMAKE_CURRENT_SOURCE_DIR}/src/tools.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/tools.c
 	${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw/tools.h
 	${CMAKE_CURRENT_SOURCE_DIR}/src/fonts.c
 	${CMAKE_CURRENT_SOURCE_DIR}/src/xpdraw/fonts.h
-)
-target_link_libraries(xpdraw
-	stdc++
 )
 
 # Include directories for both xpdraw & its dependants
