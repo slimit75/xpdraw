@@ -29,10 +29,10 @@
 	#include <GL/gl.h>
 #endif
 
-#define XPD_COLOR_WHITE { 1, 1, 1, 1 }
-#define XPD_COLOR_BLACK { 0, 0, 0, 1 }
-#define XPD_RGB(r, g, b) { r/255.0f, g/255.0f, b/255.0f, 1 }
-#define XPD_RGBA(r, g, b, a) { r/255.0f, g/255.0f, b/255.0f, a }
+#define XPD_COLOR_WHITE (xpd_color_t){ 1, 1, 1, 1 }
+#define XPD_COLOR_BLACK (xpd_color_t){ 0, 0, 0, 1 }
+#define XPD_RGB(r, g, b) (xpd_color_t){ r/255.0f, g/255.0f, b/255.0f, 1 }
+#define XPD_RGBA(r, g, b, a) (xpd_color_t){ r/255.0f, g/255.0f, b/255.0f, a }
 
 #ifdef __cplusplus
 extern "C" {
