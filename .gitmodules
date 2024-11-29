@@ -1,6 +1,6 @@
-[submodule "libs/XSDK"]
-	path = libs/XSDK
-	url = https://github.com/SimSolutionsFS/XSDK.git
 [submodule "libs/stb"]
 	path = libs/stb
 	url = https://github.com/nothings/stb.git
+[submodule "libs/XPSDK"]
+	path = libs/XPSDK
+	url = https://github.com/slimit75/XPSDK
