@@ -30,9 +30,9 @@ extern "C" {
 #define XPD_CHAR_MAX (CHAR_MAX - CHAR_MIN)
 
 typedef enum {
-	xpdAlignLeft,
-	xpdAlignCenter,
-	xpdAlignRight
+	XPD_ALIGN_L,
+	XPD_ALIGN_C,
+	XPD_ALIGN_R
 } xpd_text_align_t;
 
 typedef struct {
