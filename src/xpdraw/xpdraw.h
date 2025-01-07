@@ -27,6 +27,8 @@
 	#include <GL/gl.h>
 #endif
 
+#include <stdbool.h>
+
 #define XPD_COLOR_WHITE (xpd_color_t){ 1, 1, 1, 1 }
 #define XPD_COLOR_BLACK (xpd_color_t){ 0, 0, 0, 1 }
 #define XPD_RGB(r, g, b) (xpd_color_t){ r/255.0f, g/255.0f, b/255.0f, 1 }

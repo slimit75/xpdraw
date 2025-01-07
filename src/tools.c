@@ -21,7 +21,7 @@ char *xpd_tools_plugin_fp() {
 	XPLMEnableFeature("XPLM_USE_NATIVE_PATHS", 1);
 
 	if (strlen(pluginPath) == 0) {
-		XPLMGetPluginInfo(XPLMGetMyID(), nullptr, pluginPath, nullptr, nullptr);
+		XPLMGetPluginInfo(XPLMGetMyID(), NULL, pluginPath, NULL, NULL);
 		pluginPath[strlen(pluginPath) - 10] = '\0';
 	}
 
