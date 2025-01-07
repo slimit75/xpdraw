@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.24)
 project(xpdraw)
 
-set(CMAKE_C_STANDARD 17)
+set(CMAKE_C_STANDARD 23)
 
 # CMake Settings
 set(CMAKE_C_FLAGS "-O3 -fPIC -pedantic -Wall")

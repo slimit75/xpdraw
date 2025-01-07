@@ -17,8 +17,6 @@
 #ifndef XPDRAW_H
 #define XPDRAW_H
 
-#include <stdbool.h>
-
 #if LIN
 #include <GL/gl.h>
 #elif __MINGW32__
