@@ -62,10 +62,10 @@ void xpd_text_draw(xpd_font_face_t *font, const char *text, int x, int y, int si
 	glColor4f(textColor.red, textColor.green, textColor.blue, textColor.alpha);
 
 	// Handle text alignment
-	if (align == xpdAlignCenter) {
+	if (align == XPD_ALIGN_C) {
 		x -= xpd_text_length(font, text, size) / 2;
 	}
-	else if (align == xpdAlignRight) {
+	else if (align == XPD_ALIGN_R) {
 		x -= xpd_text_length(font, text, size);
 	}
 

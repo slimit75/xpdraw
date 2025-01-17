@@ -17,8 +17,6 @@
 #ifndef XPDRAW_H
 #define XPDRAW_H
 
-#include <stdbool.h>
-
 #if LIN
 #include <GL/gl.h>
 #elif __MINGW32__
@@ -28,6 +26,8 @@
 #else
 	#include <GL/gl.h>
 #endif
+
+#include <stdbool.h>
 
 #define XPD_COLOR_WHITE (xpd_color_t){ 1, 1, 1, 1 }
 #define XPD_COLOR_BLACK (xpd_color_t){ 0, 0, 0, 1 }
