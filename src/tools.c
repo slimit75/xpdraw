@@ -1,14 +1,15 @@
 #include "xpdraw/tools.h"
 
+#include <libgen.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <XPLMPlugin.h>
 #include <XPLMUtilities.h>
 
-int xpVersion = -1;
-char xpPath[512];
-char pluginPath[512];
+int xp_ver = -1;
+char xp_path[512];
+char *plugin_path;
 char str3[512];
 
 char *xpd_tools_constr(const char *str1, const char *str2) {
@@ -20,30 +21,32 @@ char *xpd_tools_constr(const char *str1, const char *str2) {
 char *xpd_tools_plugin_fp() {
 	XPLMEnableFeature("XPLM_USE_NATIVE_PATHS", 1);
 
-	if (strlen(pluginPath) == 0) {
-		XPLMGetPluginInfo(XPLMGetMyID(), NULL, pluginPath, NULL, NULL);
-		pluginPath[strlen(pluginPath) - 10] = '\0';
+	if (!plugin_path) {
+		plugin_path = malloc(sizeof(char) * 512);
+		XPLMGetPluginInfo(XPLMGetMyID(), NULL, plugin_path, NULL, NULL);
+		strcpy(plugin_path, dirname(dirname(plugin_path)));
+		strncat(plugin_path, "/", sizeof(plugin_path) - strlen(plugin_path) - 1);
 	}
 
-	return pluginPath;
+	return plugin_path;
 }
 
 char *xpd_tools_xp_fp() {
 	XPLMEnableFeature("XPLM_USE_NATIVE_PATHS", 1);
 
-	if (strlen(xpPath) == 0) {
-		XPLMGetSystemPath(xpPath);
+	if (strlen(xp_path) == 0) {
+		XPLMGetSystemPath(xp_path);
 	}
 
-	return xpPath;
+	return xp_path;
 }
 
 int xpd_tools_xp_ver() {
-	if (xpVersion == -1) {
-		XPLMGetVersions(&xpVersion, NULL, NULL);
-		xpVersion = xpVersion / 1000;
+	if (xp_ver == -1) {
+		XPLMGetVersions(&xp_ver, NULL, NULL);
+		xp_ver = xp_ver / 1000;
 	}
-	return xpVersion;
+	return xp_ver;
 }
 
 void xpd_assert(int exp, char *msg) {
