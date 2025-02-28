@@ -1,5 +1,6 @@
 #include "xpdraw/tools.h"
 
+#include <assert.h>
 #include <libgen.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,7 +24,7 @@ char *xpd_tools_plugin_fp() {
 
 	if (!plugin_path) {
 		plugin_path = malloc(sizeof(char) * 512);
-		XPLMGetPluginInfo(XPLMGetMyID(), NULL, plugin_path, NULL, NULL);
+		XPLMGetPluginInfo(XPLMGetMyID(), nullptr, plugin_path, nullptr, nullptr);
 		strcpy(plugin_path, dirname(dirname(plugin_path)));
 		strncat(plugin_path, "/", sizeof(plugin_path) - strlen(plugin_path) - 1);
 	}
@@ -43,7 +44,7 @@ char *xpd_tools_xp_fp() {
 
 int xpd_tools_xp_ver() {
 	if (xp_ver == -1) {
-		XPLMGetVersions(&xp_ver, NULL, NULL);
+		XPLMGetVersions(&xp_ver, nullptr, nullptr);
 		xp_ver = xp_ver / 1000;
 	}
 	return xp_ver;
@@ -54,6 +55,6 @@ void xpd_assert(int exp, char *msg) {
 		char str[256];
 		sprintf(str, "xpdraw: %s \n", msg);
 		XPLMDebugString(str);
-		abort();
+		assert(exp);
 	}
 }

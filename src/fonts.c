@@ -1,14 +1,14 @@
 #include "xpdraw/fonts.h"
 
-#include "xpdraw/tools.h"
+#include <assert.h>
 
-int fonts_init = 0;
+bool fonts_init = false;
 FT_Library ft;
 
 void xpd_font_load(xpd_font_face_t *font, const char *path) {
-	if (fonts_init == 0) {
+	if (fonts_init == false) {
 		FT_Init_FreeType(&ft);
-		fonts_init = 1;
+		fonts_init = true;
 	}
 
 	FT_New_Face(ft, path, 0, &font->ftFace);
@@ -17,18 +17,18 @@ void xpd_font_load(xpd_font_face_t *font, const char *path) {
 
 void xpd_font_cache(xpd_font_face_t *font, int size) {
 	// Throw a fatal error if the font isn't properly loaded
-	xpd_assert(font != NULL, "ERROR: Font not loaded!");
-	xpd_assert(font->ftFace != NULL, "ERROR: Font not loaded!");
+	assert(font != nullptr);
+	assert(font->ftFace != nullptr);
 
-	if (font->letters[size][7].letter == 0u) {
+	if (font->letters[size][7].letter == 0u) { // Why 7???
 		// Tell FreeType what font size we want
 		FT_Set_Pixel_Sizes(font->ftFace, 0, (int)(size * 1.5));
 
 		// Load data for each available character
-		for (int i = CHAR_MIN; i <= CHAR_MAX; i++) {
+		for (char i = CHAR_MIN; i <= CHAR_MAX; i++) {
 			FT_Load_Char(font->ftFace, i, FT_LOAD_RENDER);
 
-			font->letters[size][i].letter  = i;
+			font->letters[size][i].letter = i;
 			font->letters[size][i].metrics = font->ftFace->glyph->metrics;
 
 			xpd_load_buffer(&font->letters[size][i].bitmap, font->ftFace->glyph->bitmap.buffer,
@@ -56,7 +56,7 @@ int xpd_text_length(xpd_font_face_t *font, const char *text, const int size) {
 
 void xpd_text_draw(xpd_font_face_t *font, const char *text, int x, int y, int size, xpd_text_align_t align,
 				   xpd_color_t textColor) {
-	xpd_assert(font != NULL, "ERROR: Font not loaded!");
+	assert(font != nullptr);
 
 	xpd_font_cache(font, size);
 	glColor4f(textColor.red, textColor.green, textColor.blue, textColor.alpha);
@@ -74,14 +74,14 @@ void xpd_text_draw(xpd_font_face_t *font, const char *text, int x, int y, int si
 		FT_Glyph_Metrics text_metrics = font->letters[size][text[i]].metrics;
 
 		// Calculate offset from the passed y value
-		int y_offset = (text_metrics.horiBearingY / 64) - (text_metrics.height / 64);
+		int y_offset = (int)(text_metrics.horiBearingY / 64) - (int)(text_metrics.height / 64);
 
 		// Fetch & draw texture
 		xpd_texture_t image = font->letters[size][text[i]].bitmap;
-		xpd_draw_texture(&image, x + (text_metrics.horiBearingX / 64), y + y_offset, image.width, image.height,
+		xpd_draw_texture(&image, x + (int)(text_metrics.horiBearingX / 64), y + y_offset, image.width, image.height,
 						 textColor);
 
 		// Advance to the next character
-		x += text_metrics.horiAdvance / 64;
+		x += (int)text_metrics.horiAdvance / 64;
 	}
 }

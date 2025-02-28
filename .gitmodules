@@ -1,6 +1,6 @@
 [submodule "libs/stb"]
-	path = libs/stb
+	path = deps/stb
 	url = https://github.com/nothings/stb.git
 [submodule "libs/XPSDK"]
-	path = libs/XPSDK
+	path = deps/XPSDK
 	url = https://github.com/slimit75/XPSDK
