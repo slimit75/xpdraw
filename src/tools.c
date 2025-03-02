@@ -24,7 +24,7 @@ char *xpd_tools_plugin_fp() {
 
 	if (!plugin_path) {
 		plugin_path = malloc(sizeof(char) * 512);
-		XPLMGetPluginInfo(XPLMGetMyID(), nullptr, plugin_path, nullptr, nullptr);
+		XPLMGetPluginInfo(XPLMGetMyID(), NULL, plugin_path, NULL, NULL);
 		strcpy(plugin_path, dirname(dirname(plugin_path)));
 		strncat(plugin_path, "/", sizeof(plugin_path) - strlen(plugin_path) - 1);
 	}
@@ -44,7 +44,7 @@ char *xpd_tools_xp_fp() {
 
 int xpd_tools_xp_ver() {
 	if (xp_ver == -1) {
-		XPLMGetVersions(&xp_ver, nullptr, nullptr);
+		XPLMGetVersions(&xp_ver, NULL, NULL);
 		xp_ver = xp_ver / 1000;
 	}
 	return xp_ver;
