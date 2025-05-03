@@ -43,8 +43,7 @@ typedef struct {
 
 typedef struct {
 	FT_Face ftFace;
-	xpd_font_letter_t letters[255][XPD_CHAR_MAX];
-	int letters_idx;
+	xpd_font_letter_t letters[XPD_CHAR_MAX];
 } xpd_font_face_t;
 
 /**
@@ -52,18 +51,18 @@ typedef struct {
  *
  * @param font Pointer to the font we are loading
  * @param path File path to load from
+ * @param size Size of font face to use
  */
-void xpd_font_load(xpd_font_face_t *font, const char *path);
+void xpd_font_load(xpd_font_face_t *font, const char *path, const int size);
 
 /**
  * @brief Returns the length of a string.
  *
  * @param font Font to use
  * @param text Text to get the length of
- * @param size Size of the font to use
  * @return int
  */
-int xpd_text_length(xpd_font_face_t *font, const char *text, int size);
+int xpd_text_length(xpd_font_face_t *font, const char *text);
 
 /**
  * @brief Function to draw text
@@ -72,11 +71,10 @@ int xpd_text_length(xpd_font_face_t *font, const char *text, int size);
  * @param text Text to render
  * @param x Lateral position to draw at relative to anchor
  * @param y Vertical position to draw at relative to anchor
- * @param size Size of font face to use
  * @param align Alignment of the text relative to x
  * @param color Color of the text; defaults to white
  */
-void xpd_text_draw(xpd_font_face_t *font, const char *text, int x, int y, int size, xpd_text_align_t align,
+void xpd_text_draw(xpd_font_face_t *font, const char *text, int x, int y, xpd_text_align_t align,
 				   xpd_color_t color);
 
 #ifdef __cplusplus
