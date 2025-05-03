@@ -18,10 +18,10 @@ void xpd_font_load(xpd_font_face_t *font, const char *path, const int size) {
 	FT_Set_Pixel_Sizes(font->ftFace, 0, (int)(size * 1.5));
 
 	// Load data for each available character
-	for (char i = CHAR_MIN; i <= CHAR_MAX; i++) {
-		FT_Load_Char(font->ftFace, i, FT_LOAD_RENDER);
+	for (int i = 0; i <= XPD_CHAR_MAX - 1; i++) {
+		FT_Load_Char(font->ftFace, i + CHAR_MIN, FT_LOAD_RENDER);
 
-		font->letters[i].letter = i;
+		font->letters[i].letter = (char)(i + CHAR_MIN);
 		font->letters[i].metrics = font->ftFace->glyph->metrics;
 
 		xpd_load_buffer(&font->letters[i].bitmap, font->ftFace->glyph->bitmap.buffer, font->ftFace->glyph->bitmap.width,
@@ -34,7 +34,7 @@ int xpd_text_length(xpd_font_face_t *font, const char *text) {
 
 	// Calculate the length of the string before drawing it
 	for (int i = 0; i < strlen(text); i++) {
-		FT_Glyph_Metrics text_metrics = font->letters[text[i]].metrics;
+		FT_Glyph_Metrics text_metrics = font->letters[(text[i] - CHAR_MIN)].metrics;
 		if (i == strlen(text) - 1) {
 			width += (int)((text_metrics.width + text_metrics.horiBearingX) / 64);
 		}
@@ -62,13 +62,13 @@ void xpd_text_draw(xpd_font_face_t *font, const char *text, int x, int y, xpd_te
 
 	// Draw each character
 	for (int i = 0; i < strlen(text); i++) {
-		FT_Glyph_Metrics text_metrics = font->letters[text[i]].metrics;
+		FT_Glyph_Metrics text_metrics = font->letters[(text[i] - CHAR_MIN)].metrics;
 
 		// Calculate offset from the passed y value
 		int y_offset = (int)(text_metrics.horiBearingY / 64) - (int)(text_metrics.height / 64);
 
 		// Fetch & draw texture
-		xpd_texture_t image = font->letters[text[i]].bitmap;
+		xpd_texture_t image = font->letters[(text[i] - CHAR_MIN)].bitmap;
 		xpd_draw_texture(&image, x + (int)(text_metrics.horiBearingX / 64), y + y_offset, image.width, image.height,
 						 textColor);
 
