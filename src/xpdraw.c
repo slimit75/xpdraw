@@ -9,7 +9,7 @@ int anchor_x = 0;
 int anchor_y = 0;
 
 void xpd_load_buffer(xpd_texture_t *texture, void *buffer, unsigned int width, unsigned int height, GLint format) {
-	texture->width  = (int)width;
+	texture->width = (int)width;
 	texture->height = (int)height;
 
 	glGenTextures(1, &texture->gl_texture);

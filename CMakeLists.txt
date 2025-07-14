@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.21)
 project(xpdraw)
 
 set(CMAKE_C_STANDARD 17)
@@ -38,9 +38,9 @@ target_include_directories(xpdraw
 	${CMAKE_CURRENT_SOURCE_DIR}/src
 
 	PRIVATE
-	${CMAKE_CURRENT_SOURCE_DIR}/libs/XPSDK/CHeaders/XPLM
-	${CMAKE_CURRENT_SOURCE_DIR}/libs/XPSDK/CHeaders/Widgets
-	${CMAKE_CURRENT_SOURCE_DIR}/libs/stb
+	${CMAKE_CURRENT_SOURCE_DIR}/deps/XPSDK/CHeaders/XPLM
+	${CMAKE_CURRENT_SOURCE_DIR}/deps/XPSDK/CHeaders/Widgets
+	${CMAKE_CURRENT_SOURCE_DIR}/deps/stb
 )
 
 # OS-specific options
@@ -54,8 +54,8 @@ if (WIN32)
 	# Libraries to link
 	target_link_libraries(xpdraw
 		${LINK_LIBRARIES}
-		${CMAKE_CURRENT_SOURCE_DIR}/libs/XPSDK/Libraries/Win/XPLM_64.lib
-		${CMAKE_CURRENT_SOURCE_DIR}/libs/XPSDK/Libraries/Win/XPWidgets_64.lib
+		${CMAKE_CURRENT_SOURCE_DIR}/deps/XPSDK/Libraries/Win/XPLM_64.lib
+		${CMAKE_CURRENT_SOURCE_DIR}/deps/XPSDK/Libraries/Win/XPWidgets_64.lib
 		imagehlp
 		Psapi
 	)
@@ -74,8 +74,8 @@ elseif (APPLE)
 	# Libraries to link
 	target_link_libraries(xpdraw
 		${LINK_LIBRARIES}
-		${CMAKE_CURRENT_SOURCE_DIR}/libs/XPSDK/Libraries/Mac/XPLM.framework
-		${CMAKE_CURRENT_SOURCE_DIR}/libs/XPSDK/Libraries/Mac/XPWidgets.framework
+		${CMAKE_CURRENT_SOURCE_DIR}/deps/XPSDK/Libraries/Mac/XPLM.framework
+		${CMAKE_CURRENT_SOURCE_DIR}/deps/XPSDK/Libraries/Mac/XPWidgets.framework
 		"-framework OpenGL"
 		"-framework CoreFoundation"
 	)

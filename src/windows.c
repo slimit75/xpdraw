@@ -23,14 +23,14 @@ void base_key(XPLMWindowID in_window_id, char key, XPLMKeyFlags flags, char virt
 
 // Real functions
 void xpd_win_new(xpd_win_t *inWindow, int width, int height) {
-	inWindow->width  = width;
+	inWindow->width = width;
 	inWindow->height = height;
-	inWindow->buffer = malloc(width * height * 4 * sizeof(unsigned char)); //new unsigned char[width * height * 4];
+	inWindow->buffer = malloc(width * height * 4 * sizeof(unsigned char));
 
-	inWindow->drawFunc   = base_draw;
-	inWindow->clickFunc  = base_mouse;
-	inWindow->wheelFunc  = base_wheel;
-	inWindow->keyFunc    = base_key;
+	inWindow->drawFunc = base_draw;
+	inWindow->clickFunc = base_mouse;
+	inWindow->wheelFunc = base_wheel;
+	inWindow->keyFunc = base_key;
 	inWindow->cursorFunc = base_cursor;
 }
 
@@ -59,24 +59,24 @@ void xpd_win_create(xpd_win_t *inWindow, const char *title) {
 }
 
 void xpd_win_create2(xpd_win_t *inWindow, const char *title, int winLeft, int winDown) {
-	inWindow->params.structSize               = sizeof(inWindow->params);
-	inWindow->params.visible                  = 1;
-	inWindow->params.drawWindowFunc           = inWindow->drawFunc;
-	inWindow->params.handleMouseClickFunc     = inWindow->clickFunc;
-	inWindow->params.handleRightClickFunc     = inWindow->clickFunc;
-	inWindow->params.handleMouseWheelFunc     = inWindow->wheelFunc;
-	inWindow->params.handleKeyFunc            = inWindow->keyFunc;
-	inWindow->params.handleCursorFunc         = inWindow->cursorFunc;
-	inWindow->params.refcon                   = NULL;
-	inWindow->params.layer                    = xplm_WindowLayerFloatingWindows;
+	inWindow->params.structSize = sizeof(inWindow->params);
+	inWindow->params.visible = 1;
+	inWindow->params.drawWindowFunc = inWindow->drawFunc;
+	inWindow->params.handleMouseClickFunc = inWindow->clickFunc;
+	inWindow->params.handleRightClickFunc = inWindow->clickFunc;
+	inWindow->params.handleMouseWheelFunc = inWindow->wheelFunc;
+	inWindow->params.handleKeyFunc = inWindow->keyFunc;
+	inWindow->params.handleCursorFunc = inWindow->cursorFunc;
+	inWindow->params.refcon = NULL;
+	inWindow->params.layer = xplm_WindowLayerFloatingWindows;
 	inWindow->params.decorateAsFloatingWindow = xplm_WindowDecorationRoundRectangle;
 
 	int left, bottom, right, top;
 	XPLMGetScreenBoundsGlobal(&left, &top, &right, &bottom);
-	inWindow->params.left   = left + winLeft;
+	inWindow->params.left = left + winLeft;
 	inWindow->params.bottom = bottom + winDown;
-	inWindow->params.right  = inWindow->params.left + inWindow->width - 20;
-	inWindow->params.top    = inWindow->params.bottom + inWindow->height - 20;
+	inWindow->params.right = inWindow->params.left + inWindow->width - 20;
+	inWindow->params.top = inWindow->params.bottom + inWindow->height - 20;
 
 	inWindow->windowID = XPLMCreateWindowEx(&inWindow->params);
 

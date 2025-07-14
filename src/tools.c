@@ -1,5 +1,6 @@
 #include "xpdraw/tools.h"
 
+#include <assert.h>
 #include <libgen.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -54,6 +55,6 @@ void xpd_assert(int exp, char *msg) {
 		char str[256];
 		sprintf(str, "xpdraw: %s \n", msg);
 		XPLMDebugString(str);
-		abort();
+		assert(exp);
 	}
 }
