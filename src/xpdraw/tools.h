@@ -31,7 +31,7 @@ extern "C" {
 char *xpd_tools_constr(const char *str1, const char *str2);
 
 /**
- * @brief Returns the plugin's current path. Forces XPLM_USE_NATIVE_PATHS to true!
+ * @brief Returns the plugins current path. Forces XPLM_USE_NATIVE_PATHS to true!
  *
  * @return char*
  */

@@ -67,7 +67,7 @@ int xpd_text_length(xpd_font_face_t *font, const char *text);
 /**
  * @brief Function to draw text
  *
- * @param font Current font in use
+ * @param font Font to use
  * @param text Text to render
  * @param x Lateral position to draw at relative to anchor
  * @param y Vertical position to draw at relative to anchor
