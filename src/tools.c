@@ -11,12 +11,11 @@
 int xp_ver = -1;
 char xp_path[512];
 char *plugin_path;
-char str3[512];
+char tmp_str[512];
 
 char *xpd_tools_constr(const char *str1, const char *str2) {
-	strcpy(str3, str1);
-	strncat(str3, str2, sizeof(str3) - strlen(str3) - 1);
-	return str3;
+	sprintf(tmp_str, "%s%s", str1, str2);
+	return tmp_str;
 }
 
 char *xpd_tools_plugin_fp() {
