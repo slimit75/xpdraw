@@ -27,6 +27,8 @@ void xpd_font_load(xpd_font_face_t *font, const char *path, const int size) {
 		xpd_load_buffer(&font->letters[i].bitmap, font->ftFace->glyph->bitmap.buffer, font->ftFace->glyph->bitmap.width,
 						font->ftFace->glyph->bitmap.rows, GL_ALPHA);
 	}
+
+	FT_Done_Face(font->ftFace);
 }
 
 int xpd_text_length(xpd_font_face_t *font, const char *text) {

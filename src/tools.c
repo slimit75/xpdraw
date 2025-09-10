@@ -10,10 +10,10 @@
 
 int xp_ver = -1;
 char xp_path[512];
-char *plugin_path;
-char tmp_str[512];
+char plugin_path[512];
 
 char *xpd_tools_constr(const char *str1, const char *str2) {
+	char *tmp_str = malloc(sizeof(char) * 512);
 	sprintf(tmp_str, "%s%s", str1, str2);
 	return tmp_str;
 }
@@ -21,8 +21,7 @@ char *xpd_tools_constr(const char *str1, const char *str2) {
 char *xpd_tools_plugin_fp() {
 	XPLMEnableFeature("XPLM_USE_NATIVE_PATHS", 1);
 
-	if (!plugin_path) {
-		plugin_path = malloc(sizeof(char) * 512);
+	if (strlen(plugin_path) == 0) {
 		XPLMGetPluginInfo(XPLMGetMyID(), NULL, plugin_path, NULL, NULL);
 		strcpy(plugin_path, dirname(dirname(plugin_path)));
 		strncat(plugin_path, "/", sizeof(plugin_path) - strlen(plugin_path) - 1);
