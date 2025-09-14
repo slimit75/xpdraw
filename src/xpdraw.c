@@ -28,11 +28,23 @@ void xpd_set_anchor(int newAnchor_x, int newAnchor_y) {
 void xpd_draw_triangle(int x, int y, int width, int height, xpd_color_t color) {
 	glColor4f(color.red, color.green, color.blue, color.alpha);
 
-	glBegin(GL_TRIANGLES);
-	glVertex2i(x + anchor_x, y + anchor_y);
-	glVertex2i(x + width + anchor_x, y + anchor_y);
-	glVertex2i(x + (width / 2) + anchor_x, y + height + anchor_y);
-	glEnd();
+	// Handle flipped triangles
+	if (height < 0) {
+		y = y - height;
+
+		glBegin(GL_TRIANGLES);
+		glVertex2i(x + anchor_x, y + anchor_y);
+		glVertex2i(x + width + anchor_x, y + anchor_y);
+		glVertex2i(x + (width / 2) + anchor_x, y + height + anchor_y);
+		glEnd();
+	}
+	else {
+		glBegin(GL_TRIANGLES);
+		glVertex2i(x + anchor_x, y + anchor_y);
+		glVertex2i(x + (width / 2) + anchor_x, y + height + anchor_y);
+		glVertex2i(x + width + anchor_x, y + anchor_y);
+		glEnd();
+	}
 }
 
 void xpd_draw_rect(int left, int bottom, int width, int height, xpd_color_t color) {
