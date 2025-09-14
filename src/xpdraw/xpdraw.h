@@ -20,11 +20,11 @@
 #if LIN
 #include <GL/gl.h>
 #elif __MINGW32__
-	#include <GL/gl.h>
+#include <GL/gl.h>
 #elif __GNUC__
-	#include <OpenGL/gl.h>
+#include <OpenGL/gl.h>
 #else
-	#include <GL/gl.h>
+#include <GL/gl.h>
 #endif
 
 #include <stdbool.h>
@@ -36,6 +36,8 @@
 
 #ifdef __cplusplus
 extern "C" {
+
+
 #endif
 
 typedef struct {
@@ -79,15 +81,13 @@ void xpd_set_anchor(int newAnchor_x, int newAnchor_y);
 /**
  * @brief Draw a triangle with the specified points
  *
- * @param x1 Lateral position of first point
- * @param y1 Vertical position of first point
- * @param x2 Lateral position of second point
- * @param y2 Vertical position of second point
- * @param x3 Lateral position of third point
- * @param y3 Vertical position of third point
+ * @param x Left point of the triangle
+ * @param y Bottom point of the triangle
+ * @param width Width of the triangle
+ * @param height Height of the triangle
  * @param color Color of the triangle
  */
-void xpd_draw_triangle(int x1, int y1, int x2, int y2, int x3, int y3, xpd_color_t color);
+void xpd_draw_triangle(int x, int y, int width, int height, xpd_color_t color);
 
 /**
  * @brief Draw a rectangle with the specified parameters

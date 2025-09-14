@@ -25,13 +25,13 @@ void xpd_set_anchor(int newAnchor_x, int newAnchor_y) {
 	anchor_y = newAnchor_y;
 }
 
-void xpd_draw_triangle(int x1, int y1, int x2, int y2, int x3, int y3, xpd_color_t color) {
+void xpd_draw_triangle(int x, int y, int width, int height, xpd_color_t color) {
 	glColor4f(color.red, color.green, color.blue, color.alpha);
 
 	glBegin(GL_TRIANGLES);
-	glVertex2i(x1 + anchor_x, y1 + anchor_y);
-	glVertex2i(x2 + anchor_x, y2 + anchor_y);
-	glVertex2i(x3 + anchor_x, y3 + anchor_y);
+	glVertex2i(x + anchor_x, y + anchor_y);
+	glVertex2i(x + width + anchor_x, y + anchor_y);
+	glVertex2i(x + (width / 2) + anchor_x, y + height + anchor_y);
 	glEnd();
 }
 
